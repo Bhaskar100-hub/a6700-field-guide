@@ -1,0 +1,2012 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Offline field guide for Sony a6700 + Sigma 16-300: scene presets, button diagrams, menu paths, calculators.">
+<title>a6700 Field Guide</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root {
+  --bg: #0d0f13; --surf: #161a21; --surf2: #1e232c; --line: #2a303b; --text: #eceff4; --muted: #9aa4b4;
+  --acc: #ffb020; --acc-ink: #1a1200; --acc2: #49b6ff; --ok: #3ddc84; --warn: #ff6b5b;
+  --cam-body: #232831; --cam-line: #4a5262; --cam-btn: #343b47; --cam-dark: #0b0d10; --cam-metal: #59616f; --cam-glass: #1b2a3a;
+  --r: 14px; --nav-h: 64px;
+  color-scheme: dark;
+}
+:root[data-theme="sun"] {
+  --bg: #ffffff; --surf: #f2f4f7; --surf2: #e6e9ee; --line: #c9ced6; --text: #0a0c10; --muted: #444c58;
+  --acc: #c26a00; --acc-ink: #ffffff; --acc2: #0067c5; --ok: #0a8a3c; --warn: #c4291c;
+  --cam-body: #d9dde3; --cam-line: #6a7282; --cam-btn: #b9c0ca; --cam-dark: #2a2f37; --cam-metal: #9aa2ae; --cam-glass: #5a7da0;
+  color-scheme: light;
+}
+:root[data-theme="night"] {
+  --bg: #000; --surf: #0e0000; --surf2: #180000; --line: #3a0606; --text: #ff3b30; --muted: #a8211a;
+  --acc: #ff2a1f; --acc-ink: #000; --acc2: #d42a20; --ok: #ff3b30; --warn: #ff6a5f;
+  --cam-body: #160000; --cam-line: #6a0d08; --cam-btn: #2a0303; --cam-dark: #000; --cam-metal: #3e0705; --cam-glass: #120000;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); overflow-x: hidden; }
+a { color: var(--acc2); }
+button { font: inherit; color: inherit; }
+h1, h2, h3 { margin: 0; line-height: 1.2; }
+h1 { font-size: 1.35rem; } h2 { font-size: 1.12rem; } h3 { font-size: 1rem; }
+
+/* top bar */
+.top { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 8px; padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top));
+  background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.top .back { border: 0; background: var(--surf2); border-radius: 10px; width: 40px; height: 40px; font-size: 1.2rem; }
+.top .ttl { flex: 1; font-weight: 700; font-size: 1.05rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.themebtn { border: 1px solid var(--line); background: var(--surf); border-radius: 10px; height: 40px; padding: 0 10px; font-size: .85rem; }
+main { padding: 14px 16px 24px; max-width: 760px; margin: 0 auto; }
+
+/* bottom nav */
+nav.bn { position: fixed; bottom: 0; left: 0; right: 0; z-index: 30; display: grid; grid-template-columns: repeat(5, 1fr);
+  height: calc(var(--nav-h) + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); background: var(--surf); border-top: 1px solid var(--line); }
+nav.bn a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--muted); text-decoration: none; font-size: .72rem; }
+nav.bn a .i { font-size: 1.35rem; line-height: 1; }
+nav.bn a.on { color: var(--acc); font-weight: 700; }
+
+/* cards & lists */
+.card { background: var(--surf); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; margin: 0 0 12px; }
+.card.hero { background: linear-gradient(135deg, color-mix(in srgb, var(--acc) 22%, var(--surf)), var(--surf)); }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 12px; }
+.tile { display: flex; flex-direction: column; gap: 6px; min-height: 92px; padding: 12px; border-radius: var(--r); background: var(--surf); border: 1px solid var(--line); text-decoration: none; color: var(--text); }
+.tile .e { font-size: 1.6rem; line-height: 1; } .tile b { font-size: .95rem; } .tile small { color: var(--muted); font-size: .78rem; }
+.tile.star { border-color: color-mix(in srgb, var(--acc) 60%, var(--line)); }
+.row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--surf); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 8px; text-decoration: none; color: var(--text); }
+.row .e { font-size: 1.4rem; width: 32px; text-align: center; flex: none; }
+.row .tx { flex: 1; min-width: 0; } .row .tx small { display: block; color: var(--muted); font-size: .8rem; }
+.row .chev { color: var(--muted); }
+.sec { margin: 18px 0 8px; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.muted { color: var(--muted); } .small { font-size: .85rem; }
+.pill { display: inline-block; padding: 3px 9px; border-radius: 99px; background: var(--surf2); border: 1px solid var(--line); font-size: .78rem; margin: 2px 4px 2px 0; }
+.pill.acc { background: var(--acc); color: var(--acc-ink); border-color: var(--acc); font-weight: 700; }
+.warnbox { border-left: 4px solid var(--warn); background: color-mix(in srgb, var(--warn) 10%, var(--surf)); padding: 10px 12px; border-radius: 8px; margin: 8px 0; font-size: .9rem; }
+.tipbox { border-left: 4px solid var(--ok); background: color-mix(in srgb, var(--ok) 9%, var(--surf)); padding: 10px 12px; border-radius: 8px; margin: 8px 0; font-size: .9rem; }
+ul.clean { margin: 6px 0; padding-left: 20px; } ul.clean li { margin: 4px 0; }
+
+/* search */
+.search { display: flex; gap: 8px; margin-bottom: 14px; }
+.search input, input.f, select.f, textarea.f { flex: 1; min-width: 0; height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surf); color: var(--text); font: inherit; }
+textarea.f { height: auto; min-height: 70px; padding: 10px 14px; width: 100%; }
+.btn { border: 0; height: 48px; padding: 0 16px; border-radius: 12px; background: var(--acc); color: var(--acc-ink); font-weight: 700; cursor: pointer; }
+.btn.ghost { background: var(--surf2); color: var(--text); border: 1px solid var(--line); font-weight: 600; }
+.btn.sm { height: 38px; padding: 0 12px; font-size: .9rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
+.chip { border: 1px solid var(--line); background: var(--surf); color: var(--text); padding: 7px 12px; border-radius: 99px; font-size: .85rem; cursor: pointer; }
+.chip.on { background: var(--acc); color: var(--acc-ink); border-color: var(--acc); font-weight: 700; }
+
+/* preset settings table */
+.set { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+.set details { border-bottom: 1px solid var(--line); background: var(--surf); }
+.set details:last-child { border-bottom: 0; }
+.set summary { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 10px; padding: 11px 12px; cursor: pointer; }
+.set summary::-webkit-details-marker { display: none; }
+.set summary .k { color: var(--muted); font-size: .86rem; }
+.set summary .v { font-weight: 700; font-size: .92rem; }
+.set summary .v::after { content: " ›"; color: var(--muted); font-weight: 400; }
+.set details[open] summary .v::after { content: " ⌄"; }
+.set .more { padding: 0 12px 12px; font-size: .9rem; }
+.path { font-size: .82rem; color: var(--acc); font-weight: 600; margin: 4px 0; word-break: break-word; }
+
+/* steps */
+ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 0 0 12px; }
+ol.steps > li { counter-increment: s; position: relative; padding: 12px 12px 12px 50px; background: var(--surf); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 8px; }
+ol.steps > li::before { content: counter(s); position: absolute; left: 12px; top: 12px; width: 26px; height: 26px; border-radius: 50%; background: var(--acc); color: var(--acc-ink); font-weight: 800; display: grid; place-items: center; font-size: .85rem; }
+ol.steps > li.done { opacity: .55; } ol.steps > li.done::before { content: "✓"; background: var(--ok); }
+.stepbtns { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+
+/* camera svg */
+.camwrap { background: var(--surf2); border: 1px solid var(--line); border-radius: 12px; padding: 8px; margin: 8px 0; }
+.camtabs { display: flex; gap: 6px; margin-bottom: 6px; }
+svg.cam { width: 100%; height: auto; display: block; }
+svg.cam .body { fill: var(--cam-body); stroke: var(--cam-line); stroke-width: 1.5; }
+svg.cam .dark { fill: var(--cam-dark); stroke: var(--cam-line); }
+svg.cam .glass { fill: var(--cam-glass); }
+svg.cam .btn { fill: var(--cam-btn); stroke: var(--cam-line); stroke-width: 1.2; }
+svg.cam .btn.red { stroke: #d33; stroke-width: 2; }
+svg.cam .metal { fill: var(--cam-metal); stroke: var(--cam-line); }
+svg.cam .dial, svg.cam .ring, svg.cam .wheel, svg.cam .lens { fill: var(--cam-btn); stroke: var(--cam-line); stroke-width: 1.2; }
+svg.cam .ring { fill: var(--cam-metal); }
+svg.cam .screen { fill: var(--cam-dark); stroke: var(--cam-line); }
+svg.cam .kn { stroke: var(--cam-line); stroke-width: 1; }
+svg.cam .arr { fill: var(--muted); }
+svg.cam .ico { fill: var(--text); }
+svg.cam .idx { stroke: var(--acc); stroke-width: 4; }
+svg.cam .turn { fill: none; stroke: var(--acc); stroke-width: 4; }
+svg.cam .seg { fill: var(--cam-btn); stroke: var(--cam-line); }
+svg.cam .seg.on { fill: var(--acc); }
+svg.cam text { font: 600 10px system-ui, sans-serif; }
+svg.cam .pl { fill: var(--muted); } svg.cam .pl.dim { font-weight: 400; font-size: 9px; }
+svg.cam .pl.on { fill: var(--acc-ink); font-weight: 800; }
+svg.cam .dm { fill: var(--text); font-size: 15px; font-weight: 800; } svg.cam .dm.on { fill: var(--acc); font-size: 19px; }
+svg.cam .hl:not(text) { fill: var(--acc) !important; stroke: var(--acc) !important; animation: pulse 1.2s ease-in-out infinite; }
+svg.cam text.hl { fill: var(--acc); font-weight: 900; font-size: 11px; }
+@keyframes pulse { 50% { opacity: .45; } }
+@media (prefers-reduced-motion: reduce) { svg.cam .hl { animation: none; } }
+.parts { font-size: .85rem; }
+
+/* sony-style menu replica */
+.menu { display: grid; grid-template-columns: 40px 30px minmax(0, 1fr); background: #000; color: #fff; border-radius: 10px; overflow: hidden; border: 2px solid #333; font-size: 12.5px; margin: 8px 0; }
+:root[data-theme="night"] .menu { color: #ff3b30; border-color: #3a0606; }
+.menu .hdr { grid-column: 1 / -1; display: flex; justify-content: space-between; padding: 6px 10px; background: #1a1a1a; border-bottom: 1px solid #333; font-weight: 700; }
+:root[data-theme="night"] .menu .hdr { background: #120000; }
+.menu .tabs { display: flex; flex-direction: column; background: #111; border-right: 1px solid #333; }
+.menu .tabs span { height: 30px; display: grid; place-items: center; opacity: .55; border-left: 3px solid transparent; }
+.menu .tabs span svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.menu .tabs span.on { opacity: 1; background: #2b2b2b; border-left-color: var(--acc); }
+.menu .grp { display: flex; flex-direction: column; background: #0a0a0a; border-right: 1px solid #333; }
+.menu .grp span { height: 24px; display: grid; place-items: center; opacity: .5; font-weight: 700; font-size: 11px; }
+.menu .grp span.on { opacity: 1; background: var(--acc); color: #000; }
+.menu .items { padding: 4px 0; min-width: 0; }
+.menu .items div { padding: 4px 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .8; }
+.menu .items div.on { opacity: 1; background: #fff; color: #000; font-weight: 700; border-radius: 3px; margin: 0 4px; }
+:root[data-theme="night"] .menu .items div.on { background: #ff3b30; }
+.menu .items div i { font-style: normal; font-size: 10px; opacity: .8; margin-left: 4px; }
+.menu .ft { grid-column: 1 / -1; padding: 4px 10px; border-top: 1px solid #333; font-size: 10.5px; opacity: .7; }
+
+/* ask / chat */
+.chat { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+.bub { max-width: 92%; padding: 10px 12px; border-radius: 14px; }
+.bub.me { align-self: flex-end; background: var(--acc); color: var(--acc-ink); border-bottom-right-radius: 4px; }
+.bub.bot { align-self: flex-start; background: var(--surf); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+.bub.bot .also a { display: block; padding: 6px 0; }
+.askbar { position: sticky; bottom: calc(var(--nav-h) + env(safe-area-inset-bottom) + 6px); display: flex; gap: 8px; background: var(--bg); padding: 6px 0; }
+
+/* step-by-step overlay */
+.ovl { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: flex; flex-direction: column; }
+.ovl .body { flex: 1; overflow: auto; padding: 16px; max-width: 760px; margin: 0 auto; width: 100%; }
+.ovl .bar { display: flex; gap: 8px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--surf); }
+.ovl .bar .btn { flex: 1; }
+.ovl .big { font-size: 1.25rem; font-weight: 700; margin: 10px 0; }
+.prog { height: 4px; background: var(--surf2); } .prog i { display: block; height: 100%; background: var(--acc); }
+
+/* checklist */
+.chk { display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: var(--surf); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 8px; cursor: pointer; }
+.chk input { width: 22px; height: 22px; accent-color: var(--acc); flex: none; margin-top: 1px; }
+.chk.done span { text-decoration: line-through; color: var(--muted); }
+
+/* forms */
+label.fl { display: block; font-size: .82rem; color: var(--muted); margin: 10px 0 4px; }
+.calcout { font-size: 1.05rem; margin-top: 10px; padding: 12px; border-radius: 12px; background: var(--surf2); }
+.calcout b { color: var(--acc); font-size: 1.25rem; }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.two .f, label.fl + .f, .card > .f { width: 100%; }
+input[type=date].f { width: 100%; min-width: 0; }
+.kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; font-size: .92rem; }
+.kv b, .calcout .kv b { color: var(--acc); font-size: .95rem; }
+a.chip { text-decoration: none; display: inline-block; }
+.toast { position: fixed; left: 50%; bottom: calc(var(--nav-h) + 20px); transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 99px; z-index: 60; font-weight: 600; }
+.hidden { display: none !important; }
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* a6700 (ILCE-6700) MENU tree — transcribed from Sony Help Guide "Finding functions from MENU"
+   (helpguide.sony.net/ilc/2320/v1/en/contents/221h_list_of_menu_items_ilc2320.html).
+   Tab order = on-camera order from the guide's MENU screen illustration (top → bottom).
+   Items suffixed "|still" / "|movie" share a name on camera but carry a still/movie icon. */
+window.MENU = [
+  { tab: 'My Menu', icon: 'star', groups: [
+    { g: 'My Menu Setting', items: ['Add Item', 'Sort Item', 'Delete Item', 'Delete Page', 'Delete All', 'Display From My Menu'] }
+  ]},
+  { tab: 'Main', icon: 'home', groups: [
+    { g: 'Main', items: ['(list of current shooting settings — tap a value to jump to its menu item)'] }
+  ]},
+  { tab: 'Shooting', icon: 'camera', groups: [
+    { g: 'Image Quality/Rec', items: ['JPEG/HEIF Switch', 'File Format|still', 'RAW File Type', 'JPEG Quality', 'HEIF Quality', 'JPEG Image Size', 'HEIF Image Size', 'Aspect Ratio', 'File Format|movie', 'Movie Settings', 'S&Q Settings', 'Time-lapse Settings', 'Log Shooting Setting', 'Proxy Settings', 'Long Exposure NR', 'High ISO NR', 'HLG Still Image', 'Color Space', 'Lens Compensation'] },
+    { g: 'Media', items: ['Format', 'Recover Image DB', 'Display Media Info.'] },
+    { g: 'File', items: ['File/Folder Settings', 'Select REC Folder', 'Create New Folder', 'Copyright Info', 'Write Serial Number', 'File Settings'] },
+    { g: 'Shooting Mode', items: ['Shoot Mode', 'Auto/Scene Selection', 'Recall Camera Setting', 'Camera Set. Memory', 'Reg. Custom Shoot Set'] },
+    { g: 'Drive Mode', items: ['Drive Mode', 'Bracket Settings', 'Interval Shoot Func.'] },
+    { g: 'Shutter/Silent', items: ['Silent Mode Settings', 'Shutter Type', 'e-Front Curtain Shut.', 'Release w/o Lens', 'Release w/o Card', 'Anti-flicker Set.'] },
+    { g: 'Audio Recording', items: ['Audio Recording', 'Audio Rec Level', 'Audio Out Timing', 'Wind Noise Reduct.', 'Shoe Audio Set.'] },
+    { g: 'TC/UB', items: ['Time Code Preset', 'User Bit Preset', 'Time Code Format', 'Time Code Run', 'Time Code Make', 'User Bit Time Rec'] },
+    { g: 'Image Stabilization', items: ['SteadyShot (still)', 'SteadyShot (movie)', 'SteadyShot Adjust.', 'Focal Length'] },
+    { g: 'Zoom', items: ['Zoom', 'Zoom Range', 'Custom Key Z. Speed', 'Remote Zoom Speed'] },
+    { g: 'Shooting Display', items: ['Grid Line Display', 'Grid Line Type', 'Live View Display Set.', 'Emphasized REC Display'] },
+    { g: 'Marker Display', items: ['Marker Display', 'Center Marker', 'Aspect Marker', 'Safety Zone', 'Guideframe'] },
+    { g: 'Shooting Option', items: ['Self-timer', 'Auto Framing Settings'] }
+  ]},
+  { tab: 'Exposure/Color', icon: 'expo', groups: [
+    { g: 'Exposure', items: ['BULB Timer Settings', 'Auto Slow Shutter', 'ISO', 'ISO Range Limit', 'ISO AUTO Min. SS'] },
+    { g: 'Exposure Comp.', items: ['Exposure Comp.', 'Exposure step', 'Exposure Std. Adjust'] },
+    { g: 'Metering', items: ['Metering Mode', 'Face Priority in Multi Metering', 'Spot Metering Point', 'AEL w/ Shutter'] },
+    { g: 'Flash', items: ['Flash Mode', 'Flash Comp.', 'Exp.comp.set', 'Wireless Flash', 'Red Eye Reduction', 'External Flash Set.', 'Reg. Flash Shooting Set'] },
+    { g: 'White Balance', items: ['White Balance', 'Priority Set in AWB', 'Shutter AWB Lock', 'Shockless WB'] },
+    { g: 'Color/Tone', items: ['D-Range Optimizer', 'Creative Look', 'Picture Profile', 'Select LUT', 'Manage User LUTs', 'Soft Skin Effect'] },
+    { g: 'Zebra Display', items: ['Zebra Display', 'Zebra Level'] }
+  ]},
+  { tab: 'Focus', icon: 'focus', groups: [
+    { g: 'AF/MF', items: ['Focus Mode', 'Priority Set in AF-S', 'Priority Set in AF-C', 'AF Tracking Sensitivity', 'AF Illuminator', 'Aperture Drive in AF', 'AF w/ Shutter', 'Full Time DMF', 'Pre-AF', 'AF Transition Speed', 'AF Subj. Shift Sensitivity', 'AF Assist'] },
+    { g: 'Focus Area', items: ['Focus Area', 'Focus Area Limit', 'Switch V/H AF Area', 'Focus Area Color', 'AF Area Registration', 'Del. Regist. AF Area', 'AF Area Auto Clear', 'Area Disp. dur Tracking', 'AF-C Area Display', 'Phase Detect. Area', 'Circ. of Focus Point', 'AF Frame Move Amt'] },
+    { g: 'Subject Recognition', items: ['Subject Recog in AF', 'Recognition Target', 'Recog Trgt Select Set', 'Right/Left Eye Select', 'Sbj Recog Frm Disp. (still)', 'Sbj Recog Frm Disp. (movie)', 'Face Memory', 'Regist. Face Priority'] },
+    { g: 'Focus Assistant', items: ['Focus Map', 'Auto Magnifier in MF', 'Focus Magnifier', 'Focus Magnif. Time', 'Initial Focus Mag. (still)', 'AF in Focus Mag.', 'Initial Focus Mag. (movie)'] },
+    { g: 'Peaking Display', items: ['Peaking Display', 'Peaking Level', 'Peaking Color'] }
+  ]},
+  { tab: 'Playback', icon: 'play', groups: [
+    { g: 'Playback Target', items: ['View Mode'] },
+    { g: 'Magnification', items: ['Enlarge Image', 'Enlarge Initial Mag.', 'Enlarge Initial Position'] },
+    { g: 'Selection/Memo', items: ['Protect', 'Rating', 'Rating Set(Custom Key)'] },
+    { g: 'Delete', items: ['Delete', 'Delete pressing twice', 'Delete confirm.'] },
+    { g: 'Edit', items: ['Crop', 'Rotate', 'Photo Capture', 'JPEG/HEIF Switch'] },
+    { g: 'Viewing', items: ['Cont. Play for Interval', 'Play Speed for Interval', 'Slide Show'] },
+    { g: 'Playback Option', items: ['Image Index', 'Display as Group', 'Display Rotation', 'Focus Frame Display', 'Disp Specified Time Img.', 'Image Jump Setting'] }
+  ]},
+  { tab: 'Network', icon: 'globe', groups: [
+    { g: 'Cnct./PC Remote', items: ['Smartphone Connection', 'PC Remote Function', 'Select on Cam & Send', 'Reset Transfer Status', 'Cnct. while Power OFF', 'Remote Shoot Setting'] },
+    { g: 'Streaming', items: ['USB Streaming'] },
+    { g: "Creators' Cloud", items: ['Cloud Connection', 'Cloud Information'] },
+    { g: 'Wi-Fi', items: ['Wi-Fi Connect', 'WPS Push', 'Access Point Set.', 'Wi-Fi Frequency Band', 'Display Wi-Fi Info.', 'SSID/PW Reset'] },
+    { g: 'Bluetooth', items: ['Bluetooth Function', 'Pairing', 'Manage Paired Device', 'Bluetooth Rmt Ctrl', 'Disp Device Address'] },
+    { g: 'Wired LAN', items: ['IP Address Setting', 'Display Wired LAN Info.'] },
+    { g: 'USB-LAN/Tethering', items: ['USB-LAN Connection', 'USB-LAN Disconnection', 'Tethering Connection', 'Tethering Disconnection'] },
+    { g: 'Network Option', items: ['Airplane Mode', 'Edit Device Name', 'Import Root Certificate', 'Access Authen. Settings', 'Access Authen. Info', 'Wi-Fi Direct Settings', 'Reset Network Set.'] }
+  ]},
+  { tab: 'Setup', icon: 'tool', groups: [
+    { g: 'Area/Date', items: ['Language', 'Area/Date/Time Setting', 'NTSC/PAL Selector'] },
+    { g: 'Reset/Save Settings', items: ['Setting Reset', 'Save/Load Settings'] },
+    { g: 'Operation Customize', items: ['Custom Key/Dial Set.|still', 'Custom Key/Dial Set.|movie', 'Custom Key Setting', 'Fn Menu Settings', 'Different Set for Still/Mv', 'DISP (Screen Disp) Set', 'REC w/ Shutter', 'Zoom Ring Rotate'] },
+    { g: 'Dial Customize', items: ['My Dial Settings', 'Av/Tv Rotate', 'Dial / Wheel Lock'] },
+    { g: 'Touch Operation', items: ['Touch Operation', 'Touch Panel/Pad', 'Touch Panel Settings', 'Touch Pad Settings'] },
+    { g: 'Finder/Monitor', items: ['Select Finder/Monitor', 'Monitor Brightness', 'Viewfinder Bright.', 'Finder Color Temp.', 'Display Quality', 'Finder Frame Rate', 'Monitor Flip Direction'] },
+    { g: 'Display Option', items: ['TC/UB Disp. Setting', 'Gamma Display Assist', 'Gamma Disp. Assist Typ.', 'Display LUT', 'Remain Shoot Display', 'Auto Review', 'Shoot Mode Sel. Screen'] },
+    { g: 'Power Setting Option', items: ['Auto Monitor OFF', 'Power Save Start Time', 'Power Save by Monitor', 'Auto Power OFF Temp.'] },
+    { g: 'Sound Option', items: ['Volume Settings', '4ch Audio Monitoring', 'Audio signals'] },
+    { g: 'USB', items: ['USB Connection Mode', 'USB LUN Setting', 'USB Power Supply'] },
+    { g: 'External Output', items: ['HDMI Resolution', 'HDMI Output Settings', 'HDMI Info. Display', 'CTRL FOR HDMI'] },
+    { g: 'Setup Option', items: ['Video Light Mode', 'Sensor Cleaning', 'Auto Pixel Mapping', 'Pixel Mapping', 'Version', 'Display Serial Number', 'Privacy Notice'] }
+  ]}
+];
+
+;
+/* Camera diagrams — original drawings. Part POSITIONS follow Sony's ILCE-6700 Help Guide
+   "Names of parts" illustrations (front/top/rear/sides). Not to scale. */
+(function () {
+  const PARTS = {
+    // id: [label, view]
+    shutter: ['Shutter button', 'top'], power: ['ON/OFF switch', 'top'], frontDial: ['Front dial', 'top'],
+    c2: ['C2 button', 'top'], movie: ['MOVIE (REC) button', 'top'], shoe: ['Multi Interface Shoe', 'top'],
+    menu: ['MENU button', 'rear'], modeDial: ['Mode dial', 'rear'], smsDial: ['Still/Movie/S&Q dial', 'rear'],
+    rearDial: ['Rear dial', 'rear'], afon: ['AF-ON button (▶ Enlarge in playback)', 'rear'],
+    c1: ['C1 button', 'rear'], fn: ['Fn button (▶ Send to Smartphone in playback)', 'rear'],
+    wheel: ['Control wheel', 'rear'], wUp: ['Control wheel ▲ top (DISP)', 'rear'],
+    wRight: ['Control wheel ▶ right (ISO)', 'rear'], wDown: ['Control wheel ▼ bottom (Exposure Comp. / Image Index)', 'rear'],
+    wLeft: ['Control wheel ◀ left (Drive Mode / Self-timer)', 'rear'], wCenter: ['Control wheel center (OK)', 'rear'],
+    wTurn: ['Turn the control wheel', 'rear'],
+    play: ['Playback button', 'rear'], c3: ['C3 button (🗑 Delete in playback)', 'rear'],
+    monitor: ['Monitor (touch screen)', 'rear'], evf: ['Viewfinder', 'rear'], diopter: ['Diopter dial', 'rear'],
+    card: ['Memory card slot (side door)', 'side'], usb: ['USB Type-C (side)', 'side'], mic: ['Mic jack (side)', 'side'],
+    lensZoom: ['Lens zoom ring', 'top'], lensFocus: ['Lens focus ring', 'top'], zoomLock: ['Lens zoom lock switch', 'top'],
+    filter: ['Lens front (67 mm filter thread)', 'top']
+  };
+  window.PARTS = PARTS;
+
+  const k = (on, id) => on.includes(id) ? ' hl' : '';
+  const any = (on, ids) => ids.some(i => on.includes(i)) ? ' hl' : '';
+  function knurl(x, y, w, h, n) { let s = ''; for (let i = 1; i < n; i++) { const xx = x + (w / n) * i; s += `<line x1="${xx}" y1="${y + 2}" x2="${xx}" y2="${y + h - 2}" class="kn"/>`; } return s; }
+  function lbl(x, y, t, on, id, anchor = 'middle') { return `<text x="${x}" y="${y}" class="pl${k(on, id)}" text-anchor="${anchor}">${t}</text>`; }
+
+  function rear(on = []) {
+    const w = on.includes('wheel') || on.includes('wTurn');
+    return `<svg viewBox="0 0 420 268" class="cam" role="img" aria-label="a6700 rear view">
+  <rect x="12" y="46" width="396" height="206" rx="18" class="body"/>
+  <rect x="16" y="22" width="106" height="80" rx="12" class="body"/>
+  <rect x="26" y="30" width="80" height="60" rx="14" class="dark${k(on, 'evf')}"/>
+  <rect x="42" y="44" width="48" height="32" rx="5" class="glass"/>
+  <circle cx="114" cy="40" r="3" class="dark"/>
+  <rect x="108" y="66" width="8" height="20" rx="3" class="btn${k(on, 'diopter')}"/>
+  <rect x="170" y="34" width="68" height="12" rx="2" class="metal${k(on, 'shoe')}"/>
+  <circle cx="252" cy="64" r="10" class="btn${k(on, 'menu')}"/>${lbl(252, 85, 'MENU', on, 'menu')}
+  <rect x="272" y="14" width="62" height="22" rx="4" class="dial${k(on, 'modeDial')}"/>${knurl(272, 14, 62, 22, 12)}
+  <rect x="266" y="36" width="74" height="11" rx="3" class="ring${k(on, 'smsDial')}"/>
+  <rect x="346" y="34" width="58" height="15" rx="7" class="dial${k(on, 'rearDial')}"/>${knurl(346, 34, 58, 15, 10)}
+  ${lbl(375, 28, 'rear dial', on, 'rearDial')}${lbl(303, 10, 'mode dial', on, 'modeDial')}
+  <rect x="402" y="72" width="10" height="20" rx="3" class="metal"/>
+  <rect x="28" y="104" width="262" height="138" rx="8" class="screen${k(on, 'monitor')}"/>
+  <text x="159" y="178" class="pl dim" text-anchor="middle">monitor (flips out to the side)</text>
+  <circle cx="328" cy="96" r="12" class="btn${k(on, 'afon')}"/>${lbl(328, 99, 'AF-ON', on, 'afon')}
+  <circle cx="382" cy="98" r="10" class="btn${k(on, 'c1')}"/>${lbl(382, 101, 'C1', on, 'c1')}
+  <circle cx="328" cy="132" r="11" class="btn${k(on, 'fn')}"/>${lbl(328, 135, 'Fn', on, 'fn')}
+  <circle cx="358" cy="186" r="38" class="wheel${w ? ' hl' : ''}"/>
+  <path d="M358 152 l-6 8 h12z" class="arr${k(on, 'wUp')}"/><path d="M392 186 l-8 -6 v12z" class="arr${k(on, 'wRight')}"/>
+  <path d="M358 220 l-6 -8 h12z" class="arr${k(on, 'wDown')}"/><path d="M324 186 l8 -6 v12z" class="arr${k(on, 'wLeft')}"/>
+  <circle cx="358" cy="186" r="16" class="btn${k(on, 'wCenter')}"/>
+  ${lbl(358, 147, 'DISP', on, 'wUp')}${lbl(404, 189, 'ISO', on, 'wRight', 'start')}
+  ${lbl(358, 236, '± / ▦', on, 'wDown')}${lbl(318, 189, 'DRIVE', on, 'wLeft', 'end')}
+  <circle cx="318" cy="236" r="9" class="btn${k(on, 'play')}"/><path d="M315 231 l8 5 l-8 5z" class="ico"/>
+  <circle cx="394" cy="232" r="9" class="btn${k(on, 'c3')}"/>${lbl(394, 249, 'C3 / 🗑', on, 'c3')}
+</svg>`;
+  }
+
+  function top(on = []) {
+    return `<svg viewBox="0 0 420 240" class="cam" role="img" aria-label="a6700 top view">
+  <text x="210" y="12" class="pl dim" text-anchor="middle">▲ back of camera (you)</text>
+  <rect x="12" y="30" width="396" height="68" rx="12" class="body"/>
+  <rect x="16" y="20" width="106" height="44" rx="8" class="body"/>
+  <rect x="30" y="16" width="78" height="12" rx="5" class="dark"/>
+  <rect x="152" y="38" width="66" height="44" rx="3" class="metal${k(on, 'shoe')}"/>
+  <line x1="158" y1="44" x2="158" y2="76" class="kn"/><line x1="212" y1="44" x2="212" y2="76" class="kn"/>
+  <circle cx="240" cy="44" r="7" class="btn${k(on, 'menu')}"/>${lbl(240, 30, 'MENU', on, 'menu')}
+  <circle cx="276" cy="60" r="27" class="ring${k(on, 'smsDial')}"/>
+  <circle cx="276" cy="60" r="21" class="dial${k(on, 'modeDial')}"/>
+  <text x="276" y="64" class="pl" text-anchor="middle">MODE</text>
+  <rect x="322" y="24" width="62" height="14" rx="6" class="dial${k(on, 'rearDial')}"/>${knurl(322, 24, 62, 14, 10)}
+  ${lbl(353, 20, 'rear dial', on, 'rearDial')}
+  <rect x="300" y="92" width="104" height="44" rx="20" class="body"/>
+  <circle cx="318" cy="78" r="7" class="btn${k(on, 'c2')}"/>${lbl(318, 81, 'C2', on, 'c2')}
+  <circle cx="338" cy="92" r="7" class="btn red${k(on, 'movie')}"/>${lbl(328, 118, 'MOVIE', on, 'movie', 'end')}
+  <circle cx="368" cy="98" r="21" class="ring${k(on, 'power')}"/><rect x="384" y="88" width="16" height="7" rx="3" class="metal${k(on, 'power')}"/>
+  <circle cx="368" cy="98" r="14" class="btn${k(on, 'shutter')}"/>
+  ${lbl(368, 101, 'shutter', on, 'shutter')}${lbl(404, 84, 'ON/OFF', on, 'power', 'end')}
+  <rect x="346" y="132" width="40" height="9" rx="4" class="dial${k(on, 'frontDial')}"/>${knurl(346, 132, 40, 9, 8)}
+  ${lbl(366, 154, 'front dial', on, 'frontDial')}
+  <rect x="126" y="98" width="120" height="16" rx="3" class="metal"/>
+  <rect x="122" y="114" width="128" height="40" rx="4" class="lens${k(on, 'lensZoom')}"/>${knurl(122, 114, 128, 40, 22)}
+  ${lbl(186, 138, 'zoom ring', on, 'lensZoom')}
+  <rect x="122" y="156" width="128" height="22" rx="3" class="lens"/>
+  <rect x="248" y="160" width="10" height="12" rx="2" class="btn${k(on, 'zoomLock')}"/>${lbl(262, 170, 'zoom lock', on, 'zoomLock', 'start')}
+  <rect x="122" y="180" width="128" height="26" rx="4" class="lens${k(on, 'lensFocus')}"/>${knurl(122, 180, 128, 26, 26)}
+  ${lbl(186, 197, 'focus ring', on, 'lensFocus')}
+  <rect x="118" y="208" width="136" height="14" rx="3" class="metal${k(on, 'filter')}"/>
+  <text x="186" y="236" class="pl dim" text-anchor="middle">▼ front (lens) · 67 mm filter</text>
+</svg>`;
+  }
+
+  function wheel(on = []) {
+    const t = on.includes('wTurn') || on.includes('wheel');
+    return `<svg viewBox="0 0 220 200" class="cam" role="img" aria-label="control wheel">
+  <circle cx="110" cy="100" r="78" class="wheel${t ? ' hl' : ''}"/>
+  <path d="M110 34 l-10 14 h20z" class="arr${k(on, 'wUp')}"/><path d="M176 100 l-14 -10 v20z" class="arr${k(on, 'wRight')}"/>
+  <path d="M110 166 l-10 -14 h20z" class="arr${k(on, 'wDown')}"/><path d="M44 100 l14 -10 v20z" class="arr${k(on, 'wLeft')}"/>
+  <circle cx="110" cy="100" r="30" class="btn${k(on, 'wCenter')}"/>
+  <text x="110" y="104" class="pl" text-anchor="middle">OK</text>
+  ${lbl(110, 16, 'DISP', on, 'wUp')}${lbl(196, 96, 'ISO', on, 'wRight')}
+  ${lbl(110, 196, '± Exp.Comp · ▦ Index', on, 'wDown')}${lbl(24, 96, '⏲ Drive', on, 'wLeft')}
+  ${t ? '<path d="M178 40 A92 92 0 0 1 196 110" class="turn"/><path d="M196 110 l-8 -4 l10 -6z" class="arr hl"/>' : ''}
+</svg>`;
+  }
+
+  // mode dial: positions clockwise, index mark on the LEFT (as in Sony's illustration)
+  const MODES = ['AUTO', 'P', 'A', 'S', 'M', '1', '2', '3'];
+  function modeDial(sel = 'A', sms = 'Still') {
+    const i = Math.max(0, MODES.indexOf(String(sel)));
+    const rot = -i * 45; // rotate so selected sits at the index (left)
+    let marks = '';
+    MODES.forEach((m, j) => {
+      const a = (180 + j * 45) * Math.PI / 180; // AUTO at left, then clockwise
+      const x = 110 + Math.cos(a) * 52, y = 96 + Math.sin(a) * 52;
+      marks += `<text x="${x.toFixed(1)}" y="${(y + 5).toFixed(1)}" text-anchor="middle" class="dm${j === i ? ' on' : ''}"${m === 'AUTO' ? ' style="font-size:11px"' : ''} transform="rotate(${-rot} ${x.toFixed(1)} ${y.toFixed(1)})">${m}</text>`;
+    });
+    const S = ['Still', 'Movie', 'S&Q'];
+    const seg = S.map((s, j) => `<rect x="${22 + j * 60}" y="186" width="56" height="24" rx="6" class="seg${s === sms ? ' on' : ''}"/><text x="${50 + j * 60}" y="202" text-anchor="middle" class="pl${s === sms ? ' on' : ''}">${s === 'Still' ? '📷 Still' : s === 'Movie' ? '🎥 Movie' : 'S&Q'}</text>`).join('');
+    return `<svg viewBox="0 0 220 216" class="cam" role="img" aria-label="mode dial set to ${sel}, ${sms}">
+  <circle cx="110" cy="96" r="72" class="dial"/>
+  <g transform="rotate(${rot} 110 96)">${marks}</g>
+  <circle cx="110" cy="96" r="30" class="btn"/>
+  <text x="110" y="100" text-anchor="middle" class="pl">MODE</text>
+  <path d="M26 96 h12" class="idx"/><text x="20" y="80" class="pl dim">index</text>
+  ${seg}
+  <text x="110" y="181" text-anchor="middle" class="pl dim">Still/Movie/S&Q dial (ring under the mode dial)</text>
+</svg>`;
+  }
+
+  // Generic Fn-menu tile grid (layout from Help Guide; tile contents are yours to customise)
+  function fnGrid(note) {
+    let s = ''; for (let r = 0; r < 2; r++) for (let c = 0; c < 6; c++) s += `<rect x="${10 + c * 50}" y="${30 + r * 34}" width="44" height="28" rx="4" class="seg${r === 0 && c === 0 ? ' on' : ''}"/>`;
+    return `<svg viewBox="0 0 320 104" class="cam"><text x="160" y="18" text-anchor="middle" class="pl dim">Fn menu: 2 rows × 6 tiles on the bottom of the screen</text>${s}<text x="160" y="100" text-anchor="middle" class="pl dim">${note || 'wheel/touch = choose tile · front dial = change value'}</text></svg>`;
+  }
+
+  window.Diagrams = { rear, top, wheel, modeDial, fnGrid, MODES };
+  window.viewFor = function (ids) {
+    if (!ids || !ids.length) return null;
+    if (ids.some(i => ['wUp', 'wRight', 'wDown', 'wLeft', 'wCenter', 'wTurn'].includes(i)) && ids.length === 1) return 'wheel';
+    const v = ids.map(i => (PARTS[i] || [])[1]);
+    if (v.includes('top')) return 'top';
+    return 'rear';
+  };
+})();
+
+;
+/* Knowledge base — written for: Sony a6700 (fw 2.00) + Sigma 16-300 f/3.5-6.7 DC OS + Lexar 128GB V60 + K&F 67mm VND2-32/CPL + tripod.
+   Menu paths p:[tab, group, item] are validated against data-menu.js at build time.
+   b: part id from diagrams.js to highlight. ⚠ = not confirmed by an official page; verify on camera. */
+(function () {
+  const P = {
+    fileStill: ['Shooting', 'Image Quality/Rec', 'File Format|still'],
+    rawType: ['Shooting', 'Image Quality/Rec', 'RAW File Type'],
+    fileMovie: ['Shooting', 'Image Quality/Rec', 'File Format|movie'],
+    movieSet: ['Shooting', 'Image Quality/Rec', 'Movie Settings'],
+    sqSet: ['Shooting', 'Image Quality/Rec', 'S&Q Settings'],
+    logSet: ['Shooting', 'Image Quality/Rec', 'Log Shooting Setting'],
+    lenr: ['Shooting', 'Image Quality/Rec', 'Long Exposure NR'],
+    hiso: ['Shooting', 'Image Quality/Rec', 'High ISO NR'],
+    format: ['Shooting', 'Media', 'Format'],
+    mediaInfo: ['Shooting', 'Media', 'Display Media Info.'],
+    recoverDb: ['Shooting', 'Media', 'Recover Image DB'],
+    memSave: ['Shooting', 'Shooting Mode', 'Camera Set. Memory'],
+    memRecall: ['Shooting', 'Shooting Mode', 'Recall Camera Setting'],
+    drive: ['Shooting', 'Drive Mode', 'Drive Mode'],
+    bracket: ['Shooting', 'Drive Mode', 'Bracket Settings'],
+    interval: ['Shooting', 'Drive Mode', 'Interval Shoot Func.'],
+    silent: ['Shooting', 'Shutter/Silent', 'Silent Mode Settings'],
+    shutterType: ['Shooting', 'Shutter/Silent', 'Shutter Type'],
+    noCard: ['Shooting', 'Shutter/Silent', 'Release w/o Card'],
+    antiFlicker: ['Shooting', 'Shutter/Silent', 'Anti-flicker Set.'],
+    audioLvl: ['Shooting', 'Audio Recording', 'Audio Rec Level'],
+    wind: ['Shooting', 'Audio Recording', 'Wind Noise Reduct.'],
+    ssStill: ['Shooting', 'Image Stabilization', 'SteadyShot (still)'],
+    ssMovie: ['Shooting', 'Image Stabilization', 'SteadyShot (movie)'],
+    grid: ['Shooting', 'Shooting Display', 'Grid Line Display'],
+    marker: ['Shooting', 'Marker Display', 'Aspect Marker'],
+    selfTimer: ['Shooting', 'Shooting Option', 'Self-timer'],
+    iso: ['Exposure/Color', 'Exposure', 'ISO'],
+    isoMinSS: ['Exposure/Color', 'Exposure', 'ISO AUTO Min. SS'],
+    autoSlow: ['Exposure/Color', 'Exposure', 'Auto Slow Shutter'],
+    bulb: ['Exposure/Color', 'Exposure', 'BULB Timer Settings'],
+    ev: ['Exposure/Color', 'Exposure Comp.', 'Exposure Comp.'],
+    meter: ['Exposure/Color', 'Metering', 'Metering Mode'],
+    wb: ['Exposure/Color', 'White Balance', 'White Balance'],
+    dro: ['Exposure/Color', 'Color/Tone', 'D-Range Optimizer'],
+    look: ['Exposure/Color', 'Color/Tone', 'Creative Look'],
+    pp: ['Exposure/Color', 'Color/Tone', 'Picture Profile'],
+    zebra: ['Exposure/Color', 'Zebra Display', 'Zebra Display'],
+    zebraLvl: ['Exposure/Color', 'Zebra Display', 'Zebra Level'],
+    focusMode: ['Focus', 'AF/MF', 'Focus Mode'],
+    afIllum: ['Focus', 'AF/MF', 'AF Illuminator'],
+    focusArea: ['Focus', 'Focus Area', 'Focus Area'],
+    recogAF: ['Focus', 'Subject Recognition', 'Subject Recog in AF'],
+    recogTarget: ['Focus', 'Subject Recognition', 'Recognition Target'],
+    mag: ['Focus', 'Focus Assistant', 'Focus Magnifier'],
+    peaking: ['Focus', 'Peaking Display', 'Peaking Display'],
+    viewMode: ['Playback', 'Playback Target', 'View Mode'],
+    protect: ['Playback', 'Selection/Memo', 'Protect'],
+    rating: ['Playback', 'Selection/Memo', 'Rating'],
+    del: ['Playback', 'Delete', 'Delete'],
+    delTwice: ['Playback', 'Delete', 'Delete pressing twice'],
+    index: ['Playback', 'Playback Option', 'Image Index'],
+    smartphone: ['Network', 'Cnct./PC Remote', 'Smartphone Connection'],
+    pairing: ['Network', 'Bluetooth', 'Pairing'],
+    airplane: ['Network', 'Network Option', 'Airplane Mode'],
+    palntsc: ['Setup', 'Area/Date', 'NTSC/PAL Selector'],
+    dateTime: ['Setup', 'Area/Date', 'Area/Date/Time Setting'],
+    saveLoad: ['Setup', 'Reset/Save Settings', 'Save/Load Settings'],
+    reset: ['Setup', 'Reset/Save Settings', 'Setting Reset'],
+    ckStill: ['Setup', 'Operation Customize', 'Custom Key/Dial Set.|still'],
+    ckMovie: ['Setup', 'Operation Customize', 'Custom Key/Dial Set.|movie'],
+    fnSet: ['Setup', 'Operation Customize', 'Fn Menu Settings'],
+    monBright: ['Setup', 'Finder/Monitor', 'Monitor Brightness'],
+    gammaAssist: ['Setup', 'Display Option', 'Gamma Display Assist'],
+    autoReview: ['Setup', 'Display Option', 'Auto Review'],
+    powerSave: ['Setup', 'Power Setting Option', 'Power Save Start Time'],
+    autoOffTemp: ['Setup', 'Power Setting Option', 'Auto Power OFF Temp.'],
+    usbPower: ['Setup', 'USB', 'USB Power Supply'],
+    sensorClean: ['Setup', 'Setup Option', 'Sensor Cleaning'],
+    version: ['Setup', 'Setup Option', 'Version'],
+    myMenuAdd: ['My Menu', 'My Menu Setting', 'Add Item']
+  };
+  window.PATHS = P;
+
+  const presets = [
+  /* ───────────── SWEET SPOTS ───────────── */
+  { id: 'sweet-photo', cat: 'Sweet spot', star: true, icon: '📷', title: 'Everyday Photo — Sweet Spot',
+    sub: 'One setup for 90% of trek & travel photos. Save it to dial position 1 (Still).',
+    dial: { mode: 'A', sms: 'Still' }, slot: 'Still → 1',
+    a: 'Still mode, A (aperture priority) f/8, Auto ISO 100–6400 with Min SS "Faster", AF-C + Wide + Subject Recognition, RAW & JPEG, SteadyShot On. Change brightness only with exposure comp (wheel ▼). Save it with Camera Set. Memory → 1.',
+    q: ['best settings for photos', 'normal photo setting', 'one setting for everything', 'sweet spot photo', 'general travel photo settings', 'default photo setup', 'what settings should i use'],
+    set: [
+      { s: 'Still/Movie/S&Q dial', v: '📷 Still', b: 'smsDial' },
+      { s: 'Mode dial', v: 'A (Aperture Priority)', b: 'modeDial', w: 'You choose the aperture, the camera picks the shutter speed.' },
+      { s: 'Aperture', v: 'f/8', b: 'frontDial', w: 'Sharpest zone of this lens and it works at every zoom (the lens is f/6.7 at 300 mm, so f/8 is always available). In dim light go to the lowest number.' },
+      { s: 'ISO', v: 'ISO AUTO, min 100 / max 6400', p: P.iso, b: 'wRight', w: 'Press wheel ▶ (ISO), pick ISO AUTO, then press ▶ again to set min/max.' },
+      { s: 'ISO AUTO Min. SS', v: 'Faster', p: P.isoMinSS, w: 'Keeps the shutter quick when you zoom to 300 mm, so handheld shots stay sharp.' },
+      { s: 'Focus Mode', v: 'AF-C (Continuous AF)', p: P.focusMode, w: 'Keeps tracking people and animals while you hold the shutter half-way.' },
+      { s: 'Focus Area', v: 'Wide', p: P.focusArea },
+      { s: 'Subject Recog in AF', v: 'On', p: P.recogAF },
+      { s: 'Recognition Target', v: 'Human (switch to Animal/Bird for wildlife)', p: P.recogTarget },
+      { s: 'File Format (still)', v: 'RAW & JPEG', p: P.fileStill, w: 'JPEG to share now, RAW to rescue skies and shadows later. ~2,500 shots per 128 GB.' },
+      { s: 'RAW File Type', v: 'Lossless Compressed', p: P.rawType, w: 'Same quality as uncompressed, smaller files. ⚠ exact option label may show size L/M/S.' },
+      { s: 'Drive Mode', v: 'Single Shooting (Continuous Lo for moving things)', b: 'wLeft' },
+      { s: 'SteadyShot (still)', v: 'On', p: P.ssStill, w: 'Body + lens stabilisation for handheld.' },
+      { s: 'Metering Mode', v: 'Multi', p: P.meter },
+      { s: 'White Balance', v: 'Auto (AWB)', p: P.wb },
+      { s: 'Creative Look', v: 'ST (or VV for punchier JPEGs)', p: P.look },
+      { s: 'Exposure Comp.', v: '0.0 — your ONE brightness control', b: 'wDown', w: 'Press wheel ▼ then turn: + brighter, − darker. Snow +1, bright sky −0.3/−0.7.' }
+    ],
+    steps: [
+      { t: 'Turn the Still/Movie/S&Q dial to Still.', b: 'smsDial' },
+      { t: 'Turn the mode dial to A.', b: 'modeDial' },
+      { t: 'Set everything in the list above (tap a row to see its menu screen).' },
+      { t: 'Save it: MENU → Shooting → Shooting Mode → Camera Set. Memory → choose 1 → press the wheel center.', p: P.memSave, b: 'menu' },
+      { t: 'From now on just turn the mode dial to 1 — your sweet spot is back, even if you changed things.', b: 'modeDial' }
+    ],
+    tips: ['Half-press the shutter to focus; the green frame follows faces/eyes automatically.', 'Lock the zoom (zoom lock switch at 16 mm) while walking so the lens does not creep.', 'Shoot 3 frames of anything important — one will be sharpest.'],
+    tags: 'everyday default general normal sweet spot photo picture travel trek' },
+
+  { id: 'sweet-video', cat: 'Sweet spot', star: true, icon: '🎥', title: 'Everyday Video / Vlog — Sweet Spot',
+    sub: 'Set-and-forget 4K for treks & travel, grade-friendly. Save to dial position 1 (Movie).',
+    dial: { mode: 'S', sms: 'Movie' }, slot: 'Movie → 1',
+    a: 'Movie mode, S mode at 1/100 s, Auto ISO, XAVC HS 4K 50p 150M 4:2:0 10-bit, PP11 S-Cinetone, AF-C + Subject Recognition, SteadyShot Active (Off on tripod), PAL. Save with Camera Set. Memory → 1 while the dial is on Movie.',
+    q: ['normal vlogging setup', 'best video settings', 'vlog settings', 'sweet spot video', 'default video settings', 'what settings for youtube', 'everyday video'],
+    set: [
+      { s: 'NTSC/PAL Selector (one-time)', v: 'PAL', p: P.palntsc, w: 'India = 50 Hz mains → PAL frame rates (25/50/100p) avoid flicker under tube/LED lights.' },
+      { s: 'Still/Movie/S&Q dial', v: '🎥 Movie', b: 'smsDial' },
+      { s: 'Mode dial', v: 'S (Shutter Priority)', b: 'modeDial', w: 'Shutter fixed, camera handles aperture + ISO. In sun the lens stops down by itself — no filter needed.' },
+      { s: 'Shutter speed', v: '1/100', b: 'rearDial', w: '2× the frame rate = natural motion blur, and no flicker on 50 Hz lights.' },
+      { s: 'File Format (movie)', v: 'XAVC HS 4K', p: P.fileMovie, w: 'H.265 = same quality at half the size. Decodes on your GTX 1650 (NVDEC supports HEVC 4:2:0 10-bit).' },
+      { s: 'Movie Settings → Rec Frame Rate', v: '50p', p: P.movieSet, w: 'XAVC HS 4K has no 25p. 50p gives smooth motion and 2× slow-mo on a 25p timeline.' },
+      { s: 'Movie Settings → Record Setting', v: '150M 4:2:0 10bit', p: P.movieSet, w: '10-bit for colour grading. ~1 h 35 min per 128 GB. Card nearly full? use 75M 4:2:0 10bit (~2 h 50 min).' },
+      { s: 'ISO', v: 'ISO AUTO (100 – 12800)', p: P.iso, b: 'wRight' },
+      { s: 'Picture Profile', v: 'PP11 (S-Cinetone)', p: P.pp, w: 'Looks great straight out of camera, skin tones nice, still grades well. Easier & cleaner than S-Log3 with this f/3.5-6.7 lens.' },
+      { s: 'White Balance', v: 'AWB (or fix to Daylight for the whole day)', p: P.wb, w: 'A fixed WB per day makes clips match when grading.' },
+      { s: 'Focus Mode', v: 'AF-C', p: P.focusMode },
+      { s: 'Focus Area', v: 'Wide', p: P.focusArea },
+      { s: 'Subject Recog in AF', v: 'On · Target: Human', p: P.recogAF },
+      { s: 'SteadyShot (movie)', v: 'Active handheld · Off on tripod', p: P.ssMovie, w: 'Active crops slightly but kills walking shake. Not available at 100p.' },
+      { s: 'Zebra Display', v: 'On · Zebra Level 100+', p: P.zebra, w: 'Stripes = blown highlights. See stripes on sky/faces → exposure comp −0.7.' },
+      { s: 'Wind Noise Reduct.', v: 'Auto', p: P.wind, w: 'Works only with the built-in mic.' },
+      { s: 'Auto Power OFF Temp.', v: 'High', p: P.autoOffTemp, w: 'Longer 4K recording before heat shut-off (camera body gets warmer — don’t hand-hold it for long at High).' }
+    ],
+    steps: [
+      { t: 'One-time: MENU → Setup → Area/Date → NTSC/PAL Selector → PAL (back up the card first — the camera may ask to format ⚠).', p: P.palntsc },
+      { t: 'Turn the Still/Movie/S&Q dial to Movie.', b: 'smsDial' },
+      { t: 'Turn the mode dial to S, then set 1/100 with a dial.', b: 'modeDial' },
+      { t: 'Set the rest of the list (tap a row to see the menu).' },
+      { t: 'Save it: MENU → Shooting → Shooting Mode → Camera Set. Memory → 1 (with the dial on Movie — Movie has its own 1/2/3).', p: P.memSave },
+      { t: 'Record with the MOVIE button.', b: 'movie' }
+    ],
+    tips: ['Hold every shot 5+ seconds steady before you move — editors need it.', 'Shooting the same scene for a Reel? Keep it horizontal 4K and crop 9:16 later; tilt the camera only for dedicated vertical shots.', 'Too bright even with stripes everywhere (sky)? You hit f/22 — screw on the VND and turn it 1–2 stops.', 'Talking to camera: flip the screen out to the side and turn it to face you.'],
+    tags: 'vlog video movie youtube default everyday sweet spot record clip footage' },
+
+  /* ───────────── NIGHT ───────────── */
+  { id: 'astro', cat: 'Night', icon: '🌌', title: 'Milky Way & starry sky', night: true,
+    sub: 'Tripod, 16 mm, f/3.5, ~13 s, ISO 3200–6400, manual focus on a star. Save to dial 2 (Still).',
+    dial: { mode: 'M', sms: 'Still' }, slot: 'Still → 2',
+    a: 'Tripod. Still + M mode. Zoom to 16 mm, f/3.5, 13 s (NPF rule; use the Star calculator), ISO 3200 (6400 if very dark). MF and focus on a bright star with Focus Magnifier. SteadyShot Off, 2-s self-timer, RAW, WB ~4000K. Remove filters.',
+    q: ['astrophotography settings', 'how to shoot stars', 'milky way settings', 'night sky photo', 'star photo setup', 'galaxy photography'],
+    when: 'Clear sky, no moon (or moon set) — check Tools → Sun & Moon. Away from village lights. Galactic core season Mar–Oct (best May–Aug), look south.',
+    gear: ['Tripod', 'Headlamp with red light', 'Remove VND/CPL filter', 'Power bank'],
+    set: [
+      { s: 'Filters', v: 'REMOVE the VND/CPL', b: 'filter', w: 'Filters steal light and cause flare/haze on stars.' },
+      { s: 'Mode dial', v: 'M (Manual)', b: 'modeDial' },
+      { s: 'Zoom', v: '16 mm (fully wide) + zoom lock', b: 'zoomLock', w: 'Widest view, brightest aperture, longest exposure before trails.' },
+      { s: 'Aperture', v: 'f/3.5 (lowest number)', b: 'frontDial' },
+      { s: 'Shutter', v: '13" (13 seconds)', b: 'rearDial', w: 'NPF rule for 26 MP APS-C at 16 mm f/3.5 ≈ 14.7 s. Use 13 s for pin-point stars, up to 20 s if small trails are OK.' },
+      { s: 'ISO', v: '3200 (try 6400 if the photo is dark)', p: P.iso, b: 'wRight' },
+      { s: 'File Format (still)', v: 'RAW', p: P.fileStill },
+      { s: 'Focus Mode', v: 'MF (Manual Focus)', p: P.focusMode },
+      { s: 'Focus Magnifier', v: 'Use it on the brightest star → turn focus ring until the star is the smallest dot', p: P.mag, b: 'lensFocus' },
+      { s: 'SteadyShot (still)', v: 'Off', p: P.ssStill, w: 'Stabilisation on a tripod can add blur during long exposures.' },
+      { s: 'Drive Mode', v: 'Self-timer 2 sec', b: 'wLeft', w: 'Pressing the shutter shakes the camera; the timer waits until it settles.' },
+      { s: 'White Balance', v: 'Color temp ~4000 K (C.Temp./Filter ⚠)', p: P.wb, w: 'Gives a natural blue-black sky instead of orange.' },
+      { s: 'Long Exposure NR', v: 'Off', p: P.lenr, w: 'On doubles every shot time (13 s exposure + 13 s noise frame). Turn On only for a few single frames.' },
+      { s: 'Monitor Brightness', v: 'Low', p: P.monBright, w: 'Keeps your night vision and battery. Use the histogram, not the screen look.' },
+      { s: 'AF Illuminator', v: 'Off', p: P.afIllum, w: 'Avoids the orange lamp firing in the dark.' }
+    ],
+    steps: [
+      { t: 'Set up the tripod on firm ground, hang your bag from the hook for stability.' },
+      { t: 'Turn the Still/Movie/S&Q dial to Still, mode dial to M.', b: 'modeDial' },
+      { t: 'Zoom to 16 mm and slide the zoom lock.', b: 'zoomLock' },
+      { t: 'Focus: MF → open Focus Magnifier → aim at the brightest star (or a far light) → turn the focus ring slowly until the dot is tiniest.', p: P.mag, b: 'lensFocus' },
+      { t: 'Set f/3.5, 13", ISO 3200, 2-sec self-timer.', b: 'wLeft' },
+      { t: 'Take a test shot. Zoom into the playback: stars streaky → shorter shutter; image too dark → ISO 6400.', b: 'play' },
+      { t: 'Happy? Save: Camera Set. Memory → 2.', p: P.memSave }
+    ],
+    tips: ['Focus before it’s fully dark on a distant mountain ridge, then don’t touch the ring. Re-check after turning the camera off — the lens is focus-by-wire and may not hold position ⚠.', 'Light paint the foreground (tent, person) with a 1–2 second sweep of a dim torch.', 'Take 10–20 identical shots — stacking them later on PC removes most noise.', 'Dew at night fogs the lens: strap a hand-warmer near the front of the lens.'],
+    avoid: ['Never use 300 mm for stars — exposures would have to be under 1 second.', 'Don’t trust how bright the screen looks at night; check the histogram (DISP).'],
+    tags: 'astro astrophotography stars star milky way galaxy night sky nakshatra tare dark' },
+
+  { id: 'startrails', cat: 'Night', icon: '💫', title: 'Star trails & night time-lapse', night: true,
+    sub: 'Interval shooting of 20–25 s frames, stacked or turned into a video on PC.',
+    dial: { mode: 'M', sms: 'Still' },
+    a: 'Same as Milky Way but ISO 800–1600 and 20–25 s. Drive → Interval Shoot Func.: Interval On, Shooting Interval = shutter + 2 s, Number of Shots 300+. Long Exposure NR Off. Power from power bank via USB-C. JPEG Fine is enough and saves card space.',
+    q: ['star trail settings', 'night timelapse', 'interval shooting stars', 'stars moving circle'],
+    gear: ['Tripod', 'Power bank + USB-C cable (keeps camera running)', 'No filters'],
+    set: [
+      { s: 'Mode', v: 'M · 16 mm · f/3.5', b: 'modeDial' },
+      { s: 'Shutter', v: '20" – 25"', b: 'rearDial' },
+      { s: 'ISO', v: '800 – 1600', p: P.iso },
+      { s: 'Focus', v: 'MF on a star (as Milky Way)', p: P.mag },
+      { s: 'File Format (still)', v: 'JPEG (Fine) — or RAW if card has space', p: P.fileStill, w: '300 RAW frames ≈ 12 GB.' },
+      { s: 'Interval Shoot Func.', v: 'Interval Shooting: On · Shooting Interval: shutter + 2 s (e.g. 27 s for 25") · Number of Shots: 300', p: P.interval, w: 'Interval range is 1–60 s; it must be longer than the exposure.' },
+      { s: 'Long Exposure NR', v: 'Off', p: P.lenr, w: 'On would leave gaps between frames.' },
+      { s: 'SteadyShot (still)', v: 'Off', p: P.ssStill },
+      { s: 'Monitor Brightness', v: 'Low', p: P.monBright }
+    ],
+    steps: [
+      { t: 'Compose and focus exactly like the Milky Way preset.' },
+      { t: 'MENU → Shooting → Drive Mode → Interval Shoot Func. → set Interval On, interval & number of shots.', p: P.interval },
+      { t: 'Plug the power bank into the USB-C port (camera ON = it runs from USB but does not charge).', b: 'usb' },
+      { t: 'Press the shutter once — the camera starts the series by itself.', b: 'shutter' },
+      { t: 'On PC: stack for trails (StarStaX / Sequator) or make a 25 fps video (300 shots ≈ 12 s).' }
+    ],
+    tips: ['Point at Polaris (north) for circular trails.', 'Cover the viewfinder eyepiece if a light is behind you.'],
+    tags: 'star trails timelapse time lapse interval night stack' },
+
+  { id: 'moon', cat: 'Night', icon: '🌕', title: 'Moon close-up (300 mm)',
+    sub: 'The moon is a sunlit rock — fast shutter, low ISO.',
+    dial: { mode: 'M', sms: 'Still' },
+    a: 'Tripod, zoom 300 mm, M mode f/8, 1/250 s, ISO 100–200. Focus Area Spot on the moon (or MF + magnifier). 2-s timer, SteadyShot Off. Adjust shutter until the moon shows detail.',
+    q: ['moon photo settings', 'how to shoot the moon', 'chand photo', 'full moon picture'],
+    set: [
+      { s: 'Zoom', v: '300 mm (450 mm equivalent)', b: 'lensZoom' },
+      { s: 'Mode', v: 'M · f/8 · 1/250 · ISO 100–200', b: 'modeDial', w: 'Moon brightness ≈ daylight. Auto modes see the black sky and overexpose the moon.' },
+      { s: 'Focus Area', v: 'Spot (or MF + Focus Magnifier)', p: P.focusArea },
+      { s: 'Drive Mode', v: 'Self-timer 2 sec', b: 'wLeft' },
+      { s: 'SteadyShot (still)', v: 'Off on tripod', p: P.ssStill },
+      { s: 'File Format (still)', v: 'RAW & JPEG', p: P.fileStill }
+    ],
+    steps: [{ t: 'Zoom to 300 mm, put the moon in the center.' }, { t: 'Set M, f/8, 1/250, ISO 100.' }, { t: 'Focus on the edge of the moon.' }, { t: 'Shoot; if the moon is white with no detail → faster shutter (1/500).' }],
+    tips: ['Half/crescent moon shows more crater detail along the shadow line.', 'Moonrise near the horizon is huge & orange — shoot it with a mountain or monastery in front.'],
+    tags: 'moon chand lunar 300mm night' },
+
+  { id: 'lowlight', cat: 'Night', icon: '🛕', title: 'Low light indoor — temple, homestay, market at night',
+    sub: 'Handheld without a tripod; quiet shutter.',
+    dial: { mode: 'A', sms: 'Still' }, slot: 'Movie → 3 (video version)',
+    a: 'A mode at the lowest f-number (f/3.5 at 16 mm), stay wide (16–35 mm), ISO AUTO max 12800, Min SS Standard, SteadyShot On, Silent Mode On in temples, AF Illuminator Off, RAW & JPEG, Continuous Lo bursts of 3.',
+    q: ['indoor dark photo', 'temple photo settings', 'low light handheld', 'no tripod night photo', 'monastery inside photo', 'dark room photo'],
+    set: [
+      { s: 'Zoom', v: 'Stay wide: 16–35 mm', b: 'lensZoom', w: 'The lens is brightest (f/3.5) at 16 mm; at 300 mm it is f/6.7 = 4× less light.' },
+      { s: 'Mode / Aperture', v: 'A · lowest f-number', b: 'modeDial' },
+      { s: 'ISO', v: 'ISO AUTO 100 – 12800', p: P.iso },
+      { s: 'ISO AUTO Min. SS', v: 'Standard', p: P.isoMinSS, w: 'Lets the shutter go slower at wide angles where stabilisation copes.' },
+      { s: 'SteadyShot (still)', v: 'On', p: P.ssStill },
+      { s: 'Silent Mode Settings', v: 'On (temples, ceremonies)', p: P.silent, w: 'Electronic shutter — totally silent. Watch for banding under LED lights.' },
+      { s: 'AF Illuminator', v: 'Off', p: P.afIllum },
+      { s: 'Drive Mode', v: 'Continuous Lo — shoot 3 frames', b: 'wLeft', w: 'One of three is usually sharp.' },
+      { s: 'File Format (still)', v: 'RAW & JPEG', p: P.fileStill }
+    ],
+    steps: [{ t: 'Brace yourself: elbows in, lean on a pillar, exhale and press gently.' }, { t: 'Shoot bursts of 3.' }, { t: 'Video version: Movie + S 1/50 (or 1/100), Auto ISO max 12800, SteadyShot Active → save to Movie slot 3.' }],
+    tips: ['Ask before photographing inside monasteries — many prohibit it.', 'Flicker/bands in photos under LED lights → Anti-flicker Set. On, or switch off Silent mode.'],
+    tags: 'low light indoor temple monastery gompa homestay dark inside night handheld' },
+
+  /* ───────────── DAY / LANDSCAPE ───────────── */
+  { id: 'landscape', cat: 'Landscape', icon: '🏔️', title: 'Sunrise, sunset & mountain landscape',
+    sub: 'Tripod, f/8, ISO 100, bracketing for bright skies. CPL for deep blue skies.',
+    dial: { mode: 'A', sms: 'Still' },
+    a: 'Tripod, A mode f/8, ISO 100, SteadyShot Off, 2-s timer, RAW. For sunrise with a bright sky and dark valley use bracketing (Drive → Cont. Bracket, 3 shots ±1 EV ⚠). Use the CPL at 90° to the sun for deep blue sky, but not at 16 mm (uneven sky). Golden hour times: Tools → Sun & Moon.',
+    q: ['sunrise settings', 'sunset photo', 'landscape settings', 'mountain photo', 'golden hour', 'scenery photo'],
+    set: [
+      { s: 'Mode', v: 'A · f/8 (f/11 for front-to-back sharpness)', b: 'modeDial' },
+      { s: 'ISO', v: '100', p: P.iso, b: 'wRight' },
+      { s: 'SteadyShot (still)', v: 'Off on tripod / On handheld', p: P.ssStill },
+      { s: 'Drive Mode', v: 'Self-timer 2 sec, or Cont. Bracket (3 shots)', p: P.drive, b: 'wLeft', w: 'Bracketing captures the bright sky and the dark valley in separate frames; merge as HDR on PC.' },
+      { s: 'Bracket Settings', v: '3 images, 1.0 EV step ⚠', p: P.bracket },
+      { s: 'Focus', v: 'AF-S, single point one-third into the scene', p: P.focusMode },
+      { s: 'File Format (still)', v: 'RAW & JPEG', p: P.fileStill },
+      { s: 'Grid Line Display', v: 'On (Rule of 3rds)', p: P.grid, w: 'Put the horizon on a third line, peaks on an intersection.' },
+      { s: 'Exposure Comp.', v: '−0.3 to −0.7 at sunrise/sunset', b: 'wDown', w: 'Protects the colours in the sky.' }
+    ],
+    steps: [{ t: 'Arrive 30 min before sunrise — blue hour is often the best light.' }, { t: 'Compose on the tripod, grid on.' }, { t: 'Shoot a bracket every few minutes as light changes.' }],
+    tips: ['Polarizer: strongest at 90° to the sun; at 16 mm it makes an uneven dark band in the sky — zoom to 24 mm+ or remove it.', 'Put a person or prayer flags in the frame for scale.', 'Zoom in (100–300 mm) to stack mountain layers in haze — often more striking than wide.'],
+    tags: 'landscape sunrise sunset mountain golden hour blue hour scenery peak valley himalaya' },
+
+  { id: 'snow', cat: 'Landscape', icon: '❄️', title: 'Snow, glaciers & bright sun',
+    sub: 'Make white look white, not grey.',
+    dial: { mode: 'A', sms: 'Still' },
+    a: 'A mode f/8, ISO 100, exposure comp +1.0 (up to +1.7) so snow is white. WB Daylight. Monitor Brightness to Sunny Weather. Video: watch zebras, keep −0.3 if the snow shows stripes. Keep batteries warm.',
+    q: ['snow photo settings', 'snow looks grey', 'glacier photo', 'bright snow exposure'],
+    set: [
+      { s: 'Exposure Comp.', v: '+1.0 (snow) · up to +1.7 for full white fields', b: 'wDown', w: 'The meter wants everything mid-grey, so it underexposes snow.' },
+      { s: 'White Balance', v: 'Daylight (sunny) / Cloudy', p: P.wb, w: 'AWB can turn snow blue.' },
+      { s: 'Mode', v: 'A · f/8 · ISO 100', b: 'modeDial' },
+      { s: 'Monitor Brightness', v: 'Sunny Weather', p: P.monBright },
+      { s: 'Zebra Display (video)', v: 'On, 100+ — reduce exposure until stripes just disappear on the brightest snow', p: P.zebra }
+    ],
+    steps: [{ t: 'Set +1 EV, take a shot, check the histogram (DISP): the mountain of data should touch but not crash into the right edge.', b: 'wUp' }],
+    tips: ['Use the CPL to cut glare on ice and darken the sky.', 'Cold kills batteries: keep the spare power bank & battery in an inner pocket.', 'Sunglasses + bright screen: use the viewfinder.'],
+    tags: 'snow glacier ice white bright sun winter exposure grey' },
+
+  { id: 'waterfall', cat: 'Landscape', icon: '🌊', title: 'Silky waterfall & river',
+    sub: 'Slow shutter with your variable ND on a tripod.',
+    dial: { mode: 'S', sms: 'Still' },
+    a: 'Tripod, S mode 1/2 s – 2 s, ISO 100, screw on the K&F VND and turn it darker until the exposure meter is near 0 (aperture f/11–16). SteadyShot Off, 2-s timer. Use Tools → ND calculator.',
+    q: ['waterfall settings', 'silky water', 'smooth water photo', 'long exposure day', 'river motion blur', 'how to use nd filter'],
+    gear: ['Tripod', 'K&F 67 mm VND+CPL'],
+    set: [
+      { s: 'Filter', v: 'K&F VND on, turn to darken', b: 'filter', w: 'ND2–32 = 1 to 5 stops darker.' },
+      { s: 'Mode', v: 'S · 1/2" to 2"', b: 'modeDial', w: '1/4 s = textured flow, 1–2 s = silky.' },
+      { s: 'ISO', v: '100', p: P.iso },
+      { s: 'SteadyShot (still)', v: 'Off', p: P.ssStill },
+      { s: 'Drive Mode', v: 'Self-timer 2 sec', b: 'wLeft' },
+      { s: 'Focus', v: 'Focus BEFORE darkening the filter, then MF', p: P.focusMode, w: 'AF can struggle through a strong ND.' }
+    ],
+    steps: [{ t: 'Compose and focus without the ND fully darkened, switch to MF.' }, { t: 'Set S mode 1 s, ISO 100.' }, { t: 'Turn the VND until the blinking aperture value stops flashing (exposure OK).' }, { t: 'Shoot with 2-s timer, check for blown whites (zebras/histogram).' }],
+    tips: ['In shade/overcast you may not need the ND at all.', 'An X-shaped dark cross = VND turned too far, especially at 16 mm. Turn back or zoom in.'],
+    tags: 'waterfall river stream water silky smooth long exposure nd filter variable' },
+
+  /* ───────────── WILDLIFE & PEOPLE ───────────── */
+  { id: 'wildlife', cat: 'Wildlife & people', icon: '🦅', title: 'Wildlife & birds at 300 mm',
+    sub: 'Fast shutter, animal/bird eye AF, bursts. Save to dial 3 (Still).',
+    dial: { mode: 'S', sms: 'Still' }, slot: 'Still → 3',
+    a: 'S mode 1/1000 s (birds in flight 1/2000), Auto ISO up to 6400, zoom 300 mm, AF-C, Focus Area Wide, Recognition Target Animal/Bird, Drive Continuous Mid/Hi, SteadyShot On. Closest focus at 300 mm is ~1.05 m.',
+    q: ['bird photo settings', 'animal photography', 'wildlife settings', 'yak photo', 'eagle flying photo', 'zoom photo blurry'],
+    set: [
+      { s: 'Mode', v: 'S · 1/1000 (flying birds 1/2000)', b: 'modeDial', w: 'At 300 mm (450 mm equivalent) any slower shows shake and subject motion.' },
+      { s: 'ISO', v: 'ISO AUTO 100 – 6400', p: P.iso },
+      { s: 'Focus Mode', v: 'AF-C', p: P.focusMode },
+      { s: 'Focus Area', v: 'Wide (or Zone)', p: P.focusArea },
+      { s: 'Recognition Target', v: 'Animal/Bird', p: P.recogTarget },
+      { s: 'Drive Mode', v: 'Continuous Shooting: Mid or Hi', b: 'wLeft' },
+      { s: 'SteadyShot (still)', v: 'On', p: P.ssStill },
+      { s: 'File Format (still)', v: 'RAW & JPEG', p: P.fileStill }
+    ],
+    steps: [{ t: 'Zoom to 300 mm, set the list, save as Camera Set. Memory → 3.', p: P.memSave }, { t: 'Half-press and keep holding — the eye-AF box sticks to the animal; fire bursts.' }],
+    tips: ['Get low to the animal’s eye level.', 'Keep a few metres away — yaks, dogs and birds behave naturally and the 300 mm reach is enough.', 'Assign Recognition Target to C1 to switch Human ↔ Animal/Bird in one press.'],
+    tags: 'wildlife bird birds animal yak eagle zoom telephoto 300mm fast action sports' },
+
+  { id: 'people', cat: 'Wildlife & people', icon: '🧑', title: 'People on the trail & portraits',
+    sub: 'Eye AF, blurred background with zoom.',
+    dial: { mode: 'A', sms: 'Still' },
+    a: 'A mode, lowest f-number, zoom to 70–150 mm and step back for background blur. AF-C + Subject Recognition (Human, eye). Creative Look PT for soft skin. +0.3 EV for faces, more if backlit.',
+    q: ['portrait settings', 'blur background', 'bokeh', 'photo of friend', 'people photo', 'person photo settings'],
+    set: [
+      { s: 'Zoom', v: '70–150 mm, step back', b: 'lensZoom', w: 'This lens is not a fast prime — distance + zoom gives the blur.' },
+      { s: 'Aperture', v: 'Lowest number available', b: 'frontDial' },
+      { s: 'Subject Recog in AF / Target', v: 'On · Human', p: P.recogTarget },
+      { s: 'Creative Look', v: 'PT (portrait)', p: P.look },
+      { s: 'Exposure Comp.', v: '+0.3 (backlit: +1.0)', b: 'wDown' },
+      { s: 'D-Range Optimizer', v: 'Auto (JPEG)', p: P.dro, w: 'Lifts shadows on faces in harsh sun.' }
+    ],
+    steps: [{ t: 'Put the person 3+ m in front of a far background.' }, { t: 'Zoom in, open aperture, half-press: the eye box appears.' }, { t: 'Shoot when they relax — not on “cheese”.' }],
+    tips: ['Harsh midday sun: turn them so the sun is behind them, +1 EV.', 'Candid trekkers walking toward you = classic hero shot.'],
+    tags: 'people portrait person face friend bokeh blur background eye' },
+
+  /* ───────────── VIDEO ───────────── */
+  { id: 'cinematic', cat: 'Video', icon: '🎬', title: 'Cinematic tripod B-roll',
+    sub: 'Locked-off or slow-pan landscape clips with the VND. Save to dial 2 (Movie).',
+    dial: { mode: 'M', sms: 'Movie' }, slot: 'Movie → 2',
+    a: 'Movie + M mode: 1/100 s, f/5.6–8, ISO 100, VND turned until zebras just disappear. XAVC HS 4K 50p 150M 10-bit, PP11 S-Cinetone, WB fixed (Daylight). SteadyShot Off on tripod. Hold every clip 10 s.',
+    q: ['cinematic video settings', 'b roll settings', 'tripod video', 'landscape video', 'cinematic look'],
+    set: [
+      { s: 'Mode', v: 'M · 1/100 · f/5.6–8 · ISO 100', b: 'modeDial' },
+      { s: 'Filter', v: 'VND — turn until exposure is right', b: 'filter', w: 'Keeps the 1/100 shutter in bright light for natural motion (water, clouds, people).' },
+      { s: 'File Format (movie)', v: 'XAVC HS 4K', p: P.fileMovie },
+      { s: 'Movie Settings', v: '50p · 150M 4:2:0 10bit', p: P.movieSet },
+      { s: 'Picture Profile', v: 'PP11 (S-Cinetone)', p: P.pp },
+      { s: 'White Balance', v: 'Daylight / Cloudy — fixed, not AWB', p: P.wb, w: 'AWB can shift mid-clip.' },
+      { s: 'SteadyShot (movie)', v: 'Off (tripod)', p: P.ssMovie },
+      { s: 'Zebra Display', v: 'On · 100+', p: P.zebra },
+      { s: 'Focus', v: 'AF-C with subject, or MF for landscapes', p: P.focusMode }
+    ],
+    steps: [{ t: 'Frame, set M 1/100, f/8, ISO 100.' }, { t: 'Turn the VND until zebras only show on the sun/specular highlights.' }, { t: 'Press MOVIE, wait 2 s, hold the shot 10 s (or a slow 10 s pan), wait 2 s, stop.', b: 'movie' }],
+    tips: ['Telephoto compression: 150–300 mm on far peaks with slow pans looks epic.', 'Foreground movement (prayer flags, people walking away) makes B-roll alive.', 'Record 10 s of ambient sound at each spot without talking.'],
+    tags: 'cinematic broll b-roll tripod landscape video nd filter smooth film look' },
+
+  { id: 'walkntalk', cat: 'Video', icon: '🚶', title: 'Walk-and-talk selfie vlog',
+    sub: 'Camera at arm’s length, screen flipped, face tracking.',
+    dial: { mode: 'S', sms: 'Movie' },
+    a: 'Use the Video Sweet Spot (Movie → 1) but zoom fully wide (16 mm), SteadyShot Active, Subject Recognition Human, Focus Area Wide, screen flipped to face you. Wind Noise Reduct. Auto; an external mic with a fur windshield helps most.',
+    q: ['selfie vlog', 'talking to camera', 'walk and talk', 'how to vlog myself', 'flip screen'],
+    set: [
+      { s: 'Start from', v: 'Video Sweet Spot (dial 1 in Movie)', b: 'modeDial' },
+      { s: 'Zoom', v: '16 mm + zoom lock', b: 'zoomLock', w: 'Active stabilisation crops a bit — 16 mm keeps you and the background in frame.' },
+      { s: 'SteadyShot (movie)', v: 'Active', p: P.ssMovie },
+      { s: 'Subject Recog in AF', v: 'On · Human', p: P.recogAF },
+      { s: 'Monitor', v: 'Flip out to the side, rotate to face you', b: 'monitor' },
+      { s: 'Wind Noise Reduct.', v: 'Auto', p: P.wind },
+      { s: 'Audio Rec Level', v: 'Default; lower if your voice clips', p: P.audioLvl }
+    ],
+    steps: [{ t: 'Hold the camera by the grip with your arm slightly bent, elbow in.' }, { t: 'Walk heel-to-toe, slow steps.' }, { t: 'Keep the sun on your face, not behind you.' }],
+    tips: ['Built-in mic is on top-front; in wind turn your back to it or shelter it with your hand.', 'Buy later: small shotgun/wireless mic with deadcat — biggest vlog upgrade.'],
+    tags: 'selfie vlog walk talk talking camera face flip screen youtube' },
+
+  { id: 'slowmo', cat: 'Video', icon: '🐢', title: 'Slow motion',
+    sub: '4K 100p in Movie mode — card-safe for your V60 Lexar.',
+    dial: { mode: 'S', sms: 'Movie' },
+    a: 'Movie mode, Rec Frame Rate 100p, XAVC HS 4K 200M 4:2:0 10bit (V60 OK), shutter 1/200, Auto ISO, SteadyShot Standard (Active is not available at 100p). Slow it 4× on a 25p timeline or 2× on 50p. Needs good light; 4K 100p is cropped ⚠. S&Q mode at high bit rates needs a V90 card, so use Movie 100p.',
+    q: ['slow motion settings', 'slow mo video', '120fps', '100fps', 's&q'],
+    set: [
+      { s: 'Still/Movie/S&Q dial', v: '🎥 Movie', b: 'smsDial' },
+      { s: 'Movie Settings → Rec Frame Rate', v: '100p', p: P.movieSet },
+      { s: 'Movie Settings → Record Setting', v: '200M 4:2:0 10bit (XAVC HS 4K)', p: P.movieSet, w: 'Fits the Lexar V60 (needs V60). Or XAVC S HD 100p 100M to save space.' },
+      { s: 'Shutter', v: '1/200 (S mode)', b: 'modeDial' },
+      { s: 'SteadyShot (movie)', v: 'Standard', p: P.ssMovie, w: 'Active is not available at 100p/120p.' },
+      { s: 'Lighting', v: 'Daylight', w: 'Faster shutter = more ISO noise in shade.' }
+    ],
+    steps: [{ t: 'Record normally — sound is recorded too.' }, { t: 'In the editor, interpret the clip at 25 fps → 4× slow motion.' }],
+    tips: ['Great for prayer-flag flutter, water splash, hair in wind, people jumping.', 'Avoid S&Q 100/200 fps at high bit-rates — those need V90 cards (your Lexar is V60).'],
+    tags: 'slow motion slowmo slo-mo 100p 120p s&q frame rate' },
+
+  { id: 'timelapse', cat: 'Video', icon: '⏱️', title: 'Day time-lapse (clouds, sunset, crowds)',
+    sub: 'Interval shooting on a tripod; build the video on PC.',
+    dial: { mode: 'M', sms: 'Still' },
+    a: 'Tripod, Still + M mode (or A for sunsets), JPEG, MF, SteadyShot Off. Interval Shoot Func.: Interval On, Shooting Interval 2–3 s (clouds) or 5–10 s (sunset), Number of Shots 250–400. Use the VND to get 1/4–1 s shutter for smooth motion. Use the Time-lapse calculator.',
+    q: ['time lapse settings', 'timelapse clouds', 'hyperlapse', 'interval timer'],
+    set: [
+      { s: 'Mode', v: 'M (constant light) · A with AE tracking (sunset)', b: 'modeDial' },
+      { s: 'File Format (still)', v: 'JPEG (Fine)', p: P.fileStill, w: '300 RAW = 12 GB; JPEG is plenty for 4K video.' },
+      { s: 'Interval Shoot Func.', v: 'On · interval 3 s · shots 300 · AE Tracking Sensitivity Low', p: P.interval },
+      { s: 'Focus Mode', v: 'MF (after focusing)', p: P.focusMode },
+      { s: 'White Balance', v: 'Daylight (fixed)', p: P.wb, w: 'Prevents colour flicker.' },
+      { s: 'SteadyShot (still)', v: 'Off', p: P.ssStill },
+      { s: 'Filter', v: 'VND for 1/4 – 1 s exposures', b: 'filter', w: 'Motion blur between frames looks smoother.' }
+    ],
+    steps: [{ t: 'Use Tools → Time-lapse calculator for interval and shot count.' }, { t: 'Set Interval Shoot Func. and press the shutter once.', p: P.interval }, { t: 'On PC: let Claude/ffmpeg assemble the frames at 25 fps.' }],
+    tips: ['Clouds: 2–3 s. Sunset: 5 s. Stars: see Star trails preset.', 'A walking hyperlapse: 1 photo every step, Continuous Lo, align in post.'],
+    tags: 'timelapse time-lapse hyperlapse interval clouds sunset' },
+
+  { id: 'vertical', cat: 'Video', icon: '📱', title: 'Vertical Reels / Shorts',
+    sub: 'Two ways — crop from 4K horizontal (default) or rotate the camera.',
+    dial: { mode: 'S', sms: 'Movie' },
+    a: 'Default: keep shooting horizontal 4K (sweet spot) with the subject near the centre and crop 9:16 in the edit — 4K gives a sharp 1080×1920 crop. For dedicated Reels, rotate the camera 90° (tripod/clamp), same settings.',
+    q: ['vertical video', 'instagram reels settings', 'shorts', '9:16', 'portrait video'],
+    set: [
+      { s: 'Method A (default)', v: 'Horizontal 4K, crop later', w: 'One clip works for YouTube and Reels.' },
+      { s: 'Aspect Marker', v: 'On if 9:16 guide is offered ⚠', p: P.marker, w: 'Shows a frame guide; check if your firmware lists 9:16.' },
+      { s: 'Method B', v: 'Rotate camera 90°', w: 'Full sensor resolution in vertical; use a tripod L-bracket or rotate the ball head.' },
+      { s: 'Grid Line Display', v: 'On', p: P.grid }
+    ],
+    steps: [{ t: 'Keep important action in the centre third when cropping later.' }, { t: 'Hold each shot 5 s, add movement toward/away from the camera.' }],
+    tips: ['First 3 seconds decide a Reel — shoot a strong “hook” shot at each place.'],
+    tags: 'vertical reels reel instagram shorts tiktok 9:16 portrait video' },
+
+  { id: 'slog3', cat: 'Video', icon: '🎞️', title: 'S-Log3 for high-contrast sunrise (advanced)',
+    sub: 'Max dynamic range for grading. Tripod + good light only.',
+    dial: { mode: 'M', sms: 'Movie' },
+    a: 'Only for bright, high-contrast scenes on a tripod. Picture Profile with Gamma S-Log3 / Color Mode S-Gamut3.Cine (or Log Shooting Setting → On (Flexible ISO)). Expose +1 to +1.7 brighter than "correct", Gamma Display Assist On. XAVC HS 4K 10-bit. Never in low light — S-Log3 is noisy with this lens.',
+    q: ['slog3 settings', 's-log3', 'log profile', 'flat profile for grading', 'hdr video'],
+    set: [
+      { s: 'Picture Profile', v: 'A PP with Gamma = S-Log3, Color Mode = S-Gamut3.Cine', p: P.pp, w: '⚠ On many Sony bodies PP8 is preset to S-Log3/S-Gamut3.Cine — open PP8 and check its Gamma.' },
+      { s: 'or Log Shooting Setting', v: 'Log Shooting: On (Flexible ISO)', p: P.logSet },
+      { s: 'Gamma Display Assist', v: 'On', p: P.gammaAssist, w: 'Shows a normal-looking image on screen while recording flat Log.' },
+      { s: 'Exposure', v: '+1.0 to +1.7 EV brighter (zebras 94–100 on brightest sky)', b: 'wDown', w: 'Under-exposed S-Log3 = muddy, noisy footage.' },
+      { s: 'Record Setting', v: 'XAVC HS 4K 50p 150M 4:2:0 10bit', p: P.movieSet },
+      { s: 'White Balance', v: 'Fixed (Daylight)', p: P.wb }
+    ],
+    steps: [{ t: 'Tell Claude which clips are S-Log3 so the right conversion (S-Gamut3.Cine/S-Log3 → Rec.709) is used.' }],
+    avoid: ['Don’t mix S-Log3 and S-Cinetone on the same day/scene — matching becomes hard.', 'Not for night or indoor.'],
+    tags: 'slog s-log3 log grading flat profile dynamic range hdr advanced' }
+  ];
+
+  const howto = [
+  { id: 'del-date', icon: '🗓️', title: 'Delete all files from one date', cat: 'Files & card',
+    a: 'Playback → press wheel ▼ (Image Index) → move left onto the date bar → pick the date with ▲▼ → MENU → Playback → Delete → Delete → All with this date → OK. View Mode decides what is included: Date View (photos+movies), Movie View (only movies), Folder View(Still) (only photos). Protected files are kept.',
+    q: ['delete all files of a date', 'delete multiple files same date', 'remove photos from one day', 'erase one day', 'delete by date', 'delete all videos of a day'],
+    steps: [
+      { t: 'Press the Playback button.', b: 'play' },
+      { t: 'Choose what to see: MENU → Playback → Playback Target → View Mode → Date View (or Movie View for only videos).', p: P.viewMode },
+      { t: 'Press the wheel ▼ (Image Index) to see thumbnails.', b: 'wDown' },
+      { t: 'Press ◀ to move onto the date bar on the left, then ▲ / ▼ to select the date.', b: 'wLeft' },
+      { t: 'MENU → Playback → Delete → Delete → All with this date.', p: P.del },
+      { t: 'Confirm with OK / Delete and press the wheel center.', b: 'wCenter' }
+    ],
+    notes: ['Deleted files cannot be recovered.', 'Protected files are NOT deleted.', 'Other options in the same menu: Multiple Img., All in this Folder, All Other Than This Img., All Images in This Group.', 'To wipe everything use Format instead.'],
+    tags: 'delete remove erase date day multiple files bulk trash' },
+
+  { id: 'del-multi', icon: '☑️', title: 'Delete several chosen files', cat: 'Files & card',
+    a: 'MENU → Playback → Delete → Delete → Multiple Img. → press the wheel center on each file to tick it → MENU → OK.',
+    q: ['delete selected photos', 'delete some files', 'select many and delete', 'multiple delete'],
+    steps: [
+      { t: 'MENU → Playback → Delete → Delete → Multiple Img.', p: P.del },
+      { t: 'Move with the wheel; press the center to tick ✓ (press again to untick).', b: 'wCenter' },
+      { t: 'Press MENU → OK.', b: 'menu' }
+    ],
+    notes: ['Selecting a group (burst stack) deletes the whole group; open the group first to pick single frames.'],
+    tags: 'delete multiple select several tick' },
+
+  { id: 'del-one', icon: '🗑️', title: 'Delete the photo/video on screen', cat: 'Files & card',
+    a: 'In playback press the C3/🗑 button (bottom-right of the wheel) → Delete → center. Tip: Playback → Delete → Delete pressing twice → On lets you just press 🗑 twice.',
+    q: ['delete this photo', 'delete one picture', 'delete current video'],
+    steps: [{ t: 'Press Playback, find the file.', b: 'play' }, { t: 'Press the 🗑 (C3) button.', b: 'c3' }, { t: 'Choose Delete, press center.', b: 'wCenter' }, { t: 'Optional faster: MENU → Playback → Delete → Delete pressing twice → On.', p: P.delTwice }],
+    tags: 'delete one single current trash button' },
+
+  { id: 'format', icon: '🧹', title: 'Format the memory card', cat: 'Files & card',
+    a: 'MENU → Shooting → Media → Format → Enter. Shortcut: on the shooting screen hold MENU, then hold 🗑 (C3) for ~2 s. Erases everything including protected files and settings saved to card slots M1–M4.',
+    q: ['format card', 'erase sd card', 'clear memory card', 'new card setup', 'wipe card'],
+    steps: [
+      { t: 'Back up the card first!' },
+      { t: 'MENU → Shooting → Media → Format.', p: P.format },
+      { t: 'Select Enter (quick format). For a full/slow format press 🗑 on that screen first.', b: 'c3' },
+      { t: 'Shortcut: shooting screen → hold MENU + hold 🗑 for ~2 s.', b: 'menu' }
+    ],
+    notes: ['Always format in the camera, not on a PC.', 'Needs >1% battery. Don’t remove the card while the access lamp is lit.', 'Do it after every trip once files are backed up — keeps the card healthy.'],
+    tags: 'format erase wipe card sd clean new' },
+
+  { id: 'protect', icon: '🔒', title: 'Protect important files', cat: 'Files & card',
+    a: 'MENU → Playback → Selection/Memo → Protect → Multiple Img. / All with this date / All in this Folder… Protected files survive Delete (not Format).',
+    q: ['lock photo', 'protect video from delete', 'keep files safe'],
+    steps: [{ t: 'MENU → Playback → Selection/Memo → Protect.', p: P.protect }, { t: 'Choose Multiple Img., tick files with the center, MENU → OK.', b: 'wCenter' }],
+    notes: ['Assign Protect to a custom key for one-press locking of your best clips (great for a “keepers” list).'],
+    tags: 'protect lock keep safe' },
+
+  { id: 'rating', icon: '⭐', title: 'Star-rate photos (your shot ledger)', cat: 'Files & card',
+    a: 'MENU → Playback → Selection/Memo → Rating → pick image (◀▶) → center → pick stars (◀▶) → center. Ratings are for still images, not movies. Ratings show up in Lightroom/Bridge and can feed the PC shot ledger.',
+    q: ['rate photos', 'star rating', 'mark best photos', 'favourite photo'],
+    steps: [{ t: 'MENU → Playback → Selection/Memo → Rating.', p: P.rating }, { t: '◀▶ choose image, press center, ◀▶ choose stars, press center. MENU to exit.', b: 'wCenter' }],
+    notes: ['For videos use Protect as your “keeper” mark, and note clip numbers in the Trip Log.'],
+    tags: 'rating star rate best favourite keeper ledger' },
+
+  { id: 'mr-save', icon: '💾', title: 'Save settings to dial 1 / 2 / 3', cat: 'Setup',
+    a: 'Set the camera the way you like → MENU → Shooting → Shooting Mode → Camera Set. Memory → choose 1, 2 or 3 → center. Still, Movie and S&Q each have their OWN 1/2/3 — so save with the Still/Movie/S&Q dial in the right position. Recall by turning the mode dial to 1/2/3.',
+    q: ['save settings', 'memory recall', 'custom mode', 'register settings', 'mr1', 'dial 1 2 3', 'preset on camera'],
+    steps: [
+      { t: 'Put the Still/Movie/S&Q dial where you want the preset (Still or Movie).', b: 'smsDial' },
+      { t: 'Set all the settings.' },
+      { t: 'MENU → Shooting → Shooting Mode → Camera Set. Memory.', p: P.memSave },
+      { t: 'Choose 1, 2 or 3 (or M1–M4 = saved on the card) and press the center.', b: 'wCenter' },
+      { t: 'Use it: turn the mode dial to 1, 2 or 3.', b: 'modeDial' }
+    ],
+    notes: ['Suggested: Still 1 Everyday Photo · Still 2 Milky Way · Still 3 Wildlife · Movie 1 Everyday Video · Movie 2 Cinematic tripod · Movie 3 Low-light handheld.', 'Changes you make while on 1/2/3 are temporary; re-save to keep them.', 'Formatting erases M1–M4 (card slots) — the body’s 1/2/3 stay.'],
+    tags: 'memory recall save register custom mode 1 2 3 mr preset' },
+
+  { id: 'backup-settings', icon: '🧳', title: 'Back up ALL camera settings to the card', cat: 'Setup',
+    a: 'MENU → Setup → Reset/Save Settings → Save/Load Settings → Save. If the camera is ever reset, Load brings everything back (buttons, menus, presets).',
+    q: ['backup settings', 'save all settings', 'restore settings', 'export camera settings'],
+    steps: [{ t: 'MENU → Setup → Reset/Save Settings → Save/Load Settings → Save.', p: P.saveLoad }, { t: 'Copy the saved file to your PC too ⚠ (it is in a PRIVATE/SONY folder).' }],
+    notes: ['Formatting the card deletes the saved file — re-save after formatting.'],
+    tags: 'backup save load settings restore reset' },
+
+  { id: 'mymenu', icon: '★', title: 'Build My Menu (your shortcuts)', cat: 'Setup',
+    a: 'MENU → My Menu (★ tab at the top) → My Menu Setting → Add Item → pick an item → choose where to put it. Suggested: Format, Camera Set. Memory, Movie Settings, Picture Profile, Interval Shoot Func., Monitor Brightness, Display Media Info., Airplane Mode.',
+    q: ['my menu', 'favourite menu', 'shortcut menu', 'quick menu'],
+    steps: [{ t: 'MENU → My Menu → My Menu Setting → Add Item.', p: P.myMenuAdd }, { t: 'Choose the item, then the position.', b: 'wCenter' }],
+    tags: 'my menu favourite shortcut star tab' },
+
+  { id: 'custom-keys', icon: '🔘', title: 'Set up C1 / C2 / C3 buttons', cat: 'Setup',
+    a: 'MENU → Setup → Operation Customize → Custom Key/Dial Set. (separate for Still and Movie) → choose the button → assign a function. Recommended: C1 = Recognition Target, C2 = Focus Magnifier, C3 = Focus Mode (in playback C3 stays Delete). Record what you set in My Camera.',
+    q: ['custom button', 'assign button', 'change c1', 'c2 button', 'shortcut button'],
+    steps: [{ t: 'MENU → Setup → Operation Customize → Custom Key/Dial Set.', p: P.ckStill }, { t: 'Select the button on the camera picture, press the center, choose a function.', b: 'c1' }, { t: 'Repeat in the Movie version for video.', p: P.ckMovie }],
+    notes: ['Sony assigns “recommended functions” by default — check yours there and note them in My Camera.', 'Button positions: C1 rear top-right, C2 top plate, C3 bottom-right of the wheel.'],
+    tags: 'custom key button c1 c2 c3 assign function dial' },
+
+  { id: 'fn-menu', icon: '▦', title: 'Customise the Fn menu', cat: 'Setup',
+    a: 'MENU → Setup → Operation Customize → Fn Menu Settings → pick a tile → assign a function (separate sets for Still and Movie). Press Fn to use: wheel/touch to choose a tile, front dial to change it.',
+    q: ['fn menu', 'function menu', 'quick settings', 'fn button'],
+    steps: [{ t: 'MENU → Setup → Operation Customize → Fn Menu Settings.', p: P.fnSet }, { t: 'Suggested video tiles: Picture Profile, Movie Settings, SteadyShot, White Balance, Focus Mode, Recognition Target, Zebra, Audio Rec Level, ISO, Shoot Mode, Focus Area, Exposure Comp.' }, { t: 'Use: press Fn.', b: 'fn' }],
+    tags: 'fn function menu quick tiles' },
+
+  { id: 'palntsc', icon: '🌐', title: 'Check / set PAL or NTSC', cat: 'Setup',
+    a: 'Look at Movie Settings → Rec Frame Rate: 50p/25p/100p = PAL, 60p/30p/24p/120p = NTSC. Change at MENU → Setup → Area/Date → NTSC/PAL Selector. In India use PAL (50 Hz lights).',
+    q: ['pal or ntsc', 'how to check pal ntsc', '25p or 30p', 'frame rate region', 'flicker lights india'],
+    steps: [{ t: 'Check: MENU → Shooting → Image Quality/Rec → Movie Settings → Rec Frame Rate. 50p/25p ⇒ PAL.', p: P.movieSet }, { t: 'Change: MENU → Setup → Area/Date → NTSC/PAL Selector → Enter.', p: P.palntsc }],
+    notes: ['⚠ The camera may ask to format the card when switching — back up first.', '24p exists only in NTSC. PAL gives 25p/50p/100p.'],
+    tags: 'pal ntsc frame rate 25p 50p 30p 60p region flicker' },
+
+  { id: 'datetime', icon: '🕒', title: 'Set date, time & time zone', cat: 'Setup',
+    a: 'MENU → Setup → Area/Date → Area/Date/Time Setting → Area Setting / Date/Time / Daylight Savings (Off for India). If paired with Creators’ App with auto time on, the phone corrects it.',
+    q: ['change date time', 'time zone', 'wrong time on photos', 'clock'],
+    steps: [{ t: 'MENU → Setup → Area/Date → Area/Date/Time Setting.', p: P.dateTime }],
+    notes: ['If the clock resets after every battery change, the internal backup battery is flat: put a charged battery in and leave the camera OFF for 24 h.'],
+    tags: 'date time clock zone area daylight' },
+
+  { id: 'charge', icon: '🔋', title: 'Charge from a power bank (USB-C)', cat: 'Power',
+    a: 'Camera OFF → USB-C to USB-C cable (3 A rated) → USB-PD power bank/charger of 18 W (9V/2A) or more. Orange lamp on = charging, off = done, blinking = error/temperature. ~175 min full charge at 27 W. With the camera ON, USB powers the camera but does NOT charge the battery.',
+    q: ['charge battery', 'power bank charging', 'usb charging', 'battery charge time', 'charge while shooting', 'orange light blinking'],
+    steps: [{ t: 'Turn the camera OFF.', b: 'power' }, { t: 'Plug a USB-PD power bank (18 W+) into the USB-C port with a 3 A C-to-C cable.', b: 'usb' }, { t: 'Orange lamp lit = charging, off = full.' }],
+    notes: ['No PD? A normal USB-A charger (1.5 A+) also works, slower.', 'For time-lapses: camera ON + power bank = unlimited run time (battery must stay inside).', 'You have no spare battery — strongly consider a second NP-FZ100 for treks.'],
+    tags: 'charge charging battery power bank usb c pd orange lamp np-fz100' },
+
+  { id: 'battery-save', icon: '🪫', title: 'Make the battery last longer', cat: 'Power',
+    a: 'Airplane Mode On (unless using location), Monitor Brightness lower, use viewfinder or Auto Monitor OFF, Power Save Start Time 1 min, turn the camera off between scenes, keep battery warm in cold. 4K video drains fastest.',
+    q: ['battery drains fast', 'save battery', 'battery life', 'battery dying cold'],
+    steps: [
+      { t: 'MENU → Network → Network Option → Airplane Mode → On.', p: P.airplane },
+      { t: 'MENU → Setup → Power Setting Option → Power Save Start Time → 1 min.', p: P.powerSave },
+      { t: 'MENU → Setup → Finder/Monitor → Monitor Brightness → lower.', p: P.monBright },
+      { t: 'MENU → Setup → Display Option → Auto Review → Off.', p: P.autoReview }
+    ],
+    notes: ['Cold: keep the battery in an inner pocket, swap in only when shooting.'],
+    tags: 'battery life save drain power cold airplane' },
+
+  { id: 'location', icon: '📍', title: 'GPS-tag photos & videos (works without mobile data)', cat: 'Phone',
+    a: 'Pair the camera with Sony Creators’ App once (needs internet for install only). Then in the app: Cameras → Setup → Location Information Linkage → On. Phone GPS works without network. Keep the app running, camera Airplane Mode Off, Bluetooth on.',
+    q: ['gps location', 'geotag', 'location on photos', 'where was this taken'],
+    steps: [
+      { t: 'At home with internet: install Creators’ App, pair: MENU → Network → Bluetooth → Pairing.', p: P.pairing },
+      { t: 'In the app: Cameras → Setup → Location Information Linkage → On.' },
+      { t: 'A location icon appears on the camera screen when it’s receiving.' }
+    ],
+    notes: ['Location goes into each file — the PC footage index can then search “clips from Chandrashila”.', 'Costs some phone + camera battery.', 'Turn off before posting images where location is private.'],
+    tags: 'gps location geotag map creators app bluetooth' },
+
+  { id: 'transfer', icon: '📲', title: 'Send photos to the phone (no internet)', cat: 'Phone',
+    a: 'In playback press Fn (Send to Smartphone) or use MENU → Network → Cnct./PC Remote → Smartphone Connection. The camera makes its own Wi-Fi link to Creators’ App — no mobile network needed. ⚠ exact screens vary with app version.',
+    q: ['transfer to phone', 'send photo to mobile', 'copy to smartphone', 'share pictures phone'],
+    steps: [{ t: 'Press Playback, pick the photo.', b: 'play' }, { t: 'Press Fn (Send to Smartphone).', b: 'fn' }, { t: 'Open Creators’ App and accept.' }],
+    tags: 'transfer send phone smartphone wifi share copy' },
+
+  { id: 'focus-mag', icon: '🔍', title: 'Focus Magnifier & Peaking (manual focus help)', cat: 'Focus',
+    a: 'MENU → Focus → Focus Assistant → Focus Magnifier (zooms the screen to check focus). MENU → Focus → Peaking Display → On (coloured edges show what is sharp). Assign Focus Magnifier to C2 for one-press use.',
+    q: ['manual focus help', 'focus peaking', 'zoom screen to focus', 'check focus'],
+    steps: [{ t: 'MENU → Focus → Focus Assistant → Focus Magnifier.', p: P.mag }, { t: 'MENU → Focus → Peaking Display → Peaking Display → On.', p: P.peaking }, { t: 'Turn the lens focus ring.', b: 'lensFocus' }],
+    tags: 'focus magnifier peaking manual mf zoom check sharp' },
+
+  { id: 'zebras', icon: '🦓', title: 'Zebras (over-exposure warning)', cat: 'Exposure',
+    a: 'MENU → Exposure/Color → Zebra Display → On; Zebra Level → 100+ (shows clipped areas). Stripes on faces/sky = turn exposure down.',
+    q: ['zebra', 'overexposed warning', 'striped lines on screen'],
+    steps: [{ t: 'MENU → Exposure/Color → Zebra Display → Zebra Display → On.', p: P.zebra }, { t: 'Zebra Level → 100+.', p: P.zebraLvl }],
+    tags: 'zebra stripes overexposure highlight clipping exposure' },
+
+  { id: 'filters', icon: '🟣', title: 'Using your K&F VND + CPL filter', cat: 'Exposure',
+    a: '67 mm screws straight onto the Sigma. VND = 1–5 stops darker (ND2–32) for slow shutter in daylight (1/100 video, silky water). CPL = deeper blue sky, less glare on water/ice — strongest at 90° to the sun. At 16 mm both can look uneven (dark band / X-cross): zoom to 24 mm+ or reduce strength. Remove at night.',
+    q: ['nd filter', 'polarizer', 'cpl how to use', 'variable nd', 'filter dark cross'],
+    steps: [{ t: 'Screw onto the lens front (67 mm).', b: 'filter' }, { t: 'Turn the ring while watching the screen/zebras.' }, { t: 'Use Tools → ND calculator to predict the shutter.' }],
+    notes: ['⚠ Check your filter’s markings for which ring is VND and which is CPL.', 'Always focus before darkening heavily.'],
+    tags: 'filter nd vnd cpl polarizer polariser k&f 67mm variable' },
+
+  { id: 'basics', icon: '📘', title: 'Exposure basics in 1 minute', cat: 'Exposure',
+    a: 'Shutter speed = motion (fast freezes, slow blurs). Aperture f-number = depth (low number = more light, blur background; high = more in focus). ISO = brightness amplifier (higher = brighter + more noise). A mode: you pick f-number. S mode: you pick shutter. M: you pick everything. Exposure comp (wheel ▼): tell the camera brighter/darker.',
+    q: ['what is aperture', 'what is iso', 'what is shutter speed', 'difference a s m mode', 'exposure triangle', 'which mode to use'],
+    steps: [{ t: 'Wheel ▼ = exposure compensation, ▶ = ISO.', b: 'wDown' }],
+    tags: 'basics exposure aperture shutter iso mode a s m p learn beginner' },
+
+  { id: 'nocard', icon: '🚫', title: 'Never shoot without a card', cat: 'Setup',
+    a: 'MENU → Shooting → Shutter/Silent → Release w/o Card → Disable. Then the camera refuses to shoot if you forgot the card (default lets you shoot to nowhere!).',
+    q: ['no card warning', 'forgot memory card', 'shoot without card'],
+    steps: [{ t: 'MENU → Shooting → Shutter/Silent → Release w/o Card → Disable.', p: P.noCard }],
+    tags: 'card release without no card disable' },
+
+  { id: 'sensor', icon: '🧽', title: 'Clean dust spots on the sensor', cat: 'Care',
+    a: 'MENU → Setup → Setup Option → Sensor Cleaning (vibrates dust off). Then, lens off, camera facing down, use a rubber blower — never touch the sensor or use canned air. Test by shooting the sky at f/16.',
+    q: ['dust spots', 'dirty sensor', 'black spots on photo', 'clean sensor'],
+    steps: [{ t: 'MENU → Setup → Setup Option → Sensor Cleaning.', p: P.sensorClean }, { t: 'Blower with the mount facing down.' }],
+    tags: 'sensor clean dust spots blower' },
+
+  { id: 'version', icon: 'ℹ️', title: 'Check firmware version', cat: 'Care',
+    a: 'MENU → Setup → Setup Option → Version. You have Body 2.00, Lens 01. Updates need ≥51% battery; download from Sony on a PC when back online.',
+    q: ['firmware version', 'software update', 'camera version'],
+    steps: [{ t: 'MENU → Setup → Setup Option → Version.', p: P.version }],
+    tags: 'firmware version update software' },
+
+  { id: 'silent', icon: '🤫', title: 'Silent shooting', cat: 'Setup',
+    a: 'MENU → Shooting → Shutter/Silent → Silent Mode Settings → On. Uses the electronic shutter: silent, but moving subjects can bend and LED lights can cause bands.',
+    q: ['silent mode', 'no shutter sound', 'quiet camera'],
+    steps: [{ t: 'MENU → Shooting → Shutter/Silent → Silent Mode Settings.', p: P.silent }],
+    tags: 'silent quiet shutter sound temple' },
+
+  { id: 'cardspace', icon: '💽', title: 'How much is left on my card?', cat: 'Files & card',
+    a: 'MENU → Shooting → Media → Display Media Info. shows remaining shots and minutes. 128 GB: ~1 h 35 m at 4K 150M, ~2 h 50 m at 75M, ~2,500 RAW+JPEG. Tools → Card calculator for planning.',
+    q: ['card space left', 'how many minutes video', 'storage remaining', 'how many photos fit'],
+    steps: [{ t: 'MENU → Shooting → Media → Display Media Info.', p: P.mediaInfo }],
+    tags: 'card space storage remaining minutes left capacity' }
+  ];
+
+  const fixes = [
+  { id: 'fix-stars-blur', icon: '🌫️', title: 'Stars are blurry blobs', a: 'Almost always focus. MF + Focus Magnifier on a bright star, make the dot smallest. Also: SteadyShot Off on tripod, use 2-s timer, check lens for dew, wind shaking tripod.',
+    causes: ['Focus not at infinity (lens has no hard stop)', 'Dew/fog on the front element', 'SteadyShot left On', 'Tripod moved / wind'],
+    fixes: [{ t: 'Re-focus with Focus Magnifier.', p: P.mag }, { t: 'SteadyShot (still) → Off.', p: P.ssStill }, { t: 'Hand-warmer on the lens, wipe dew.' }],
+    q: ['stars blurry', 'stars not sharp', 'stars look like blobs'], tags: 'astro stars blurry focus soft' },
+  { id: 'fix-stars-trail', icon: '〰️', title: 'Stars are short lines', a: 'Exposure too long for the focal length. At 16 mm keep ≤13–15 s; zoomed-in needs shorter (Tools → Star exposure).',
+    causes: ['Shutter longer than the NPF limit', 'Zoomed in past 16 mm'], fixes: [{ t: 'Shorten shutter, raise ISO.', b: 'rearDial' }],
+    q: ['stars streaks', 'star trails by mistake', 'stars elongated'], tags: 'stars trailing lines streaks' },
+  { id: 'fix-noise', icon: '🌚', title: 'Night photos are dark / noisy', a: 'Expose brighter in camera: longer shutter (within NPF), ISO 3200–6400, f/3.5 at 16 mm. Brightening a dark RAW later adds more noise than a higher ISO. Stack 10+ frames on PC. Use RAW.',
+    causes: ['Underexposed', 'Zoomed in (aperture smaller)', 'Moon/clouds'], fixes: [{ t: 'Raise ISO.', p: P.iso, b: 'wRight' }, { t: 'Shoot RAW.', p: P.fileStill }],
+    q: ['grainy night photo', 'noise in photo', 'dark photo at night'], tags: 'noise grain noisy dark night iso' },
+  { id: 'fix-blur-day', icon: '🫨', title: 'Daytime photos not sharp', a: 'At 300 mm you need 1/500 s or faster. Set ISO AUTO Min. SS → Faster, SteadyShot On, check the focus box landed on the subject (not background). Use AF-C + Subject Recognition.',
+    causes: ['Shutter too slow when zoomed', 'Focus on background', 'Subject moving'], fixes: [{ t: 'ISO AUTO Min. SS → Faster.', p: P.isoMinSS }, { t: 'SteadyShot (still) → On.', p: P.ssStill }, { t: 'Subject Recog in AF → On.', p: P.recogAF }],
+    q: ['blurry photo', 'photos soft', 'zoom photo shaky', 'out of focus'], tags: 'blurry soft shake out of focus sharp' },
+  { id: 'fix-video-bright', icon: '☀️', title: 'Video too bright / sky blown out', a: 'In S mode at 1/100 the lens may hit f/22 in harsh sun — screw on the VND and turn 1–3 stops. Exposure comp −0.7. Watch zebras.',
+    causes: ['Too much light for 1/100 at ISO 100', 'Metering on dark subject'], fixes: [{ t: 'Add VND.', b: 'filter' }, { t: 'Exposure comp −0.7.', b: 'wDown' }, { t: 'Zebras On.', p: P.zebra }],
+    q: ['video overexposed', 'white sky video', 'too bright footage'], tags: 'overexposed bright sky blown video zebra nd' },
+  { id: 'fix-flicker', icon: '💡', title: 'Flicker or rolling bands under lights', a: 'Use PAL frame rates and shutter 1/50 or 1/100 for video (50 Hz India). For photos: Shutter/Silent → Anti-flicker Set. and avoid Silent mode under LEDs.',
+    causes: ['NTSC shutter speeds (1/60, 1/120) under 50 Hz lights', 'Electronic shutter under LED'], fixes: [{ t: 'NTSC/PAL Selector → PAL.', p: P.palntsc }, { t: 'Anti-flicker Set.', p: P.antiFlicker }],
+    q: ['flickering video', 'lines on video', 'banding lights'], tags: 'flicker banding lights led tube pal 50hz' },
+  { id: 'fix-stutter', icon: '🎞️', title: 'Footage looks choppy / jittery', a: 'Shutter too fast (e.g. 1/2000 in sun in A or P mode). Use S mode 1/100 at 50p (VND if too bright). For walking shake use SteadyShot Active and hold shots longer.',
+    causes: ['Very fast shutter', 'Walking shake', 'Panning too fast'], fixes: [{ t: 'S mode at 1/100.', b: 'modeDial' }, { t: 'SteadyShot (movie) → Active.', p: P.ssMovie }],
+    q: ['choppy video', 'jittery footage', 'video stutter', 'shaky video'], tags: 'choppy stutter jitter shaky video shutter' },
+  { id: 'fix-hunt', icon: '🎯', title: 'Focus hunting in vlog', a: 'Subject Recog in AF On (Human), Focus Area Wide, enough light (zoom wide = brighter), keep face large in frame. In very low light switch to AF-S/MF for static shots.',
+    causes: ['Low light at f/6.7 (zoomed)', 'Face too small', 'Recognition off'], fixes: [{ t: 'Subject Recog in AF → On.', p: P.recogAF }, { t: 'Focus Area → Wide.', p: P.focusArea }],
+    q: ['focus hunting', 'autofocus searching', 'vlog out of focus'], tags: 'focus hunting af video vlog' },
+  { id: 'fix-heat', icon: '🌡️', title: 'Overheating / recording stops', a: 'Setup → Power Setting Option → Auto Power OFF Temp. → High, flip the monitor out, keep the camera in shade, record shorter clips. With Standard, 4K may stop after ~5 min; High ≈ 30 min at 25 °C.',
+    causes: ['4K in sun', 'Auto Power OFF Temp. = Standard'], fixes: [{ t: 'Auto Power OFF Temp. → High.', p: P.autoOffTemp }],
+    q: ['camera overheating', 'temperature warning', 'video stopped hot'], tags: 'overheat hot temperature stop record' },
+  { id: 'fix-card', icon: '⚠️', title: '“Unable to record” / card error', a: 'Your Lexar V60 can’t record XAVC S-I (needs V90) or high-bit-rate S&Q. Use XAVC HS 4K or XAVC S. Reformat in camera after backing up. Shooting → Media → Recover Image DB for database errors. Clean the card contacts.',
+    causes: ['XAVC S-I or S&Q high bitrate on V60 card', 'Card full', 'Database error'], fixes: [{ t: 'File Format → XAVC HS 4K.', p: P.fileMovie }, { t: 'Recover Image DB.', p: P.recoverDb }, { t: 'Format (after backup).', p: P.format }],
+    q: ['card error', 'cannot record', 'recording stopped card', 'memory card slow'], tags: 'card error unable record v60 v90 format' },
+  { id: 'fix-cold', icon: '🥶', title: 'Battery dies in the cold', a: 'Li-ion loses capacity below 0 °C. Keep the battery in an inner pocket, put it in only when shooting. Airplane Mode on, lower screen brightness, power bank in your sleeping bag at night.',
+    causes: ['Low temperature', 'Wireless on', 'Bright screen'], fixes: [{ t: 'Airplane Mode → On.', p: P.airplane }],
+    q: ['battery cold', 'battery dead snow', 'winter battery'], tags: 'cold battery winter snow altitude' },
+  { id: 'fix-fog', icon: '💧', title: 'Lens / inside fogs up (condensation)', a: 'Going from cold outside to a warm tent/homestay: put the camera in a sealed zip-lock or the closed bag BEFORE entering, let it warm 1–2 h. At night outdoors, dew on the lens → hand-warmer band.',
+    causes: ['Cold-to-warm transitions', 'Night dew'], fixes: [{ t: 'Zip-lock bag before going inside.' }],
+    q: ['lens fog', 'condensation camera', 'mist inside lens'], tags: 'fog condensation dew mist moisture' },
+  { id: 'fix-wind', icon: '🌬️', title: 'Wind noise in audio', a: 'Shooting → Audio Recording → Wind Noise Reduct. → Auto/On (internal mic only). Shield the top of the camera, or use an external mic with a fur windshield. Record 10 s of ambience separately.',
+    causes: ['Wind hitting the top mic'], fixes: [{ t: 'Wind Noise Reduct.', p: P.wind }, { t: 'Audio Rec Level.', p: P.audioLvl }],
+    q: ['wind noise', 'bad audio', 'microphone noise'], tags: 'wind noise audio mic sound' },
+  { id: 'fix-flat', icon: '🩶', title: 'Footage looks grey / flat', a: 'You are probably in S-Log3. Either switch to PP11 S-Cinetone or turn on Gamma Display Assist to preview, and expose brighter (+1 to +1.7). Tell Claude the clips are S-Log3 when grading.',
+    causes: ['S-Log3 picture profile active'], fixes: [{ t: 'Picture Profile → PP11.', p: P.pp }, { t: 'Gamma Display Assist → On.', p: P.gammaAssist }],
+    q: ['video looks washed out', 'grey footage', 'flat colors'], tags: 'flat grey washed log slog profile' },
+  { id: 'fix-missing', icon: '🔎', title: 'Playback shows only videos / only photos', a: 'Playback → Playback Target → View Mode: Date View shows everything; Movie View only movies; Folder View(Still) only photos.',
+    causes: ['View Mode setting'], fixes: [{ t: 'View Mode → Date View.', p: P.viewMode }],
+    q: ['cant find photos', 'only videos showing', 'missing pictures playback'], tags: 'playback missing view mode photos videos' },
+  { id: 'fix-recall', icon: '🔄', title: 'Settings changed by themselves', a: 'If the mode dial is on 1/2/3, the saved settings take over. Changes there are temporary unless re-saved with Camera Set. Memory. Also check you are on the right Still/Movie position — each has its own settings.',
+    causes: ['Recall position on the dial', 'Different Set for Still/Mv'], fixes: [{ t: 'Re-save with Camera Set. Memory.', p: P.memSave }],
+    q: ['settings reset', 'settings keep changing', 'my settings lost'], tags: 'settings changed recall memory reset lost' }
+  ];
+
+  const checklists = [
+  { id: 'cl-pretrip', icon: '🎒', title: 'Before the trip', items: [
+    'Battery 100% (USB-C, camera off)', 'Power bank (USB-PD 18 W+) charged + 3 A USB-C cable', 'Old files backed up → card formatted IN CAMERA',
+    'Release w/o Card → Disable', 'Date/time & area correct', 'NTSC/PAL = PAL', 'Dial memories loaded: Still 1/2/3, Movie 1/2/3',
+    'Save/Load Settings → Save (after formatting)', 'Lens, filter & screen cleaned · blower + microfiber packed', 'Tripod plate attached',
+    'Zip-lock bags (condensation) + rain cover', 'Headlamp with red mode', 'Creators’ App paired + location linkage tested', 'This app installed & tested in airplane mode',
+    'Consider: spare NP-FZ100 battery & 2nd SD card' ] },
+  { id: 'cl-daily', icon: '🌙', title: 'Every evening', items: [
+    'Charge battery from power bank (camera OFF)', 'Check card: Display Media Info.', 'Delete obvious rejects (by date if needed)', 'Wipe lens & filter',
+    'Trip log: place, best clip numbers, hero shots', 'Battery in sleeping bag/pocket overnight (cold)', 'Tomorrow’s sunrise & moon times (Tools)' ] },
+  { id: 'cl-cold', icon: '🏔️', title: 'Cold & high altitude', items: [
+    'Battery in inner pocket until needed', 'Zip-lock the camera before entering a warm room', 'Snow: exposure +1', 'Use viewfinder in bright snow',
+    'Gloves with touchscreen tips / operate by buttons', 'Lens is splash-resistant, not waterproof — cover in rain/snow', 'Expect ~30–50% fewer shots per battery below 0 °C' ] },
+  { id: 'cl-habits', icon: '🎯', title: 'Shooting habits (for great edits)', items: [
+    'Shoot 4K always (sharp 9:16 crops)', 'Hold every shot 5+ s steady before and after moving', 'At each place get 4 hero shots: WIDE · DETAIL · PERSON in scene · MOVEMENT toward/away',
+    'Record 10 s of ambient sound at each spot (no talking)', 'One picture profile + one white balance per day', 'Avoid shooting from moving cars (shaky = rejected)',
+    'No POV mount, strap or fingers in frame', 'Don’t shoot straight into the sun at 16 mm (flare) — use the hood', 'Note clip numbers of your best shots in the Trip Log' ] }
+  ];
+
+  const glossary = [
+    ['Aperture (f-number)', 'Lens opening. Low number (f/3.5) = more light + blurrier background. Your lens: f/3.5 at 16 mm up to f/6.7 at 300 mm.'],
+    ['Shutter speed', 'How long the sensor sees light. 1/1000 freezes, 1 s blurs water. Video rule: 2× frame rate (50p → 1/100).'],
+    ['ISO', 'Brightness boost. Higher = brighter but noisier. a6700 is clean up to ~3200, usable to 6400–12800.'],
+    ['Exposure comp (EV)', 'Tells auto modes “brighter/darker”. Wheel ▼ then turn.'],
+    ['AF-C / AF-S / MF', 'Continuous AF (tracks), Single AF (locks once), Manual Focus.'],
+    ['Subject Recognition', 'AI finds eyes/heads/bodies of humans, animals, birds, insects, cars, planes.'],
+    ['SteadyShot', 'In-body stabilisation (+ lens OS). Active = stronger for walking video, slight crop.'],
+    ['XAVC HS / XAVC S', 'Video formats. HS = H.265 (smaller, better). S = H.264 (more compatible). S-I = intra (needs V90 card — not yours).'],
+    ['10-bit 4:2:0', '1024 tones per channel — smooth skies, good for colour grading. 4:2:2 has more colour detail but is heavy to decode on a GTX 1650.'],
+    ['S-Cinetone (PP11)', 'Sony’s cinema-like colour profile. Nice straight out of camera.'],
+    ['S-Log3', 'Very flat log profile with max dynamic range; must be graded and exposed brighter.'],
+    ['ND / VND', 'Neutral density filter — sunglasses for the lens. Your K&F: ND2–ND32 = 1–5 stops.'],
+    ['CPL', 'Circular polariser — deeper blue sky, less reflection/glare.'],
+    ['NPF rule', 'Formula for the longest star exposure without trails, using pixel size, aperture and focal length.'],
+    ['PAL / NTSC', 'Video systems. PAL = 25/50/100p (India, Europe). NTSC = 24/30/60/120p (USA, Japan).'],
+    ['Camera Set. Memory', 'Saves your settings to mode dial 1/2/3 (separately for Still, Movie and S&Q).'],
+    ['Zebras', 'Stripes over areas that are too bright.'],
+    ['RAW', 'Unprocessed sensor file — far more editing room than JPEG.'],
+    ['Proxy', 'Small extra copy of each video for fast editing (Shooting → Image Quality/Rec → Proxy Settings).']
+  ];
+
+  window.KB = { presets, howto, fixes, checklists, glossary };
+})();
+
+;
+/* Calculators. Sun/Moon math adapted from the SunCalc algorithm (V. Agafonkin, BSD-2) — fully offline. */
+(function () {
+  const PITCH = 3.76; // µm, a6700: 23.3 mm / 6192 px
+  function maxAperture(f) { // approximate max aperture of Sigma 16-300 f/3.5-6.7 by focal length
+    f = Math.min(300, Math.max(16, f));
+    return Math.round((3.5 + (6.7 - 3.5) * Math.log(f / 16) / Math.log(300 / 16)) * 10) / 10;
+  }
+  function npf(f, N) { return { npf: (35 * N + 30 * PITCH) / f, r500: 500 / (f * 1.5), r300: 300 / (f * 1.5) }; }
+
+  // Sony official approx. recording times for 128 GB (Help Guide "Recordable movie times", proxy off)
+  const VIDEO = [
+    { label: 'XAVC HS 4K 50p 200M 4:2:2 10bit', mbps: 200, t128: '1 h 10 min', ok: true },
+    { label: 'XAVC HS 4K 50p 150M 4:2:0 10bit ★', mbps: 150, t128: '1 h 35 min', ok: true },
+    { label: 'XAVC HS 4K 50p 100M 4:2:2 10bit', mbps: 100, t128: '2 h 10 min', ok: true },
+    { label: 'XAVC HS 4K 50p 75M 4:2:0 10bit', mbps: 75, t128: '2 h 50 min', ok: true },
+    { label: 'XAVC HS 4K 50p 45M 4:2:0 10bit', mbps: 45, t128: '4 h 30 min', ok: true },
+    { label: 'XAVC S HD 50p 50M', mbps: 50, t128: '4 h 10 min', ok: true },
+    { label: 'XAVC S HD 50p 25M', mbps: 25, t128: '7 h', ok: true },
+    { label: 'XAVC S-I 4K 500/600M (needs V90 ✖ not your Lexar)', mbps: 600, t128: '25 min', ok: false }
+  ];
+  const PHOTO = [
+    { label: 'RAW & JPEG', n: 2500 }, { label: 'RAW (compressed)', n: 3300 }, { label: 'RAW (lossless)', n: 3000 },
+    { label: 'JPEG Fine', n: 10000 }, { label: 'JPEG Extra fine', n: 5800 }, { label: 'HEIF Fine', n: 17000 }
+  ];
+  const USABLE_GB = 119; // 128 GB card ≈ 119 GiB usable
+  function cardTable() { return VIDEO; }
+  function photoTable() { return PHOTO; }
+  function cardPlan(minPerDay, mbps, photosPerDay, photoType) {
+    const vidGB = minPerDay * 60 * mbps / 8 / 1000;
+    const per = PHOTO.find(p => p.label === photoType) || PHOTO[0];
+    const phGB = photosPerDay * USABLE_GB / per.n;
+    const day = vidGB + phGB;
+    return { vidGB, phGB, day, days: day > 0 ? USABLE_GB / day : Infinity };
+  }
+  function timelapse(intervalS, clipS, fps, shutterS) {
+    const shots = Math.ceil(clipS * fps);
+    return { shots, realMin: shots * intervalS / 60, gbJpeg: shots * USABLE_GB / 10000, gbRaw: shots * USABLE_GB / 3300, ok: intervalS > (shutterS || 0) };
+  }
+  const NPFZ100_WH = 7.2 * 2.28; // 16.4 Wh
+  function powerbank(mah, eff = 0.6) { const wh = mah * 3.7 / 1000; return { wh, charges: wh * eff / NPFZ100_WH }; }
+  function nd(baseShutter, stops) { return baseShutter * Math.pow(2, stops); }
+  function fmtShutter(s) {
+    if (s >= 1) return (Math.round(s * 10) / 10) + '"';
+    const d = Math.round(1 / s);
+    const std = [8000, 6400, 5000, 4000, 3200, 2500, 2000, 1600, 1250, 1000, 800, 640, 500, 400, 320, 250, 200, 160, 125, 100, 80, 60, 50, 40, 30, 25, 20, 15, 13, 10, 8, 6, 5, 4, 3, 2];
+    let best = std[0]; std.forEach(v => { if (Math.abs(v - d) < Math.abs(best - d)) best = v; });
+    return '1/' + best;
+  }
+
+  /* ---------- Sun & Moon (SunCalc) ---------- */
+  const PI = Math.PI, sin = Math.sin, cos = Math.cos, tan = Math.tan, asin = Math.asin, atan = Math.atan2, acos = Math.acos, rad = PI / 180;
+  const dayMs = 864e5, J1970 = 2440588, J2000 = 2451545, e = rad * 23.4397;
+  const toJulian = d => d.valueOf() / dayMs - 0.5 + J1970, fromJulian = j => new Date((j + 0.5 - J1970) * dayMs), toDays = d => toJulian(d) - J2000;
+  const RA = (l, b) => atan(sin(l) * cos(e) - tan(b) * sin(e), cos(l));
+  const DEC = (l, b) => asin(sin(b) * cos(e) + cos(b) * sin(e) * sin(l));
+  const AZ = (H, phi, dec) => atan(sin(H), cos(H) * sin(phi) - tan(dec) * cos(phi));
+  const ALT = (H, phi, dec) => asin(sin(phi) * sin(dec) + cos(phi) * cos(dec) * cos(H));
+  const ST = (d, lw) => rad * (280.16 + 360.9856235 * d) - lw;
+  const refr = h => { if (h < 0) h = 0; return 0.0002967 / Math.tan(h + 0.00312536 / (h + 0.08901179)); };
+  const SMA = d => rad * (357.5291 + 0.98560028 * d);
+  const ELON = M => { const C = rad * (1.9148 * sin(M) + 0.02 * sin(2 * M) + 0.0003 * sin(3 * M)); return M + C + rad * 102.9372 + PI; };
+  function sunCoords(d) { const L = ELON(SMA(d)); return { dec: DEC(L, 0), ra: RA(L, 0) }; }
+  function sunPos(date, lat, lng) { const lw = rad * -lng, phi = rad * lat, d = toDays(date), c = sunCoords(d), H = ST(d, lw) - c.ra; return { az: AZ(H, phi, c.dec), alt: ALT(H, phi, c.dec) }; }
+  const J0 = 0.0009;
+  const jCycle = (d, lw) => Math.round(d - J0 - lw / (2 * PI));
+  const aTransit = (Ht, lw, n) => J0 + (Ht + lw) / (2 * PI) + n;
+  const sTransit = (ds, M, L) => J2000 + ds + 0.0053 * sin(M) - 0.0069 * sin(2 * L);
+  const hAngle = (h, phi, d) => acos((sin(h) - sin(phi) * sin(d)) / (cos(phi) * cos(d)));
+  function sunTimes(date, lat, lng, height = 0) {
+    const lw = rad * -lng, phi = rad * lat, dh = -2.076 * Math.sqrt(height) / 60;
+    const noonRef = new Date(date); noonRef.setHours(12, 0, 0, 0);
+    const d = toDays(noonRef), n = jCycle(d, lw), ds = aTransit(0, lw, n), M = SMA(ds), L = ELON(M), dec = DEC(L, 0), Jnoon = sTransit(ds, M, L);
+    const r = { solarNoon: fromJulian(Jnoon) };
+    [[-0.833, 'sunrise', 'sunset'], [-4, 'blueEndAM', 'blueStartPM'], [-6, 'dawn', 'dusk'], [-18, 'astroDawn', 'astroDusk'], [6, 'goldenEndAM', 'goldenStartPM']].forEach(([h, a, b]) => {
+      const w = hAngle((h + dh) * rad, phi, dec); const Jset = sTransit(aTransit(w, lw, n), M, L);
+      if (isNaN(Jset)) { r[a] = r[b] = null; return; }
+      r[a] = fromJulian(Jnoon - (Jset - Jnoon)); r[b] = fromJulian(Jset);
+    });
+    return r;
+  }
+  function moonCoords(d) {
+    const L = rad * (218.316 + 13.176396 * d), M = rad * (134.963 + 13.064993 * d), F = rad * (93.272 + 13.229350 * d);
+    const l = L + rad * 6.289 * sin(M), b = rad * 5.128 * sin(F), dt = 385001 - 20905 * cos(M);
+    return { ra: RA(l, b), dec: DEC(l, b), dist: dt };
+  }
+  function moonPos(date, lat, lng) {
+    const lw = rad * -lng, phi = rad * lat, d = toDays(date), c = moonCoords(d), H = ST(d, lw) - c.ra;
+    let h = ALT(H, phi, c.dec); h += refr(h); return { az: AZ(H, phi, c.dec), alt: h };
+  }
+  function moonIllum(date) {
+    const d = toDays(date), s = sunCoords(d), m = moonCoords(d), sd = 149598000;
+    const phi = acos(sin(s.dec) * sin(m.dec) + cos(s.dec) * cos(m.dec) * cos(s.ra - m.ra));
+    const inc = atan(sd * sin(phi), m.dist - sd * cos(phi));
+    const angle = atan(cos(s.dec) * sin(s.ra - m.ra), sin(s.dec) * cos(m.dec) - cos(s.dec) * sin(m.dec) * cos(s.ra - m.ra));
+    return { fraction: (1 + cos(inc)) / 2, phase: 0.5 + 0.5 * inc * (angle < 0 ? -1 : 1) / PI };
+  }
+  const hl = (d, h) => new Date(d.valueOf() + h * dayMs / 24);
+  function moonTimes(date, lat, lng) {
+    const t = new Date(date); t.setHours(0, 0, 0, 0);
+    const hc = 0.133 * rad; let h0 = moonPos(t, lat, lng).alt - hc, rise, set;
+    for (let i = 1; i <= 24; i += 2) {
+      const h1 = moonPos(hl(t, i), lat, lng).alt - hc, h2 = moonPos(hl(t, i + 1), lat, lng).alt - hc;
+      const a = (h0 + h2) / 2 - h1, b = (h2 - h0) / 2, xe = -b / (2 * a), ye = (a * xe + b) * xe + h1, D = b * b - 4 * a * h1;
+      let roots = 0, x1 = 0, x2 = 0;
+      if (D >= 0) { const dx = Math.sqrt(D) / (Math.abs(a) * 2); x1 = xe - dx; x2 = xe + dx; if (Math.abs(x1) <= 1) roots++; if (Math.abs(x2) <= 1) roots++; if (x1 < -1) x1 = x2; }
+      if (roots === 1) { if (h0 < 0) rise = i + x1; else set = i + x1; }
+      else if (roots === 2) { rise = i + (ye < 0 ? x2 : x1); set = i + (ye < 0 ? x1 : x2); }
+      if (rise && set) break; h0 = h2;
+    }
+    return { rise: rise ? hl(t, rise) : null, set: set ? hl(t, set) : null };
+  }
+  // Galactic centre (Milky Way core): RA 266.417°, Dec −29.008°
+  function coreAlt(date, lat, lng) { const lw = rad * -lng, phi = rad * lat, d = toDays(date); const H = ST(d, lw) - 266.417 * rad; return ALT(H, phi, -29.008 * rad) / rad; }
+  function astroNight(date, lat, lng) {
+    // scan from 12:00 today to 12:00 tomorrow in 10-min steps
+    const start = new Date(date); start.setHours(12, 0, 0, 0);
+    const out = { dark: [], core: [], moonUp: [] }; let best = null;
+    for (let m = 0; m <= 24 * 60; m += 10) {
+      const t = new Date(start.valueOf() + m * 60000);
+      const dark = sunPos(t, lat, lng).alt / rad < -18, moon = moonPos(t, lat, lng).alt > 0, ca = coreAlt(t, lat, lng);
+      if (dark) out.dark.push(t); if (moon) out.moonUp.push(t);
+      if (dark && ca > 10) { out.core.push(t); if (!best || ca > best.alt) best = { t, alt: ca, moon }; }
+    }
+    out.best = best; return out;
+  }
+  function phaseName(p) {
+    const n = [[0.03, 'New moon 🌑'], [0.22, 'Waxing crescent 🌒'], [0.28, 'First quarter 🌓'], [0.47, 'Waxing gibbous 🌔'], [0.53, 'Full moon 🌕'], [0.72, 'Waning gibbous 🌖'], [0.78, 'Last quarter 🌗'], [0.97, 'Waning crescent 🌘'], [1.01, 'New moon 🌑']];
+    return n.find(([x]) => p < x)[1];
+  }
+
+  window.Calc = { maxAperture, npf, cardTable, photoTable, cardPlan, timelapse, powerbank, nd, fmtShutter, sunTimes, sunPos, moonTimes, moonIllum, moonPos, astroNight, phaseName, PITCH };
+})();
+
+;
+/* Offline "Ask" engine: BM25 over the knowledge base + synonym expansion + typo tolerance
+   + direct calculators for number questions. No network, no model. */
+(function () {
+  const STOP = new Set('a an the is are am i my me to of for in on at and or how do does what which should can could would with my your it this that when where why be get set setting settings camera sony a6700 want please tell show best good use using way'.split(' '));
+  const SYN = {
+    astro: 'astro astrophotography star stars milky galaxy nightsky nakshatra tare cosmos',
+    delete: 'delete remove erase trash del clear discard',
+    date: 'date day dated same',
+    format: 'format wipe',
+    video: 'video movie film clip footage record recording videos movies clips',
+    photo: 'photo picture image pic still photograph pics photos pictures images',
+    vlog: 'vlog vlogging youtube talking selfie',
+    slow: 'slow slowmo slomo',
+    timelapse: 'timelapse lapse hyperlapse interval',
+    wildlife: 'wildlife bird birds animal animals yak eagle',
+    waterfall: 'waterfall river water silky stream',
+    snow: 'snow glacier ice winter',
+    moon: 'moon chand lunar',
+    landscape: 'landscape sunrise sunset mountain scenery golden peak valley',
+    battery: 'battery charge charging power powerbank',
+    card: 'card sd memory storage space capacity',
+    flicker: 'flicker banding bands',
+    blur: 'blur blurry soft unsharp shaky shake',
+    noise: 'noise grainy grain noisy',
+    focus: 'focus af autofocus focussing focusing',
+    sweet: 'sweet everyday default normal general allround universal',
+    indoor: 'indoor temple monastery gompa homestay inside lowlight dark',
+    portrait: 'portrait people person friend face bokeh',
+    cinematic: 'cinematic broll cinema film',
+    vertical: 'vertical reel reels instagram shorts tiktok',
+    log: 'log slog slog3',
+    custom: 'custom button c1 c2 c3 assign key',
+    memory: 'memory recall register mr preset',
+    pal: 'pal ntsc 25p 50p 30p 60p',
+    gps: 'gps location geotag',
+    phone: 'phone smartphone mobile transfer send share',
+    hot: 'hot overheat overheating heat temperature',
+    fog: 'fog condensation mist dew',
+    dust: 'dust spots spot sensor',
+    audio: 'audio sound mic microphone wind',
+    filter: 'filter nd vnd cpl polarizer polariser',
+    night: 'night dark'
+  };
+  const SYNMAP = {};
+  for (const k in SYN) SYN[k].split(' ').forEach(w => { (SYNMAP[w] = SYNMAP[w] || new Set()).add(k); });
+
+  function stem(w) {
+    if (w.length > 5 && w.endsWith('ing')) return w.slice(0, -3);
+    if (w.length > 4 && w.endsWith('ies')) return w.slice(0, -3) + 'y';
+    if (w.length > 4 && w.endsWith('es') && !w.endsWith('ses')) return w.slice(0, -2);
+    if (w.length > 3 && w.endsWith('s') && !w.endsWith('ss')) return w.slice(0, -1);
+    if (w.length > 5 && w.endsWith('ed')) return w.slice(0, -2);
+    return w;
+  }
+  function tok(s) {
+    return String(s).toLowerCase().replace(/milky way/g, 'milky').replace(/night sky/g, 'nightsky').replace(/time[- ]lapse/g, 'timelapse')
+      .replace(/slow[- ]?mo(tion)?/g, 'slowmo').replace(/s-?log ?3/g, 'slog3').replace(/b-?roll/g, 'broll').replace(/power bank/g, 'powerbank')
+      .replace(/low[- ]light/g, 'lowlight').replace(/sweet spot/g, 'sweet').replace(/[^a-z0-9&]+/g, ' ').split(' ').filter(w => w && !STOP.has(w));
+  }
+  function lev(a, b, max) {
+    if (Math.abs(a.length - b.length) > max) return max + 1;
+    const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+    for (let j = 1; j <= b.length; j++) d[0][j] = j;
+    for (let i = 1; i <= a.length; i++) {
+      let rowMin = Infinity;
+      for (let j = 1; j <= b.length; j++) {
+        d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        rowMin = Math.min(rowMin, d[i][j]);
+      }
+      if (rowMin > max) return max + 1;
+    }
+    return d[a.length][b.length];
+  }
+
+  let DOCS = [], DF = {}, AVG = 1, VOCAB = [];
+  function build() {
+    const all = [];
+    KB.presets.forEach(p => all.push({ kind: 'preset', item: p, title: p.title, f: [[p.title, 3], [(p.q || []).join(' '), 3], [p.tags || '', 2], [p.sub + ' ' + p.a, 1], [p.cat, 1]] }));
+    KB.howto.forEach(p => all.push({ kind: 'howto', item: p, title: p.title, f: [[p.title, 3], [(p.q || []).join(' '), 3], [p.tags || '', 2], [p.a, 1]] }));
+    KB.fixes.forEach(p => all.push({ kind: 'fix', item: p, title: p.title, f: [[p.title, 3], [(p.q || []).join(' '), 3], [p.tags || '', 2], [p.a + ' ' + (p.causes || []).join(' '), 1]] }));
+    KB.glossary.forEach(([t, d], i) => all.push({ kind: 'term', item: { id: 'g' + i, title: t, a: d }, title: t, f: [[t, 3], ['what is meaning ' + t, 1], [d, 1]] }));
+    const vocab = new Set();
+    DOCS = all.map(d => {
+      const tf = {}; let len = 0;
+      d.f.forEach(([txt, w]) => tok(txt).forEach(t0 => {
+        const t = stem(t0); vocab.add(t);
+        const keys = [t, ...(SYNMAP[t0] ? [...SYNMAP[t0]].map(k => '§' + k) : [])];
+        keys.forEach(k => { tf[k] = (tf[k] || 0) + w; }); len += w;
+      }));
+      Object.keys(tf).forEach(k => DF[k] = (DF[k] || 0) + 1);
+      return { ...d, tf, len };
+    });
+    AVG = DOCS.reduce((s, d) => s + d.len, 0) / DOCS.length;
+    VOCAB = [...vocab];
+  }
+
+  function expand(q) {
+    const out = [];
+    tok(q).forEach(t0 => {
+      const t = stem(t0);
+      const terms = [];
+      if (DF[t]) terms.push([t, 1]);
+      else if (t.length >= 4) { // typo tolerance
+        const max = t.length >= 7 ? 2 : 1; let best = null, bd = 9;
+        for (const v of VOCAB) { const d = lev(t, v, max); if (d <= max && d < bd) { bd = d; best = v; } }
+        if (best) terms.push([best, 0.8]);
+      }
+      const syn = SYNMAP[t0] || SYNMAP[t];
+      if (syn) syn.forEach(k => terms.push(['§' + k, 0.9]));
+      if (terms.length) out.push(terms);
+    });
+    return out;
+  }
+
+  function search(q, n = 6) {
+    if (!DOCS.length) build();
+    const groups = expand(q); if (!groups.length) return [];
+    const N = DOCS.length, k1 = 1.4, b = 0.7;
+    const res = DOCS.map(d => {
+      let s = 0, hit = 0;
+      groups.forEach(terms => {
+        let g = 0;
+        terms.forEach(([t, w]) => { const f = d.tf[t]; if (!f) return; const idf = Math.log(1 + (N - DF[t] + 0.5) / (DF[t] + 0.5)); g = Math.max(g, w * idf * (f * (k1 + 1)) / (f + k1 * (1 - b + b * d.len / AVG))); });
+        if (g > 0) hit++; s += g;
+      });
+      s *= (0.5 + hit / groups.length); // reward matching all concepts
+      return { d, s, cover: hit / groups.length };
+    }).filter(r => r.s > 0).sort((a, b) => b.s - a.s);
+    return res.slice(0, n);
+  }
+
+  // Direct answers for number questions
+  function direct(q) {
+    const s = q.toLowerCase();
+    const num = (re) => { const m = s.match(re); return m ? parseFloat(m[1]) : null; };
+    if (/(star|astro|milky|npf|500 rule|trail)/.test(s) && /(\d+)\s*mm/.test(s)) {
+      const f = num(/(\d+)\s*mm/); const N = num(/f\/?\s?(\d+(\.\d+)?)/) || Calc.maxAperture(f);
+      const r = Calc.npf(f, N);
+      return { html: `<b>At ${f} mm, f/${N}:</b> NPF max ≈ <b>${r.npf.toFixed(1)} s</b> (pin-sharp), 500-rule ≈ ${r.r500.toFixed(1)} s (slight trails). Use ISO 3200–6400.`, go: 'tools/star' };
+    }
+    if (/(minute|hour|how long|how much).*(record|video|card)|card.*(minute|hour)/.test(s)) {
+      const rows = Calc.cardTable().slice(0, 6).map(r => `<li>${r.label}: <b>${r.t128}</b></li>`).join('');
+      return { html: `<b>Video on your 128 GB card (Sony table):</b><ul>${rows}</ul>`, go: 'tools/card' };
+    }
+    if (/(how many|charges?).*(power ?bank|charge)|power ?bank.*(\d{4,5})/.test(s)) {
+      const mah = num(/(\d{4,5})\s*mah/) || 10000; const r = Calc.powerbank(mah);
+      return { html: `A <b>${mah} mAh</b> power bank ≈ <b>${r.charges.toFixed(1)} full NP-FZ100 charges</b> (after ~60% efficiency).`, go: 'tools/battery' };
+    }
+    if (/(sunrise|sunset|golden hour|moon ?rise|moon ?phase|moonset)/.test(s) && !/setting/.test(s)) {
+      return { html: 'Open <b>Tools → Sun & Moon</b>: it uses your phone GPS (works without network) to show sunrise, golden/blue hour, moonrise and moon phase.', go: 'tools/sun' };
+    }
+    return null;
+  }
+
+  window.Ask = { search, direct, build, tok };
+})();
+
+;
+/* Wary's a6700 Field Guide — main UI (no framework, fully offline) */
+(function () {
+  const APP_VERSION = '1.0.0';
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const S = {
+    get(k, d) { try { const v = localStorage.getItem('a6700:' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem('a6700:' + k, JSON.stringify(v)); } catch (e) { } }
+  };
+  const ALL = {};
+  KB.presets.forEach(p => ALL['p/' + p.id] = p); KB.howto.forEach(p => ALL['h/' + p.id] = p);
+  KB.fixes.forEach(p => ALL['f/' + p.id] = p); KB.checklists.forEach(p => ALL['cl/' + p.id] = p);
+  const routeOf = (kind, id) => kind === 'term' ? 'glossary' : ({ preset: 'p/', howto: 'h/', fix: 'f/' }[kind] || '') + id;
+
+  /* ---------- theme ---------- */
+  const THEMES = ['dark', 'sun', 'night'], TLABEL = { dark: '◐ Dark', sun: '☀ Sun', night: '🔴 Night' };
+  function setTheme(t) {
+    document.documentElement.dataset.theme = t; S.set('theme', t);
+    const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = t === 'sun' ? '#ffffff' : '#000000';
+    const b = $('#themebtn'); if (b) b.textContent = TLABEL[t];
+  }
+  function toast(msg) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2200); }
+
+  /* ---------- menu replica ---------- */
+  const TABICON = {
+    star: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.5 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>',
+    home: '<path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/>',
+    camera: '<rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13.5" r="4"/><path d="M8 7l2-3h4l2 3"/>',
+    expo: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 21L21 3M7 7h4M9 5v4M14 17h4"/>',
+    focus: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><circle cx="12" cy="12" r="2.5"/>',
+    play: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M10 8l6 4-6 4z"/>',
+    globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+    tool: '<rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V5h6v3M3 13h18"/>'
+  };
+  const itemName = it => it.split('|')[0];
+  const itemIcon = it => it.endsWith('|still') ? '<i>📷</i>' : it.endsWith('|movie') ? '<i>🎥</i>' : '';
+  function findPath(p) {
+    const ti = MENU.findIndex(t => t.tab === p[0]); if (ti < 0) return null;
+    const gi = MENU[ti].groups.findIndex(g => g.g === p[1]); if (gi < 0) return null;
+    const ii = MENU[ti].groups[gi].items.indexOf(p[2]); if (ii < 0) return null;
+    return { ti, gi, ii };
+  }
+  function menuScreen(p) {
+    const f = findPath(p); if (!f) return `<div class="path">MENU → ${esc(p.join(' → '))}</div>`;
+    const tab = MENU[f.ti], grp = tab.groups[f.gi];
+    const tabs = MENU.map((t, i) => `<span class="${i === f.ti ? 'on' : ''}" title="${esc(t.tab)}"><svg viewBox="0 0 24 24">${TABICON[t.icon]}</svg></span>`).join('');
+    const gStart = Math.max(0, Math.min(f.gi - 3, tab.groups.length - 8));
+    const grps = tab.groups.slice(gStart, gStart + 8).map((g, i) => `<span class="${gStart + i === f.gi ? 'on' : ''}">${gStart + i + 1}</span>`).join('');
+    const iStart = Math.max(0, Math.min(f.ii - 3, grp.items.length - 8));
+    const items = grp.items.slice(iStart, iStart + 8).map((it, i) => `<div class="${iStart + i === f.ii ? 'on' : ''}">${esc(itemName(it))}${itemIcon(it)}</div>`).join('');
+    return `<div class="menu" aria-label="Camera menu: ${esc(p.map(itemName).join(' > '))}">
+      <div class="hdr"><span>${esc(tab.tab)}</span><span>${f.gi + 1} · ${esc(grp.g)}</span></div>
+      <div class="tabs">${tabs}</div><div class="grp">${grps}</div><div class="items">${items}</div>
+      <div class="ft">MENU → ${esc(tab.tab)} → ${esc(grp.g)} → <b>${esc(itemName(p[2]))}</b> · wheel ▲▼◀▶ move · center = select · MENU = back</div></div>`;
+  }
+  const pathText = p => `MENU → ${p.map(itemName).map(esc).join(' → ')}`;
+
+  /* ---------- camera diagram block ---------- */
+  function diag(ids, view) {
+    ids = (ids || []).filter(Boolean);
+    view = view || viewFor(ids) || 'rear';
+    const svg = view === 'top' ? Diagrams.top(ids) : view === 'wheel' ? Diagrams.wheel(ids) : Diagrams.rear(ids);
+    const names = ids.map(i => (PARTS[i] || [i])[0]).join(', ');
+    const tb = ['rear', 'top', 'wheel'].map(v => `<button class="chip ${v === view ? 'on' : ''}" data-act="diagview" data-v="${v}" data-ids="${esc(ids.join(','))}">${{ rear: 'Back', top: 'Top', wheel: 'Wheel' }[v]}</button>`).join('');
+    return `<div class="camwrap" data-diag><div class="camtabs">${tb}</div>${svg}${names ? `<div class="parts small">👉 <b>${esc(names)}</b></div>` : ''}</div>`;
+  }
+
+  /* ---------- layout ---------- */
+  const NAV = [['home', '🏠', 'Home'], ['shoot', '📷', 'Shoot'], ['ask', '💬', 'Ask'], ['guide', '🛠️', 'How & Fix'], ['tools', '🧮', 'Tools']];
+  function frame(title, body, opts = {}) {
+    const r = currentRoute();
+    const top = `<header class="top">${opts.root ? '' : '<button class="back" data-act="back" aria-label="Back">‹</button>'}
+      <div class="ttl">${esc(title)}</div>${opts.fav ? `<button class="themebtn" data-act="fav" data-k="${esc(opts.fav)}">${isFav(opts.fav) ? '★' : '☆'}</button>` : ''}
+      <button class="themebtn" id="themebtn" data-act="theme">${TLABEL[S.get('theme', 'dark')]}</button></header>`;
+    const nav = `<nav class="bn">${NAV.map(([k, i, l]) => `<a href="#${k}" class="${r.split('/')[0] === k || (k === 'home' && r === '') ? 'on' : ''}"><span class="i">${i}</span>${l}</a>`).join('')}</nav>`;
+    return top + `<main>${body}</main>` + nav;
+  }
+  const isFav = k => S.get('favs', []).includes(k);
+  function pushRecent(k) { const r = S.get('recent', []).filter(x => x !== k); r.unshift(k); S.set('recent', r.slice(0, 6)); }
+  function rowLink(href, e, t, sub) { return `<a class="row" href="#${href}"><span class="e">${e}</span><span class="tx"><b>${esc(t)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</span><span class="chev">›</span></a>`; }
+  function itemRow(k) { const it = ALL[k]; if (!it) return ''; return rowLink(k, it.icon || '•', it.title, it.sub || it.a || ''); }
+
+  /* ---------- views ---------- */
+  const V = {};
+  V.home = () => {
+    const favs = S.get('favs', []), rec = S.get('recent', []).filter(k => !favs.includes(k));
+    return frame("Wary's a6700 Guide", `
+      <form class="search" data-act="asksubmit"><input name="q" placeholder="Ask: milky way settings, delete by date…" autocomplete="off"><button class="btn">Ask</button></form>
+      <div class="grid">
+        <a class="tile star" href="#p/sweet-photo"><span class="e">📷</span><b>Photo sweet spot</b><small>Dial: Still → 1</small></a>
+        <a class="tile star" href="#p/sweet-video"><span class="e">🎥</span><b>Video sweet spot</b><small>Dial: Movie → 1</small></a>
+      </div>
+      <a class="card hero" href="#wizard" style="display:block;text-decoration:none;color:inherit"><h2>🧭 What are you shooting?</h2><div class="muted small">2 taps → exact settings + which buttons to press</div></a>
+      <div class="grid">
+        <a class="tile" href="#shoot"><span class="e">🎬</span><b>Scene presets</b><small>${KB.presets.length} scenes</small></a>
+        <a class="tile" href="#guide"><span class="e">🛠️</span><b>How-to & fixes</b><small>${KB.howto.length + KB.fixes.length} guides</small></a>
+        <a class="tile" href="#camera"><span class="e">🕹️</span><b>Buttons map</b><small>What every button does</small></a>
+        <a class="tile" href="#menu"><span class="e">☰</span><b>Menu explorer</b><small>The camera's MENU, offline</small></a>
+        <a class="tile" href="#tools"><span class="e">🧮</span><b>Calculators</b><small>Stars · card · sun & moon</small></a>
+        <a class="tile" href="#checklists"><span class="e">✅</span><b>Checklists</b><small>Trip · daily · cold · habits</small></a>
+        <a class="tile" href="#trip"><span class="e">📓</span><b>Trip log & brief</b><small>Best clips → export</small></a>
+        <a class="tile" href="#mycam"><span class="e">⚙️</span><b>My camera</b><small>Your buttons & presets</small></a>
+      </div>
+      ${favs.length ? `<div class="sec">★ Favourites</div>${favs.map(itemRow).join('')}` : ''}
+      ${rec.length ? `<div class="sec">Recent</div>${rec.map(itemRow).join('')}` : ''}
+      <div class="sec">More</div>${rowLink('glossary', '📖', 'Glossary', 'What is ISO, NPF, 10-bit, S-Log3…')}${rowLink('about', 'ℹ️', 'About, install & sources', 'v' + APP_VERSION + ' · works fully offline')}
+    `, { root: true });
+  };
+
+  V.wizard = (arg) => {
+    const [type] = (arg || '').split('/');
+    const P = [['sweet-photo', '✨', 'Anything / everyday'], ['landscape', '🏔️', 'Mountains, sunrise, scenery'], ['astro', '🌌', 'Stars / Milky Way'], ['startrails', '💫', 'Star trails'], ['moon', '🌕', 'Moon'], ['wildlife', '🦅', 'Animals & birds'], ['people', '🧑', 'People / portraits'], ['waterfall', '🌊', 'Waterfall / river'], ['snow', '❄️', 'Snow / glacier'], ['lowlight', '🛕', 'Indoor / temple / dark'], ['timelapse', '⏱️', 'Time-lapse']];
+    const Vd = [['sweet-video', '✨', 'Everyday travel video'], ['walkntalk', '🚶', 'Talking to camera / selfie'], ['cinematic', '🎬', 'Cinematic tripod B-roll'], ['slowmo', '🐢', 'Slow motion'], ['vertical', '📱', 'Reels / vertical'], ['lowlight', '🛕', 'Night / indoor'], ['slog3', '🎞️', 'High-contrast sunrise (S-Log3)'], ['timelapse', '⏱️', 'Time-lapse']];
+    if (!type) return frame('What are you shooting?', `<p class="muted">Step 1 of 2</p>
+      <div class="grid"><a class="tile" href="#wizard/photo"><span class="e">📷</span><b>Photo</b><small>Still images</small></a><a class="tile" href="#wizard/video"><span class="e">🎥</span><b>Video</b><small>Vlog, B-roll, slow-mo</small></a></div>`);
+    const list = type === 'photo' ? P : Vd;
+    return frame(type === 'photo' ? 'Photo of…' : 'Video of…', `<p class="muted">Step 2 of 2</p>${list.map(([id, e, t]) => rowLink('p/' + id, e, t, (ALL['p/' + id] || {}).sub)).join('')}`);
+  };
+
+  V.shoot = () => {
+    const cats = [...new Set(KB.presets.map(p => p.cat))];
+    return frame('Scene presets', cats.map(c => `<div class="sec">${esc(c)}</div>${KB.presets.filter(p => p.cat === c).map(p => rowLink('p/' + p.id, p.icon, p.title, p.slot ? 'Saved on dial: ' + p.slot : p.sub)).join('')}`).join(''), { root: true });
+  };
+
+  function settingRows(set) {
+    return `<div class="set">${set.map((r, i) => `<details data-i="${i}"><summary><span class="k">${esc(r.s)}</span><span class="v">${esc(r.v)}</span></summary><div class="more" data-lazy='${esc(JSON.stringify({ p: r.p || null, b: r.b || null, w: r.w || '' }))}'></div></details>`).join('')}</div>`;
+  }
+  function stepList(steps, key) {
+    const done = S.get('done:' + key, []);
+    return `<ol class="steps">${steps.map((s, i) => `<li class="${done.includes(i) ? 'done' : ''}" data-act="stepdone" data-k="${esc(key)}" data-i="${i}">${esc(s.t)}
+      ${s.p || s.b ? `<div class="stepbtns">${s.b ? `<button class="btn ghost sm" data-act="showbtn" data-b="${esc(s.b)}">📍 Show button</button>` : ''}${s.p ? `<button class="btn ghost sm" data-act="showmenu" data-p='${esc(JSON.stringify(s.p))}'>☰ Show menu</button>` : ''}</div><div class="stepx"></div>` : ''}</li>`).join('')}</ol>`;
+  }
+
+  V.p = (id) => {
+    const p = KB.presets.find(x => x.id === id); if (!p) return V.notfound();
+    pushRecent('p/' + id);
+    if (p.night && S.get('theme', 'dark') !== 'night' && S.get('autoNight', true)) { setTheme('night'); setTimeout(() => toast('Red night mode on — tap 🔴 to change'), 50); }
+    const allB = [...new Set([...(p.set || []).map(r => r.b), ...(p.steps || []).map(s => s.b)].filter(Boolean))];
+    return frame(p.title, `
+      <div class="card"><div style="font-size:2rem">${p.icon}</div><p style="margin:.3em 0">${esc(p.sub)}</p>
+        ${p.slot ? `<span class="pill acc">Save to dial: ${esc(p.slot)}</span>` : ''}<span class="pill">${esc(p.cat)}</span></div>
+      <div class="card"><b>⚡ Quick answer</b><p class="small" style="margin:.4em 0 0">${esc(p.a)}</p></div>
+      ${p.when ? `<div class="tipbox">🕒 <b>When:</b> ${esc(p.when)}</div>` : ''}
+      ${p.gear ? `<div class="small">${p.gear.map(g => `<span class="pill">🎒 ${esc(g)}</span>`).join('')}</div>` : ''}
+      <div class="sec">Dials</div><div class="camwrap">${Diagrams.modeDial(p.dial.mode, p.dial.sms)}</div>
+      <div class="sec">Settings — tap a row for the menu screen & why</div>${settingRows(p.set)}
+      <button class="btn" style="width:100%;margin:6px 0 4px" data-act="stepmode" data-k="p/${esc(id)}">▶ Step-by-step mode</button>
+      <div class="sec">Steps</div>${stepList(p.steps || [], 'p/' + id)}
+      ${allB.length ? `<div class="sec">Buttons used</div>${diag(allB)}` : ''}
+      ${(p.tips || []).length ? `<div class="sec">Tips</div>${p.tips.map(t => `<div class="tipbox">💡 ${esc(t)}</div>`).join('')}` : ''}
+      ${(p.avoid || []).length ? `<div class="sec">Avoid</div>${p.avoid.map(t => `<div class="warnbox">⛔ ${esc(t)}</div>`).join('')}` : ''}
+      <p class="small muted">⚠ = not confirmed by Sony's manual — check on your camera.</p>
+    `, { fav: 'p/' + id });
+  };
+
+  V.guide = (arg) => {
+    const tab = arg || 'howto';
+    const cats = [...new Set(KB.howto.map(h => h.cat))];
+    const body = tab === 'fix'
+      ? KB.fixes.map(f => rowLink('f/' + f.id, f.icon, f.title, f.a)).join('')
+      : cats.map(c => `<div class="sec">${esc(c)}</div>${KB.howto.filter(h => h.cat === c).map(h => rowLink('h/' + h.id, h.icon, h.title, h.a)).join('')}`).join('');
+    return frame('How-to & fixes', `<div class="chips"><a class="chip ${tab === 'howto' ? 'on' : ''}" href="#guide/howto">📘 How to…</a><a class="chip ${tab === 'fix' ? 'on' : ''}" href="#guide/fix">🩹 Something is wrong</a></div>${body}`, { root: true });
+  };
+
+  V.h = (id) => {
+    const h = KB.howto.find(x => x.id === id); if (!h) return V.notfound();
+    pushRecent('h/' + id);
+    const allB = [...new Set((h.steps || []).map(s => s.b).filter(Boolean))];
+    return frame(h.title, `
+      <div class="card"><b>⚡ Quick answer</b><p class="small" style="margin:.4em 0 0">${esc(h.a)}</p></div>
+      <button class="btn" style="width:100%;margin:0 0 4px" data-act="stepmode" data-k="h/${esc(id)}">▶ Step-by-step mode</button>
+      <div class="sec">Steps</div>${stepList(h.steps || [], 'h/' + id)}
+      ${allB.length ? `<div class="sec">Buttons used</div>${diag(allB)}` : ''}
+      ${(h.notes || []).length ? `<div class="sec">Good to know</div>${h.notes.map(n => `<div class="tipbox">${esc(n)}</div>`).join('')}` : ''}
+    `, { fav: 'h/' + id });
+  };
+
+  V.f = (id) => {
+    const f = KB.fixes.find(x => x.id === id); if (!f) return V.notfound();
+    pushRecent('f/' + id);
+    return frame(f.title, `
+      <div class="card"><b>⚡ Quick fix</b><p class="small" style="margin:.4em 0 0">${esc(f.a)}</p></div>
+      <div class="sec">Likely causes</div><ul class="clean">${f.causes.map(c => `<li>${esc(c)}</li>`).join('')}</ul>
+      <div class="sec">Fix it</div>${stepList(f.fixes, 'f/' + id)}
+    `, { fav: 'f/' + id });
+  };
+
+  /* Ask */
+  let CHAT = [];
+  function answerHTML(q) {
+    const d = Ask.direct(q); const res = Ask.search(q, 6);
+    let html = '';
+    if (d) html += `<div>${d.html}</div><div class="stepbtns"><a class="btn sm" href="#${d.go}">Open calculator</a></div>`;
+    if (res.length && res[0].cover >= 0.5) {
+      const top = res[0].d, it = top.item, href = routeOf(top.kind, it.id);
+      const steps = (it.steps || it.fixes || []).slice(0, 4).map(s => `<li>${esc(s.t)}${s.p ? `<div class="path">${pathText(s.p)}</div>` : ''}</li>`).join('');
+      html += `${d ? '<hr style="border-color:var(--line)">' : ''}<b>${it.icon || '💡'} ${esc(it.title)}</b><p class="small" style="margin:.4em 0">${esc(it.a)}</p>
+        ${steps ? `<ol class="small" style="padding-left:18px;margin:.3em 0">${steps}</ol>` : ''}
+        ${top.kind !== 'term' ? `<a class="btn sm" href="#${href}" style="display:inline-flex;align-items:center;text-decoration:none">Open full guide with buttons ›</a>` : ''}`;
+      const more = res.slice(1, 4).filter(r => r.s > res[0].s * 0.35);
+      if (more.length) html += `<div class="also small"><div class="muted" style="margin-top:8px">Also related:</div>${more.map(r => `<a href="#${routeOf(r.d.kind, r.d.item.id)}">${r.d.item.icon || '•'} ${esc(r.d.item.title)}</a>`).join('')}</div>`;
+    } else if (!d) {
+      html = `I couldn't find that in the offline guide. Try different words, e.g. <i>“stars”</i>, <i>“delete date”</i>, <i>“vlog settings”</i>, <i>“battery cold”</i>.` +
+        (res.length ? `<div class="also small"><div class="muted" style="margin-top:8px">Closest:</div>${res.slice(0, 3).map(r => `<a href="#${routeOf(r.d.kind, r.d.item.id)}">${r.d.item.icon || '•'} ${esc(r.d.item.title)}</a>`).join('')}</div>` : '');
+    }
+    return html;
+  }
+  V.ask = () => {
+    const q0 = new URLSearchParams(location.hash.split('?')[1] || '').get('q');
+    if (q0 && !CHAT.some(m => m.q === q0)) CHAT.push({ q: q0, a: answerHTML(q0) });
+    const ex = ['Milky Way settings', 'delete all files from one date', 'best vlog settings', 'how long exposure at 24mm stars', 'video flicker under lights', 'how many minutes on my card', 'snow looks grey', 'how to charge with power bank', 'what is S-Log3'];
+    return frame('Ask (offline)', `
+      <div class="chat">${CHAT.length ? CHAT.map(m => `<div class="bub me">${esc(m.q)}</div><div class="bub bot">${m.a}</div>`).join('') :
+        `<div class="bub bot">Hi Wary! Ask me anything about your a6700, Sigma 16-300 and Lexar card — I answer offline from this guide. 👇</div>`}</div>
+      ${CHAT.length ? '' : `<div class="chips">${ex.map(e => `<button class="chip" data-act="askchip">${esc(e)}</button>`).join('')}</div>`}
+      <form class="askbar" data-act="asksubmit"><input class="f" name="q" placeholder="Type your question…" autocomplete="off"><button class="btn">Ask</button></form>
+      ${CHAT.length ? '<button class="btn ghost sm" data-act="clearchat">Clear chat</button>' : ''}
+    `, { root: true });
+  };
+
+  /* Tools */
+  V.tools = (arg) => {
+    if (arg) return (TOOLS[arg] || V.notfound)();
+    return frame('Calculators', [
+      ['tools/star', '✨', 'Star exposure (NPF / 500 rule)', 'Longest shutter before stars trail'],
+      ['tools/sun', '🌅', 'Sun, moon & Milky Way times', 'GPS, works without network'],
+      ['tools/card', '💽', 'Card space planner', 'Minutes & photos on 128 GB'],
+      ['tools/time', '⏱️', 'Time-lapse', 'Shots, real time, card use'],
+      ['tools/nd', '🟣', 'Variable ND shutter', 'K&F ND2–32 = 1–5 stops'],
+      ['tools/battery', '🔋', 'Power bank planner', 'How many NP-FZ100 charges']
+    ].map(a => rowLink(...a)).join(''), { root: true });
+  };
+  const TOOLS = {};
+  TOOLS.star = () => frame('Star exposure', `
+    <div class="card"><label class="fl">Focal length: <b id="fl-v">16</b> mm <span class="muted">(full-frame eq. <span id="fl-eq">24</span> mm)</span></label>
+    <input type="range" min="16" max="300" value="16" id="st-f" style="width:100%" data-act="starcalc">
+    <div class="chips">${[16, 20, 24, 35, 50].map(v => `<button class="chip" data-act="starset" data-v="${v}">${v} mm</button>`).join('')}</div>
+    <label class="fl">Aperture (f/) — max at this zoom ≈ <span id="st-max">3.5</span></label><input class="f" id="st-n" type="number" step="0.1" value="3.5" data-act="starcalc">
+    <div class="calcout" id="st-out"></div></div>
+    <div class="tipbox">NPF uses the a6700's 3.76 µm pixels → pin-sharp stars when you zoom into the photo. The 500 rule is looser (small trails visible on 26 MP). Max aperture by zoom is approximate.</div>`);
+  TOOLS.card = () => frame('Card space', `
+    <div class="sec">Video on 128 GB (Sony table)</div>
+    <div class="card"><div class="kv">${Calc.cardTable().map(r => `<span${r.ok ? '' : ' class="muted"'}>${esc(r.label)}</span><b>${esc(r.t128)}</b>`).join('')}</div></div>
+    <div class="sec">Photos on 128 GB</div>
+    <div class="card"><div class="kv">${Calc.photoTable().map(r => `<span>${esc(r.label)}</span><b>~${r.n.toLocaleString()}</b>`).join('')}</div></div>
+    <div class="sec">Trip planner</div>
+    <div class="card"><div class="two"><div><label class="fl">Video min / day</label><input class="f" id="cp-min" type="number" value="20" data-act="cardcalc"></div>
+      <div><label class="fl">Photos / day</label><input class="f" id="cp-ph" type="number" value="150" data-act="cardcalc"></div></div>
+      <label class="fl">Video format</label><select class="f" id="cp-br" data-act="cardcalc">${Calc.cardTable().filter(r => r.ok).map(r => `<option value="${r.mbps}" ${r.mbps === 150 ? 'selected' : ''}>${esc(r.label)}</option>`).join('')}</select>
+      <label class="fl">Photo type</label><select class="f" id="cp-pt" data-act="cardcalc">${Calc.photoTable().map(r => `<option>${esc(r.label)}</option>`).join('')}</select>
+      <div class="calcout" id="cp-out"></div></div>`);
+  TOOLS.time = () => frame('Time-lapse', `<div class="card">
+    <div class="two"><div><label class="fl">Interval (s)</label><input class="f" id="tl-i" type="number" value="3" data-act="tlcalc"></div>
+    <div><label class="fl">Shutter (s)</label><input class="f" id="tl-s" type="number" step="0.1" value="0.5" data-act="tlcalc"></div>
+    <div><label class="fl">Final clip (s)</label><input class="f" id="tl-c" type="number" value="10" data-act="tlcalc"></div>
+    <div><label class="fl">Video fps</label><select class="f" id="tl-f" data-act="tlcalc"><option>25</option><option>50</option></select></div></div>
+    <div class="calcout" id="tl-out"></div></div>
+    <div class="tipbox">Clouds 2–3 s · sunset 5 s · stars 25–30 s. Camera: Shooting → Drive Mode → Interval Shoot Func. (interval 1–60 s, up to 9,999 shots).</div>`);
+  TOOLS.nd = () => frame('Variable ND', `<div class="card">
+    <label class="fl">Shutter WITHOUT filter (what the camera shows)</label>
+    <select class="f" id="nd-b" data-act="ndcalc">${['1/4000', '1/2000', '1/1000', '1/500', '1/250', '1/125', '1/100', '1/60', '1/30', '1/15', '1/8', '1/4', '1/2', '1'].map(v => `<option ${v === '1/250' ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    <label class="fl">Filter strength: <b id="nd-sv">3</b> stops (ND<span id="nd-x">8</span>)</label><input type="range" min="0" max="5" step="0.5" value="3" id="nd-s" style="width:100%" data-act="ndcalc">
+    <div class="calcout" id="nd-out"></div></div>
+    <div class="tipbox">Video target: 1/100 at 50p. Silky water: ½–2 s. Your K&F ranges ND2 (1 stop) to ND32 (5 stops). If you see a dark “X” cross, back off the strength or zoom past 16 mm.</div>`);
+  TOOLS.battery = () => frame('Power bank planner', `<div class="card">
+    <label class="fl">Power bank capacity (mAh)</label><input class="f" id="pb-m" type="number" value="10000" data-act="pbcalc">
+    <div class="calcout" id="pb-out"></div></div>
+    <div class="tipbox">Charge with the camera OFF via USB-PD 18 W+ and a 3 A USB-C cable (~175 min at 27 W). Camera ON + power bank = runs from USB (great for time-lapses) but doesn't charge.</div>
+    <div class="warnbox">You have only one battery. On multi-day treks without power, a spare NP-FZ100 is the single best upgrade.</div>`);
+  const PLACES = [['Leh', 34.16, 77.58], ['Manali', 32.24, 77.19], ['Kaza (Spiti)', 32.23, 78.07], ['Rishikesh', 30.09, 78.27], ['Darjeeling', 27.04, 88.26]];
+  TOOLS.sun = () => {
+    const loc = S.get('loc', null), today = new Date().toISOString().slice(0, 10);
+    return frame('Sun, Moon & Milky Way', `<div class="card">
+      <div class="stepbtns" style="margin:0 0 8px"><button class="btn sm" data-act="gps">📍 Use my GPS</button></div>
+      <div class="chips">${PLACES.map(([n, la, lo]) => `<button class="chip" data-act="place" data-la="${la}" data-lo="${lo}" data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div>
+      <div class="two"><div><label class="fl">Latitude</label><input class="f" id="sn-la" type="number" step="0.0001" value="${loc ? loc.la : ''}" data-act="suncalc"></div>
+      <div><label class="fl">Longitude</label><input class="f" id="sn-lo" type="number" step="0.0001" value="${loc ? loc.lo : ''}" data-act="suncalc"></div></div>
+      <label class="fl">Date</label><input class="f" id="sn-d" type="date" value="${today}" data-act="suncalc">
+      <div class="calcout" id="sn-out">${loc ? '' : 'Tap “Use my GPS” (works in airplane mode if location is on) or pick a place.'}</div></div>
+      <div class="small muted">Times are in your phone's time zone. Accuracy ≈ ±2 min; mountains around you hide the sun earlier.</div>`);
+  };
+
+  function runTool() {
+    const r = currentRoute();
+    if (r === 'tools/star') {
+      const f = +$('#st-f').value; $('#fl-v').textContent = f; $('#fl-eq').textContent = Math.round(f * 1.5);
+      const mx = Calc.maxAperture(f); $('#st-max').textContent = mx;
+      let N = +$('#st-n').value; if (!N || N < mx) { N = mx; $('#st-n').value = mx; }
+      const o = Calc.npf(f, N);
+      $('#st-out').innerHTML = `Pin-sharp (NPF): <b>${o.npf.toFixed(1)} s</b><br>500 rule: ${o.r500.toFixed(1)} s · strict 300 rule: ${o.r300.toFixed(1)} s<br><span class="small muted">Suggested: ${Math.floor(o.npf)}", f/${N}, ISO ${o.npf < 8 ? '6400' : '3200'}</span>`;
+    }
+    if (r === 'tools/card') {
+      const o = Calc.cardPlan(+$('#cp-min').value || 0, +$('#cp-br').value, +$('#cp-ph').value || 0, $('#cp-pt').value);
+      $('#cp-out').innerHTML = `Per day: ${o.vidGB.toFixed(1)} GB video + ${o.phGB.toFixed(1)} GB photos = <b>${o.day.toFixed(1)} GB</b><br>Card full after ≈ <b>${isFinite(o.days) ? o.days.toFixed(1) : '∞'} days</b>`;
+    }
+    if (r === 'tools/time') {
+      const o = Calc.timelapse(+$('#tl-i').value, +$('#tl-c').value, +$('#tl-f').value, +$('#tl-s').value);
+      $('#tl-out').innerHTML = `Shots: <b>${o.shots}</b><br>Real time: <b>${o.realMin >= 60 ? (o.realMin / 60).toFixed(1) + ' h' : Math.round(o.realMin) + ' min'}</b><br>Card: ${o.gbJpeg.toFixed(1)} GB JPEG · ${o.gbRaw.toFixed(1)} GB RAW` + (o.ok ? '' : '<div class="warnbox">Interval must be longer than the shutter.</div>');
+    }
+    if (r === 'tools/nd') {
+      const b = $('#nd-b').value, base = b.includes('/') ? 1 / +b.split('/')[1] : +b, st = +$('#nd-s').value;
+      $('#nd-sv').textContent = st; $('#nd-x').textContent = Math.round(Math.pow(2, st));
+      $('#nd-out').innerHTML = `New shutter: <b>${Calc.fmtShutter(Calc.nd(base, st))}</b>` + (Math.abs(st - Math.log2(base / 0.01)) < 6 ? `<br><span class="small muted">Stops needed for 1/100 video: ${Math.max(0, Math.log2((1 / 100) / base)).toFixed(1)}</span>` : '');
+    }
+    if (r === 'tools/battery') { const o = Calc.powerbank(+$('#pb-m').value || 0); $('#pb-out').innerHTML = `≈ <b>${o.charges.toFixed(1)}</b> full NP-FZ100 charges<br><span class="small muted">${o.wh.toFixed(0)} Wh bank · 16.4 Wh battery · ~60% efficiency</span>`; }
+    if (r === 'tools/sun') {
+      const la = parseFloat($('#sn-la').value), lo = parseFloat($('#sn-lo').value); if (isNaN(la) || isNaN(lo)) return;
+      S.set('loc', { la, lo });
+      const d = new Date($('#sn-d').value + 'T12:00:00'); const t = Calc.sunTimes(d, la, lo);
+      const tm = x => x && !isNaN(x) ? x.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—';
+      const mi = Calc.moonIllum(d), mt = Calc.moonTimes(d, la, lo), n = Calc.astroNight(d, la, lo);
+      const core = n.core.length ? `${tm(n.core[0])} – ${tm(n.core[n.core.length - 1])}${n.best ? ` · highest ${Math.round(n.best.alt)}° at ${tm(n.best.t)}${n.best.moon ? ' (moon up 🌕)' : ' (moon down ✓)'}` : ''}` : 'Not visible in dark sky tonight';
+      $('#sn-out').innerHTML = `<div class="kv">
+        <span>🌄 Blue hour AM</span><b>${tm(t.dawn)} – ${tm(t.blueEndAM)}</b>
+        <span>🌅 Sunrise</span><b>${tm(t.sunrise)}</b>
+        <span>✨ Golden hour AM</span><b>${tm(t.sunrise)} – ${tm(t.goldenEndAM)}</b>
+        <span>✨ Golden hour PM</span><b>${tm(t.goldenStartPM)} – ${tm(t.sunset)}</b>
+        <span>🌇 Sunset</span><b>${tm(t.sunset)}</b>
+        <span>🌆 Blue hour PM</span><b>${tm(t.blueStartPM)} – ${tm(t.dusk)}</b>
+        <span>🌑 Full dark</span><b>${tm(t.astroDusk)} → ${tm(t.astroDawn)}</b>
+        <span>🌙 Moonrise / set</span><b>${tm(mt.rise)} / ${tm(mt.set)}</b>
+        <span>Moon</span><b>${Calc.phaseName(mi.phase)} · ${Math.round(mi.fraction * 100)}% lit</b>
+        <span>🌌 Milky Way core</span><b>${core}</b></div>
+        <p class="small muted">${mi.fraction < 0.3 ? '👍 Dark moon — good for stars.' : mi.fraction > 0.7 ? '🌕 Bright moon — shoot stars only when the moon is down, or do moonlit landscapes.' : 'Medium moon — check when it sets.'}</p>`;
+    }
+  }
+
+  /* Camera explorer */
+  const PARTINFO = {
+    shutter: 'Half-press = focus (and meter). Full press = take the photo.', power: 'Lever around the shutter: ON / OFF.',
+    frontDial: 'Vertical wheel on the front of the grip. Changes aperture or shutter speed (depends on mode), or the value in the Fn menu.',
+    c2: 'Custom button 2 (top). Assign any function: Setup → Operation Customize → Custom Key/Dial Set.',
+    movie: 'Starts/stops video recording, also in Still mode.', shoe: 'Multi Interface Shoe for mics, lights, flashes (digital audio with Sony shoe mics).',
+    menu: 'Opens the MENU. Shortcut: hold MENU then 🗑 for ~2 s → Format.', modeDial: 'AUTO · P · A · S · M · 1 · 2 · 3 (1/2/3 = your saved setups).',
+    smsDial: 'Ring under the mode dial: Still / Movie / S&Q (slow & quick, time-lapse). Each has its own settings and its own 1/2/3 memories.',
+    rearDial: 'Horizontal dial at the top-right of the back. Changes shutter speed or aperture depending on the mode.',
+    afon: 'Back-button focus while shooting. In playback: enlarge the image.', c1: 'Custom button 1 (back, top-right). Suggest: Recognition Target.',
+    fn: 'Function menu (12 quick settings). In playback: Send to Smartphone.', wheel: 'Turn to change values / move; press edges for shortcuts.',
+    wUp: 'DISP — cycles screen info (histogram, level, clean view).', wRight: 'ISO.', wDown: 'Exposure compensation while shooting · Image Index (thumbnails) in playback.',
+    wLeft: 'Drive Mode / Self-timer (single, continuous, timer, bracket).', wCenter: 'OK / select.',
+    play: 'Playback — view your photos and videos.', c3: 'Custom button 3 while shooting · Delete 🗑 in playback.',
+    monitor: 'Vari-angle touch screen — flips out to the side and rotates forward for vlogging.', evf: 'Electronic viewfinder — better in bright sun, saves battery.',
+    diopter: 'Turn until the viewfinder text is sharp for your eye.', lensZoom: 'Zoom 16–300 mm (24–450 mm full-frame equivalent).',
+    lensFocus: 'Manual focus ring (focus-by-wire).', zoomLock: 'Locks the lens at 16 mm so it doesn’t extend while walking.', filter: 'Front thread: 67 mm — your K&F VND/CPL screws on here.'
+  };
+  V.camera = (arg) => {
+    const view = arg || 'rear', sel = S.get('camsel', null);
+    const ids = { rear: ['menu', 'modeDial', 'smsDial', 'rearDial', 'afon', 'c1', 'fn', 'wUp', 'wRight', 'wDown', 'wLeft', 'wCenter', 'play', 'c3', 'monitor', 'evf', 'diopter'], top: ['shutter', 'power', 'frontDial', 'c2', 'movie', 'shoe', 'menu', 'modeDial', 'smsDial', 'rearDial', 'lensZoom', 'lensFocus', 'zoomLock', 'filter'], wheel: ['wUp', 'wRight', 'wDown', 'wLeft', 'wCenter', 'wTurn'], dial: [] }[view] || [];
+    const on = sel && ids.includes(sel) ? [sel] : [];
+    const svg = view === 'top' ? Diagrams.top(on) : view === 'wheel' ? Diagrams.wheel(on) : view === 'dial' ? Diagrams.modeDial(S.get('dialsel', 'A'), S.get('smssel', 'Still')) + Diagrams.fnGrid() : Diagrams.rear(on);
+    return frame('Buttons map', `
+      <div class="chips">${[['rear', 'Back'], ['top', 'Top'], ['wheel', 'Control wheel'], ['dial', 'Dials & Fn']].map(([v, l]) => `<a class="chip ${v === view ? 'on' : ''}" href="#camera/${v}">${l}</a>`).join('')}</div>
+      <div class="camwrap">${svg}</div>
+      ${view === 'dial' ? `<div class="chips">${Diagrams.MODES.map(m => `<button class="chip ${S.get('dialsel', 'A') === m ? 'on' : ''}" data-act="dialsel" data-v="${m}">${m}</button>`).join('')}</div>
+        <div class="chips">${['Still', 'Movie', 'S&Q'].map(m => `<button class="chip ${S.get('smssel', 'Still') === m ? 'on' : ''}" data-act="smssel" data-v="${m}">${m}</button>`).join('')}</div>
+        <div class="card small"><b>Mode dial:</b> ${esc(PARTINFO.modeDial)}<br><b>Still/Movie/S&Q:</b> ${esc(PARTINFO.smsDial)}<br><b>Fn menu:</b> ${esc(PARTINFO.fn)}</div>` :
+        `<div class="sec">Tap a part</div><div class="chips">${ids.map(i => `<button class="chip ${sel === i ? 'on' : ''}" data-act="camsel" data-v="${i}">${esc((PARTS[i] || [i])[0].split(' (')[0])}</button>`).join('')}</div>
+        ${on.length ? `<div class="card"><b>${esc(PARTS[sel][0])}</b><p class="small" style="margin:.4em 0 0">${esc(PARTINFO[sel] || '')}</p></div>` : ''}`}
+      <p class="small muted">Illustration drawn from Sony's official “Names of parts” diagrams for the ILCE-6700 — positions match, shapes simplified.</p>`);
+  };
+
+  /* Menu explorer */
+  V.menu = (arg) => {
+    const [ti0, gi0] = (arg || '2/0').split('/').map(Number);
+    const ti = Math.min(ti0 || 0, MENU.length - 1), gi = Math.min(gi0 || 0, MENU[ti].groups.length - 1);
+    const tab = MENU[ti], grp = tab.groups[gi];
+    const refs = it => [...KB.presets.flatMap(p => (p.set || []).filter(r => r.p && r.p[2] === it && r.p[0] === tab.tab).map(() => ['p/' + p.id, p.title])), ...KB.howto.filter(h => (h.steps || []).some(s => s.p && s.p[2] === it && s.p[0] === tab.tab)).map(h => ['h/' + h.id, h.title])];
+    return frame('Menu explorer', `
+      <form class="search" data-act="menusearch"><input name="q" placeholder="Find a menu item (e.g. zebra)" autocomplete="off"><button class="btn">Find</button></form>
+      <div id="menures"></div>
+      <div class="chips">${MENU.map((t, i) => `<a class="chip ${i === ti ? 'on' : ''}" href="#menu/${i}/0">${esc(t.tab)}</a>`).join('')}</div>
+      <div class="chips">${tab.groups.map((g, i) => `<a class="chip ${i === gi ? 'on' : ''}" href="#menu/${ti}/${i}">${i + 1}. ${esc(g.g)}</a>`).join('')}</div>
+      ${menuScreen([tab.tab, grp.g, grp.items[0]])}
+      ${grp.items.map(it => { const r = refs(it); return `<div class="row"><span class="tx"><b>${esc(itemName(it))}</b> ${itemIcon(it)}<small>${pathText([tab.tab, grp.g, it])}</small>${r.length ? r.filter((x, i) => r.findIndex(y => y[0] === x[0]) === i).slice(0, 3).map(([h, t]) => `<a class="small" href="#${h}">→ ${esc(t)}</a>`).join(' · ') : ''}</span><button class="btn ghost sm" data-act="showmenu2" data-p='${esc(JSON.stringify([tab.tab, grp.g, it]))}'>☰</button></div>`; }).join('')}
+      <p class="small muted">Tree transcribed from Sony's ILCE-6700 Help Guide “Finding functions from MENU”. Some items appear only in Still or Movie mode (📷/🎥).</p>`);
+  };
+
+  /* Checklists */
+  V.checklists = () => frame('Checklists', KB.checklists.map(c => { const d = S.get('cl:' + c.id, []); return rowLink('cl/' + c.id, c.icon, c.title, `${d.length}/${c.items.length} done`); }).join(''));
+  V.cl = (id) => {
+    const c = KB.checklists.find(x => x.id === id); if (!c) return V.notfound();
+    const d = S.get('cl:' + id, []);
+    return frame(c.title, c.items.map((t, i) => `<label class="chk ${d.includes(i) ? 'done' : ''}"><input type="checkbox" data-act="cltick" data-k="${esc(id)}" data-i="${i}" ${d.includes(i) ? 'checked' : ''}><span>${esc(t)}</span></label>`).join('') +
+      `<button class="btn ghost" data-act="clreset" data-k="${esc(id)}">Reset list</button>`, { fav: 'cl/' + id });
+  };
+
+  /* Trip log & brief */
+  V.trip = () => {
+    const log = S.get('trip', []), br = S.get('brief', {});
+    const hero = ['Wide', 'Detail', 'Person in scene', 'Movement to/away', '10 s ambient sound'];
+    return frame('Trip log & edit brief', `
+      <div class="card"><h2>➕ New entry</h2>
+        <div class="two"><div><label class="fl">Date</label><input class="f" id="tr-d" type="date" value="${new Date().toISOString().slice(0, 10)}"></div>
+        <div><label class="fl">Place</label><input class="f" id="tr-p" placeholder="e.g. Chandrashila"></div></div>
+        <div class="stepbtns"><button class="btn ghost sm" data-act="trgps">📍 Add GPS</button><span class="small muted" id="tr-g"></span></div>
+        <label class="fl">Hero shots captured</label><div class="chips">${hero.map(h => `<label class="chip"><input type="checkbox" class="tr-h" value="${esc(h)}"> ${esc(h)}</label>`).join('')}</div>
+        <label class="fl">⭐ Best clips (numbers from camera, e.g. C0045, C0051) + why</label><textarea class="f" id="tr-good"></textarea>
+        <label class="fl">✖ Rejected clips + why (shake, flare, mount in frame…)</label><textarea class="f" id="tr-bad"></textarea>
+        <label class="fl">Notes (profile/WB used, light, story)</label><textarea class="f" id="tr-n"></textarea>
+        <button class="btn" style="width:100%;margin-top:10px" data-act="trsave">Save entry</button></div>
+      <div class="card"><h2>📝 5-line edit brief</h2>
+        ${[['platform', 'Platform & aspect (e.g. Instagram 9:16)'], ['length', 'Target length (e.g. 35 s)'], ['ref', 'Reference (reel/link/description)'], ['mood', 'Mood / song'], ['vo', 'Voice-over? yes/no + language']].map(([k, l]) => `<label class="fl">${l}</label><input class="f" data-act="brief" data-k="${k}" value="${esc(br[k] || '')}">`).join('')}</div>
+      <div class="stepbtns"><button class="btn" data-act="trexport">⬇ Export JSON for PC</button><label class="btn ghost" style="display:inline-flex;align-items:center">⬆ Import<input type="file" accept="application/json" data-act="trimport" class="hidden"></label></div>
+      <div class="sec">Entries (${log.length})</div>
+      ${log.slice().reverse().map((e, ri) => { const i = log.length - 1 - ri; return `<div class="card small"><b>${esc(e.date)} · ${esc(e.place || '—')}</b>${e.gps ? ` <span class="muted">📍${e.gps.la.toFixed(4)}, ${e.gps.lo.toFixed(4)}</span>` : ''}<br>
+        ${(e.hero || []).map(h => `<span class="pill">✓ ${esc(h)}</span>`).join('')}
+        ${e.good ? `<div>⭐ ${esc(e.good)}</div>` : ''}${e.bad ? `<div>✖ ${esc(e.bad)}</div>` : ''}${e.notes ? `<div class="muted">${esc(e.notes)}</div>` : ''}
+        <button class="btn ghost sm" data-act="trdel" data-i="${i}" style="margin-top:6px">Delete</button></div>`; }).join('') || '<p class="muted">No entries yet.</p>'}
+      <p class="small muted">Saved only on this phone. Export after each trip and copy the file to your PC (footage index / shot ledger).</p>`);
+  };
+
+  /* My camera */
+  V.mycam = () => {
+    const m = S.get('mycam', {});
+    const F = [['fwBody', 'Body firmware', '2.00'], ['fwLens', 'Lens firmware', '01'], ['c1s', 'C1 (Still)'], ['c2s', 'C2 (Still)'], ['c3s', 'C3 (Still)'], ['c1m', 'C1 (Movie)'], ['c2m', 'C2 (Movie)'], ['c3m', 'C3 (Movie)'], ['afon', 'AF-ON'],
+      ['s1', 'Still dial 1', 'Everyday Photo'], ['s2', 'Still dial 2', 'Milky Way'], ['s3', 'Still dial 3', 'Wildlife 300 mm'], ['m1', 'Movie dial 1', 'Everyday Video'], ['m2', 'Movie dial 2', 'Cinematic tripod'], ['m3', 'Movie dial 3', 'Low-light handheld']];
+    return frame('My camera', `
+      <div class="tipbox">Check your current buttons: MENU → Setup → Operation Customize → Custom Key/Dial Set. Write them here so you never forget.</div>
+      <div class="card">${F.map(([k, l, ph]) => `<label class="fl">${esc(l)}</label><input class="f" data-act="mycam" data-k="${k}" value="${esc(m[k] != null ? m[k] : (k.startsWith('fw') ? ph : ''))}" placeholder="${esc(ph || 'function…')}">`).join('')}
+      <label class="fl">Notes</label><textarea class="f" data-act="mycam" data-k="notes">${esc(m.notes || '')}</textarea></div>
+      <div class="card small"><b>Your kit</b><br>Sony a6700 (ILCE-6700) · Sigma 16-300 mm F3.5-6.7 DC OS | C (67 mm, 615 g, zoom lock, splash-resistant) · Lexar 128 GB SDXC UHS-II V60 (OK for XAVC HS/S, not XAVC S-I) · K&F 67 mm VND2-32 + CPL · Tripod</div>`);
+  };
+
+  V.glossary = () => frame('Glossary', KB.glossary.map(([t, d], i) => `<div class="card" id="g${i}"><b>${esc(t)}</b><div class="small" style="margin-top:4px">${esc(d)}</div></div>`).join(''));
+
+  V.about = () => frame('About & install', `
+    <div class="card"><b>Wary's a6700 Field Guide v${APP_VERSION}</b><p class="small">Works 100% offline once installed. Content written for Sony a6700 (body fw 2.00), Sigma 16-300 F3.5-6.7 DC OS | C, Lexar 128 GB V60, K&F 67 mm VND/CPL.</p>
+      <span class="pill ${navigator.onLine ? '' : 'acc'}">${navigator.onLine ? '🌐 Online now' : '✈ Offline'}</span><span class="pill">${'serviceWorker' in navigator && navigator.serviceWorker.controller ? '✅ Saved for offline' : '⏳ Not yet cached'}</span></div>
+    <div class="card small"><b>Install on Samsung S24 Ultra (Chrome)</b><ol><li>Open the app link once with internet.</li><li>Chrome menu ⋮ → <b>Add to Home screen</b> → Install.</li><li>Turn on airplane mode and open it from the home screen to test.</li></ol></div>
+    <div class="card small"><b>Accuracy</b><p>Button positions, menu tree, menu paths, card limits and recording times come from Sony's official ILCE-6700 Help Guide and Sigma's lens page. Items marked ⚠ are not confirmed there — check on your camera. Shooting values (e.g. ISO for stars) are starting points, not rules.</p></div>
+    <div class="card small"><b>Settings</b><label class="chk"><input type="checkbox" data-act="autonight" ${S.get('autoNight', true) ? 'checked' : ''}><span>Switch to red night mode automatically on night presets</span></label></div>`);
+
+  V.notfound = () => frame('Not found', '<p>That page does not exist.</p><a href="#home">Home</a>');
+
+  /* ---------- step-by-step overlay ---------- */
+  function stepMode(key, i = 0) {
+    const it = ALL[key]; if (!it) return; const steps = it.steps || [];
+    const s = steps[i]; let ov = $('.ovl'); if (!ov) { ov = document.createElement('div'); ov.className = 'ovl'; document.body.appendChild(ov); }
+    ov.innerHTML = `<div class="prog"><i style="width:${(i + 1) / steps.length * 100}%"></i></div>
+      <div class="body"><div class="muted small">${esc(it.title)} · step ${i + 1} of ${steps.length}</div><div class="big">${esc(s.t)}</div>
+      ${s.b ? diag([s.b]) : ''}${s.p ? menuScreen(s.p) : ''}</div>
+      <div class="bar"><button class="btn ghost" data-act="ovclose">✕</button><button class="btn ghost" data-act="ovgo" data-k="${esc(key)}" data-i="${i - 1}" ${i === 0 ? 'disabled' : ''}>‹ Back</button>
+      ${i < steps.length - 1 ? `<button class="btn" data-act="ovgo" data-k="${esc(key)}" data-i="${i + 1}">Next ›</button>` : '<button class="btn" data-act="ovclose">Done ✓</button>'}</div>`;
+  }
+
+  /* ---------- router ---------- */
+  function currentRoute() { return decodeURIComponent(location.hash.slice(1).split('?')[0]) || 'home'; }
+  function render() {
+    const r = currentRoute(); const [head, ...rest] = r.split('/'); const arg = rest.join('/');
+    const fn = V[head] || V.notfound;
+    $('#app').innerHTML = fn(arg);
+    const ov = $('.ovl'); if (ov) ov.remove();
+    window.scrollTo(0, 0);
+    if (head === 'tools' && arg) runTool();
+    if (head === 'ask') { const c = $('.chat'); if (c && CHAT.length) { const last = c.lastElementChild; last && last.scrollIntoView({ block: 'start' }); } }
+  }
+  window.addEventListener('hashchange', render);
+
+  /* ---------- events ---------- */
+  document.addEventListener('click', e => {
+    const el = e.target.closest('[data-act]'); if (!el) return; const a = el.dataset.act;
+    if (a === 'back') { history.length > 1 ? history.back() : (location.hash = 'home'); }
+    else if (a === 'theme') { const t = S.get('theme', 'dark'); setTheme(THEMES[(THEMES.indexOf(t) + 1) % 3]); }
+    else if (a === 'fav') { const k = el.dataset.k; let f = S.get('favs', []); f = f.includes(k) ? f.filter(x => x !== k) : [k, ...f]; S.set('favs', f); el.textContent = f.includes(k) ? '★' : '☆'; toast(f.includes(k) ? 'Added to favourites' : 'Removed'); }
+    else if (a === 'diagview') { const w = el.closest('[data-diag]'); w.outerHTML = diag(el.dataset.ids ? el.dataset.ids.split(',') : [], el.dataset.v); }
+    else if (a === 'showbtn' || a === 'showmenu') {
+      e.stopPropagation(); const box = el.closest('li').querySelector('.stepx');
+      const html = a === 'showbtn' ? diag([el.dataset.b]) : menuScreen(JSON.parse(el.dataset.p));
+      box.innerHTML = box.dataset.cur === a ? '' : html; box.dataset.cur = box.dataset.cur === a ? '' : a;
+    }
+    else if (a === 'showmenu2') { const row = el.closest('.row'); const n = row.nextElementSibling; if (n && n.classList.contains('menuinline')) n.remove(); else row.insertAdjacentHTML('afterend', `<div class="menuinline">${menuScreen(JSON.parse(el.dataset.p))}</div>`); }
+    else if (a === 'stepdone') { if (e.target.closest('button,a,.menu,.camwrap')) return; const k = el.dataset.k, i = +el.dataset.i; let d = S.get('done:' + k, []); d = d.includes(i) ? d.filter(x => x !== i) : [...d, i]; S.set('done:' + k, d); el.classList.toggle('done'); }
+    else if (a === 'stepmode') stepMode(el.dataset.k, 0);
+    else if (a === 'ovgo') stepMode(el.dataset.k, +el.dataset.i);
+    else if (a === 'ovclose') { const o = $('.ovl'); o && o.remove(); }
+    else if (a === 'askchip') { askNow(el.textContent); }
+    else if (a === 'clearchat') { CHAT = []; render(); }
+    else if (a === 'starset') { $('#st-f').value = el.dataset.v; $('#st-n').value = ''; runTool(); }
+    else if (a === 'place') { $('#sn-la').value = el.dataset.la; $('#sn-lo').value = el.dataset.lo; runTool(); }
+    else if (a === 'gps' || a === 'trgps') {
+      if (!navigator.geolocation) return toast('GPS not available');
+      toast('Getting GPS…');
+      navigator.geolocation.getCurrentPosition(p => {
+        const la = +p.coords.latitude.toFixed(4), lo = +p.coords.longitude.toFixed(4);
+        if (a === 'gps') { $('#sn-la').value = la; $('#sn-lo').value = lo; runTool(); }
+        else { window._trgps = { la, lo }; $('#tr-g').textContent = `📍 ${la}, ${lo}`; }
+      }, err => toast('GPS: ' + err.message), { enableHighAccuracy: true, timeout: 30000, maximumAge: 600000 });
+    }
+    else if (a === 'camsel') { S.set('camsel', el.dataset.v); render(); }
+    else if (a === 'dialsel') { S.set('dialsel', el.dataset.v); render(); }
+    else if (a === 'smssel') { S.set('smssel', el.dataset.v); render(); }
+    else if (a === 'clreset') { S.set('cl:' + el.dataset.k, []); render(); }
+    else if (a === 'trsave') {
+      const log = S.get('trip', []);
+      log.push({ date: $('#tr-d').value, place: $('#tr-p').value.trim(), gps: window._trgps || null, hero: [...document.querySelectorAll('.tr-h:checked')].map(x => x.value), good: $('#tr-good').value.trim(), bad: $('#tr-bad').value.trim(), notes: $('#tr-n').value.trim(), saved: new Date().toISOString() });
+      S.set('trip', log); window._trgps = null; toast('Saved'); render();
+    }
+    else if (a === 'trdel') { if (!confirm('Delete this entry?')) return; const log = S.get('trip', []); log.splice(+el.dataset.i, 1); S.set('trip', log); render(); }
+    else if (a === 'trexport') {
+      const data = { app: 'wary-a6700-field-guide', version: APP_VERSION, exported: new Date().toISOString(), trip: S.get('trip', []), brief: S.get('brief', {}), mycam: S.get('mycam', {}) };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const name = `a6700-triplog-${new Date().toISOString().slice(0, 10)}.json`;
+      const file = new File([blob], name, { type: 'application/json' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) navigator.share({ files: [file], title: name }).catch(() => { });
+      else { const u = URL.createObjectURL(blob); const l = document.createElement('a'); l.href = u; l.download = name; l.click(); setTimeout(() => URL.revokeObjectURL(u), 2000); }
+    }
+  });
+  document.addEventListener('change', e => {
+    const el = e.target; const a = el.dataset.act;
+    if (a === 'cltick') { const k = el.dataset.k, i = +el.dataset.i; let d = S.get('cl:' + k, []); d = el.checked ? [...new Set([...d, i])] : d.filter(x => x !== i); S.set('cl:' + k, d); el.closest('.chk').classList.toggle('done', el.checked); }
+    else if (a === 'autonight') S.set('autoNight', el.checked);
+    else if (a === 'trimport') {
+      const f = el.files[0]; if (!f) return; f.text().then(t => { const d = JSON.parse(t); if (d.trip) S.set('trip', d.trip); if (d.brief) S.set('brief', d.brief); if (d.mycam) S.set('mycam', d.mycam); toast('Imported'); render(); }).catch(() => toast('Not a valid file'));
+    }
+  });
+  document.addEventListener('input', e => {
+    const el = e.target; const a = el.dataset.act;
+    if (['starcalc', 'cardcalc', 'tlcalc', 'ndcalc', 'pbcalc', 'suncalc'].includes(a)) runTool();
+    else if (a === 'brief') { const b = S.get('brief', {}); b[el.dataset.k] = el.value; S.set('brief', b); }
+    else if (a === 'mycam') { const m = S.get('mycam', {}); m[el.dataset.k] = el.value; S.set('mycam', m); }
+  });
+  document.addEventListener('toggle', e => {
+    const d = e.target; if (!(d instanceof HTMLDetailsElement) || !d.open) return;
+    const m = d.querySelector('.more[data-lazy]'); if (!m || m.dataset.done) return;
+    const o = JSON.parse(m.dataset.lazy); m.dataset.done = 1;
+    m.innerHTML = `${o.w ? `<p style="margin:.2em 0 .5em">${esc(o.w)}</p>` : ''}${o.p ? `<div class="path">${pathText(o.p)}</div>${menuScreen(o.p)}` : ''}${o.b ? diag([o.b]) : ''}`;
+  }, true);
+  document.addEventListener('submit', e => {
+    const f = e.target; const a = f.dataset.act; if (!a) return; e.preventDefault();
+    const q = (new FormData(f).get('q') || '').toString().trim(); if (!q) return;
+    if (a === 'asksubmit') askNow(q);
+    else if (a === 'menusearch') {
+      const t = q.toLowerCase(), hits = [];
+      MENU.forEach(tab => tab.groups.forEach(g => g.items.forEach(it => { if ((itemName(it) + ' ' + g.g).toLowerCase().includes(t)) hits.push([tab.tab, g.g, it]); })));
+      $('#menures').innerHTML = hits.length ? hits.slice(0, 8).map(p => `<div class="card small"><div class="path">${pathText(p)}</div>${menuScreen(p)}</div>`).join('') : '<p class="muted">No menu item matches.</p>';
+    }
+  });
+  function askNow(q) { CHAT.push({ q, a: answerHTML(q) }); if (currentRoute() !== 'ask') location.hash = 'ask'; else render(); }
+
+  /* ---------- boot ---------- */
+  setTheme(S.get('theme', 'dark'));
+  render();
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+    navigator.serviceWorker.register('sw.js').catch(() => { });
+  }
+  window.__app = { menuScreen, findPath, render, APP_VERSION };
+})();
+
+</script>
+</body>
+</html>
